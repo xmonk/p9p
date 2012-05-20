@@ -4,5 +4,6 @@ Acme or you can add the following to $HOME/.p9p/rc
 export font=$HOME/.p9p/lib/font/some_font.font
 
 If you use the p9acme script then you can also add the following to $HOME/.p9p/rc:
+
 export font=$HOME/.p9p/lib/font/some_font.font
 export $fixed=$HOME/.p9p/lib/font/some_fixed_width.font
