@@ -1,4 +1,4 @@
-Add your custom fonts to this directory. You'll need use the -f flag when calling
+Add your custom fonts to this directory. You'll need to use the -f flag when calling
 Acme or you can add the following to $HOME/.p9p/rc
 
 export font=$HOME/.p9p/lib/font/some_font.font
