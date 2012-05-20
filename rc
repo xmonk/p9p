@@ -1,7 +1,6 @@
 #!/bin/bash
 
 [ -d /usr/local/plan9 ] && export PLAN9=${PLAN9:-/usr/local/plan9}
-# TEST: use plan9port tools as default
 export PATH=$PATH:$PLAN9/bin:$HOME/.p9p/bin
 export MANPATH=$MANPATH:$PLAN9/man
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PLAN9/lib
