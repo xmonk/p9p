@@ -1,0 +1,26 @@
+#!/usr/local/plan9/bin/rc
+. $PLAN9/lib/acme.rc
+newwindow
+dir=`{dirname $1}
+b=`{basename $1}
+
+winctl name `{cd $"dir; pwd}^/$"b
+winctl get
+winctl cleartag
+echo -n ' Put Undo Redo Cancel | Look ' |winwrite tag
+
+fn event {
+	switch($1$2) {
+	case Mx MX
+		if(~ $9 Cancel) {
+			windel sure
+			exit cancelled
+		}
+		winwriteevent $*
+	case Ml ML
+		winwriteevent $*
+	}
+}
+wineventloop
+
+exit ''

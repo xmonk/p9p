@@ -1,0 +1,67 @@
+#!/bin/bash
+set -e
+
+process_exists()
+{
+	pid=$(pidof plumber)
+	if [ x$pid != x ]; then
+		echo $pid
+		return 0
+	fi
+	return 1
+}
+
+isup()
+{
+	if [ -f $HOME/.p9p/.pid ]; then
+		p9pid=$(cat $HOME/.p9p/.pid)
+		pid=$(process_exists)
+		if [[ $p9pid == $pid ]]; then
+			[ -n $p9pid ] && echo $p9pid && return 0
+		else
+			[ -n $pid ] && echo $pid && return 0
+		fi
+	fi
+	return 1
+}
+
+start()
+{	
+	if [  -z $(isup)  ]; then
+		$PLAN9/bin/9 plumber
+		p9pid=$(pidof plumber)
+		echo $p9pid > $HOME/.p9p/.pid
+	fi
+	unset p9pid
+}
+
+stop()
+{
+	if [  ! -z $(isup) ]; then
+		p9pid=$(isup)
+		kill -9 $p9pid
+		rm $HOME/.p9p/.pid 2> /dev/null
+		return 0
+	fi
+	return 1
+}
+
+case $1 in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart)
+		stop
+		start
+		;;
+	isup)
+		isup
+		;;
+	*)
+		echo 2>&1 "p9plumb [start | stop | restart | isup ]"
+		exit 1
+		;;
+esac

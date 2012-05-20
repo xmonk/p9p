@@ -1,0 +1,83 @@
+#!/bin/bash
+set -e
+
+export PLAN9=export PLAN9=${PLAN9:-/usr/local/plan9}
+ACME=$HOME/.p9p/lib/acme
+ACME_ARGS="-a"
+
+# setup our fonts
+if [[ ! -z $font && ! -z $fixed ]]; then
+	ACME_ARGS=$ACME_ARGS" -f $font -F $fixed"
+elif [[ ! -z $font && -z $fixed ]]; then
+	ACME_ARGS=$ACME_ARGS" -f $font"
+elif [[ -z $font && ! -z $fixed ]]; then
+	ACME_ARGS=$ACME_ARGS" -F $fixed"
+fi
+
+# setup screen geometry
+if [ ! -z $GEOMETRY ]; then
+	ACME_ARGS=$ACME_ARGS" -W $GEOMETRY"
+fi
+
+# start plumber if not already running.
+if [ -z $(p9plumb isup) ]; then
+	p9plumb start
+fi
+
+usage()
+{
+	cat<<-EOF
+	p9acme [ -h -l -t ]
+	    -h     Help
+	    -l     Load [ruby, code]
+	    -t     tabstop
+	EOF
+}
+
+acme_plain()
+{
+	$PLAN9/bin/9 acme $ACME_ARGS
+}
+
+acme_loaded()
+{
+	$PLAN9/bin/9 acme $ACME_ARGS -l $1
+}
+
+load_run()
+{
+	case $1 in
+	code)
+		if [ -f $ACME/default.dump ]; then
+			acme_loaded $ACME/default.dump
+		else
+			acme_plain
+		fi
+		;;
+	ruby)
+	
+		if [ -f $ACME/ruby.dump ]; then
+			acme_loaded $ACME/ruby.dump
+		else
+			acme_plain
+		fi
+		;;
+
+	*)
+		acme_plain
+		;;
+	esac
+
+}
+
+while getopts "l:t:h" flag; do
+	case $flag in
+		t) export tabstop=$OPTARG;;
+		l) load=$OPTARG;;
+		h) usage; exit 0;;
+		*) load="";;
+	esac
+done
+
+load_run $load
+unset ACME_ARGS ACME

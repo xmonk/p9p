@@ -1,0 +1,72 @@
+#!/bin/bash
+
+[ -d /usr/local/plan9 ] && export PLAN9=${PLAN9:-/usr/local/plan9}
+# TEST: use plan9port tools as default
+export PATH=$PATH:$PLAN9/bin:$HOME/.p9p/bin
+export MANPATH=$MANPATH:$PLAN9/man
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PLAN9/lib
+
+# Plumb files instead of starting new editor.
+export EDITOR=E
+unset FCEDIT VISUAL
+
+# Let gs find the plan9port document fonts.
+export GS_FONTPATH=$PLAN9/postscript/font
+# Make sure mpage prints in letter mode.
+export MPAGE="-t -bLetter"
+
+# Get rid of backspace characters in Unix man output.
+export PAGER=nobs
+export BROWSER=Safari
+export NAMESPACE=/tmp/ns.$(hostname -s)
+# Prompt (is almost a no-op in bash)
+export H=`hostname | sed 's/\..*//'`
+
+# Equivalent variables for rc(1).
+export home=$HOME
+export prompt="$H=; 	"
+export user=$USER
+# Set geometry per host
+if [ $H = quorra ]; then
+	export GEOMETRY='1440x900@1,86'
+elif [ $H = moon ]; then
+	export GEOMETRY='1661x1109@1,86'
+else
+	export GEOMETRY='1280x800@1,86'
+fi
+# if $NAMESPACE doesn't exist, we need to create it.
+[ -d $NAMESPACE ] ||  mkdir $NAMESPACE 
+
+if [[ $TERM == 9term ]]; then
+	_cd() {
+		\cd "$@" &&
+		case "TERM!$-" in
+		linux!*)
+			;;
+		*!*i*)
+			awd
+		esac
+	}
+	alias cd=_cd
+	set +o emacs
+	set +o vi
+	set -a # autoexport
+	exec /usr/local/plan9/bin/rc -il
+fi
+
+calendar()
+{
+	$PLAN9/bin/9 calendar
+}
+
+p9up()
+{
+	WD=$(pwd)
+	cd $PLAN9 || return 1;
+	hg pull -u
+	cd $WD
+	unset WD
+}
+
+# start your engines.
+[ -x $HOME/.p9p/bin/p9plumb ] && $HOME/.p9p/bin/p9plumb start

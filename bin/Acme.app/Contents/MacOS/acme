@@ -1,0 +1,15 @@
+#!/bin/bash
+cd $HOME
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+PLAN9=${PLAN9:-/usr/local/plan9}
+
+p9plumb start
+if [ -f $HOME/lib/acme/$H.dump ]; then
+	acme -l $HOME/lib/acme/$H.dump -W $GEOMETRY
+elif [ -f $HOME/$H.dump ]; then
+	acme -l $HOME/$H.dump -W $GEOMETRY
+else
+	acme -W $GEOMETRY
+fi
