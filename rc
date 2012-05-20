@@ -16,7 +16,11 @@ export MPAGE="-t -bLetter"
 
 # Get rid of backspace characters in Unix man output.
 export PAGER=nobs
-export BROWSER=Safari
+if [ $(uname -s) = Darwin ]; then
+	export BROWSER=Safari
+else
+	export BROWSER=Firefox
+fi
 export NAMESPACE=/tmp/ns.$(hostname -s)
 # Prompt (is almost a no-op in bash)
 export H=`hostname | sed 's/\..*//'`
