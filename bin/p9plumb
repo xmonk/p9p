@@ -17,10 +17,12 @@ isup()
 		echo $(cat $HOME/.p9p/.pid)
 		return 0
 	else
-		# create $HOME/.p9p/.pid if doesn't exist.
-		echo $(process_exists)
-		echo $(process_exists) > $HOME/.p9p/.pid
-		return 0
+		# create $HOME/.p9p/.pid if doesn't exist and process_exists() is true.
+		[ $(process_exists) ] && {
+			echo $(process_exists)
+			echo $(process_exists) > $HOME/.p9p/.pid
+			return 0
+		} || return 1
 	fi
 	return 1
 }
@@ -40,6 +42,9 @@ stop()
 		p9pid=$(isup)
 		kill -9 $p9pid
 		rm $HOME/.p9p/.pid 2> /dev/null
+		return 0
+	else 
+		[ -f $HOME/.p9p/.pid ] && rm $HOME/.p9p/.pid 2> /dev/null
 		return 0
 	fi
 	return 1
