@@ -20,9 +20,7 @@ if [ ! -z $GEOMETRY ]; then
 fi
 
 # start plumber if not already running.
-if [ -z $(p9plumb isup) ]; then
-	p9plumb start
-fi
+p9plumb start
 
 usage()
 {
