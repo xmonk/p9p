@@ -37,6 +37,9 @@ elif [ $H = moon ]; then
 else
 	export GEOMETRY='1280x800@1,86'
 fi
+# Set default font.
+font=/lib/font/bit/lucsans/unicode.8.font
+
 # if $NAMESPACE doesn't exist, we need to create it.
 [ -d $NAMESPACE ] ||  mkdir $NAMESPACE 
 
