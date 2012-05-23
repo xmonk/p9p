@@ -14,17 +14,13 @@ process_exists()
 isup()
 {
 	if [ -f $HOME/.p9p/.pid ]; then
-		p9pid=$(cat $HOME/.p9p/.pid)
-		pid=$(process_exists)
-		if [[ $p9pid == $pid ]]; then
-			[ -n $p9pid ] && echo $p9pid && return 0
-		else
-			[ -n $pid ] && echo $pid && return 0
-		fi
+		echo $(cat $HOME/.p9p/.pid)
+		return 0
 	else
-		if [ ! -z $(process_exists) ]; then
-			echo $(process_exists)
-		fi
+		# create $HOME/.p9p/.pid if doesn't exist.
+		echo $(process_exists)
+		echo $(process_exists) > $HOME/.p9p/.pid
+		return 0
 	fi
 	return 1
 }
@@ -33,12 +29,9 @@ start()
 {	
 	if [ -z $(isup) ]; then
 		$PLAN9/bin/9 plumber
-		p9pid=$(pidof plumber)
-		echo $p9pid > $HOME/.p9p/.pid
-	elif [ ! -f $HOME/.p9p/.pid ]; then
-		echo $(isup) > $HOME/.p9p/.pid
+		echo $(process_exists) > $HOME/.p9p/.pid
 	fi
-	unset p9pid
+	return 0
 }
 
 stop()
