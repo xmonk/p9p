@@ -43,8 +43,8 @@ font=/lib/font/bit/lucsans/unicode.8.font
 # if $NAMESPACE doesn't exist, we need to create it.
 [ -d $NAMESPACE ] ||  mkdir $NAMESPACE 
 
-if [[ $TERM == 9term ]]; then
-	_cd() {
+if [ $TERM = 9term ]; then
+	_cd(){
 		\cd "$@" &&
 		case "TERM!$-" in
 		linux!*)
@@ -57,7 +57,7 @@ if [[ $TERM == 9term ]]; then
 	set +o emacs
 	set +o vi
 	set -a # autoexport
-	exec /usr/local/plan9/bin/rc -il
+	exec $PLAN9/bin/9 rc -il
 fi
 
 calendar()
