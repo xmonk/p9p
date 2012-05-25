@@ -1,71 +1,45 @@
 #!/bin/bash
+
 set -e
 
-process_exists()
+isup()
 {
 	pid=$(pidof plumber)
 	if [ x$pid != x ]; then
 		echo $pid
-		return 0
 	fi
-	return 1
-}
-
-isup()
-{
-	if [ -f $HOME/.p9p/.pid ]; then
-		echo $(cat $HOME/.p9p/.pid)
-		return 0
-	else
-		# create $HOME/.p9p/.pid if doesn't exist and process_exists() is true.
-		[ $(process_exists) ] && {
-			echo $(process_exists)
-			echo $(process_exists) > $HOME/.p9p/.pid
-			return 0
-		} || return 1
-	fi
-	return 1
+	unset pid
 }
 
 start()
 {	
 	if [ -z $(isup) ]; then
 		$PLAN9/bin/9 plumber
-		echo $(process_exists) > $HOME/.p9p/.pid
 	fi
 	return 0
 }
 
 stop()
 {
-	if [ ! -z $(isup) ]; then
-		p9pid=$(isup)
-		kill -9 $p9pid
-		rm $HOME/.p9p/.pid 2> /dev/null
-		return 0
-	else 
-		[ -f $HOME/.p9p/.pid ] && rm $HOME/.p9p/.pid 2> /dev/null
-		return 0
+	pid=$(isup)
+	if [ x$pid != x ]; then
+		/bin/kill -9 $pid 2> /dev/null
 	fi
-	return 1
+	unset pid
+	return $?
 }
 
 case $1 in
-	start)
-		start
-		;;
-	stop)
-		stop
-		;;
+	start) 
+		start;;
+	stop) 
+		stop;;
+	isup) 
+		isup;;
 	restart)
 		stop
-		start
-		;;
-	isup)
-		isup
-		;;
-	*)
+		start;;
+	*) 
 		echo 2>&1 "p9plumb [start | stop | restart | isup ]"
-		exit 1
-		;;
+		exit 1;;
 esac
