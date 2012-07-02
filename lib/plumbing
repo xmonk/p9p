@@ -1,0 +1,7 @@
+include /usr/local/plan9/plumb/basic
+
+# plumb mercurial contributed by Russ Cox
+type is text
+data matches '[a-zA-Z0-9Â¡-ï¿½_\-./]+'
+data matches '[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]'
+plumb start rc -c 'cd '''$wdir'''; root=`{hg root}; rev='''$0'''; {hg log -v -r $rev && hg diff -c $rev} >[2=1] | nobs | plumb -i -d edit -a ''action=showdata filename=''$root/+$rev'
