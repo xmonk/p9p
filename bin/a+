@@ -1,0 +1,6 @@
+#!/usr/local/plan9/bin/rc
+
+if(~ $#* 0){
+    * = '	'    # tab
+}
+sed 's!^!'^$1^!
