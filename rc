@@ -17,7 +17,7 @@ export MPAGE="-t -bLetter"
 # Get rid of backspace characters in Unix man output.
 export PAGER=nobs
 if [ $(uname -s) = Darwin ]; then
-	export BROWSER=Google\ Chrome
+	export BROWSER=google-chrome
 else
 	export BROWSER=chromium-browser
 fi
