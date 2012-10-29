@@ -38,7 +38,11 @@ else
 	export GEOMETRY='1280x800@1,86'
 fi
 # Set default font.
-font=/lib/font/bit/lucsans/unicode.8.font
+if [ -e $home/lib/font/Inconsolata/13a/font ]; then
+	export font=$home/lib/font/Inconsolata/13a/font
+else
+	export font=/lib/font/bit/lucsans/unicode.8.font
+fi
 
 # if $NAMESPACE doesn't exist, we need to create it.
 [ -d $NAMESPACE ] ||  mkdir $NAMESPACE 
