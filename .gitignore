@@ -3,3 +3,13 @@
 secstore.aes
 .DS_Store
 .pid
+*.orig
+## ignore Python libs
+lib/logilab/
+lib/logilab_astng-0.24.1-py2.7-nspkg.pth
+lib/logilab_astng-0.24.1-py2.7.egg-info/
+lib/logilab_common-0.58.1-py2.7-nspkg.pth
+lib/logilab_common-0.58.1-py2.7.egg-info/
+lib/pylint-0.26.0-py2.7.egg-info/
+lib/pylint/
+lib/python2.7/
