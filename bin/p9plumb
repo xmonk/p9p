@@ -10,7 +10,7 @@ isup()
 	pid=$(ps ax | grep plumber | grep -v grep | awk '{print $1}')
     fi
 
-    if [ x$pid != x ]; then
+    if [[ x$pid != x ]]; then
 	echo $pid
     fi
     unset pid
@@ -27,7 +27,7 @@ start()
 stop()
 {
 	pid=$(isup)
-	if [ x$pid != x ]; then
+	if [[ x$pid != x ]]; then
 		/bin/kill -9 $pid 2> /dev/null
 	fi
 	unset pid
