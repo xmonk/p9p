@@ -1,0 +1,3 @@
+#!/usr/bin/env rc
+
+g $1 *.h /usr/include/*.h /usr/local/include/*.h /usr/local/plan9/include/*.h >[2]/dev/null
