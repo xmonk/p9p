@@ -5,13 +5,13 @@ set -e
 isup()
 {
     if [ -x $(which pidof)2>/dev/null ]; then
-	pid=$(pidof plumber)
+		pid=$(pidof plumber)
     else
-	pid=$(ps ax | grep plumber | grep -v grep | awk '{print $1}')
+		pid=$(ps ax | grep plumber | grep -v grep | awk '{print $1}')
     fi
 
     if [[ x$pid != x ]]; then
-	echo $pid
+		echo $pid
     fi
     unset pid
 }
@@ -33,6 +33,12 @@ stop()
 	unset pid
 	return $?
 }
+
+
+if [ ! -x $PLAN9/bin/plumber ]; then
+	echo 2>&1 "Error: plumber does not exist, you might need to build $PLAN9"
+	exit 1
+fi
 
 case $1 in
 	start) 
