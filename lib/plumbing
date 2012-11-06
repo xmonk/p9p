@@ -9,5 +9,5 @@ plumb start rc -c 'cd '''$wdir'''; root=`{hg root}; rev='''$0'''; {hg log -v -r 
 # plumb git
 type is text
 data matches '[a-zA-Z0-9Â¡-ï¿½_\-./]+'
-data matches '[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]+'
-plumb start rc -c 'cd '''$wdir'''; root=`{git root}; rev='''$0'''; {git show $rev} >[2=1] | nobs | plumb -i -d edit -a ''action=showdata filename=''$root/+$rev'
+data matches '[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]+'
+plumb start rc -c 'cd '''$wdir'''; root=`{git root}; rev='''$0'''; {git-showall $rev} >[2=1] | nobs | plumb -i -d edit -a ''action=showdata filename=''$root/+$rev'
