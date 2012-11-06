@@ -18,7 +18,7 @@ isup()
 
 start()
 {	
-	if [ -z $(isup) ]; then
+	if [[ -z $(isup) ]]; then
 		$PLAN9/bin/9 plumber
 	fi
 	return 0
