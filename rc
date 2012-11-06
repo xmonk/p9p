@@ -38,7 +38,7 @@ else
 	export GEOMETRY='1280x800@1,86'
 fi
 # Set default font.
-dejavusansmono=$home/lib/font/DejaVuSansMono/11a/font
+dejavusansmono=$home/lib/font/DejaVuSansMono/12a/font
 inconsolata=$home/lib/font/Inconsolata/13a/font
 unicode8=/lib/font/bit/lucsans/unicode.8.font
 
