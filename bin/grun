@@ -6,4 +6,4 @@ if(~ $#winid 0){
 }
 
 if(test -r $GOROOT/bin/go)
-	$GOROOT/bin/go run $%
+	$GOROOT/bin/go run $% $*
