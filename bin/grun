@@ -1,0 +1,9 @@
+#!/usr/bin/env rc
+
+if(~ $#winid 0){
+	echo "grun runs inside acme"
+	exit
+}
+
+if(test -r $GOROOT/bin/go)
+	$GOROOT/bin/go run $%
