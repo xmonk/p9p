@@ -3,4 +3,5 @@
 secstore.aes
 .DS_Store
 .pid
-
+o.*
+*.o
