@@ -7,7 +7,7 @@ isup()
     if [ -x $(which pidof)2>/dev/null ]; then
 		pid=$(pidof plumber)
     else
-		pid=$(ps ax | grep plumber | grep -v grep | awk '{print $1}')
+		pid=$(/bin/ps ax | grep plumber | grep -v grep | awk '{print $1}')
     fi
 
     if [[ x$pid != x ]]; then
