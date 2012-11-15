@@ -1,0 +1,35 @@
+#!/usr/bin/env rc
+
+fn f {
+	n=$1
+	if(! cat $f | cut -c1-$n | 9 grep -v '^[ 	]+$' >/dev/null){
+		x=`{f `{expr $n + 1}}
+		echo '.'$"x
+	}
+}
+
+f=/tmp/com.$pid
+cat >$f
+
+switch($%){
+case *.go *.c
+	c='//'
+case *
+	c='#'
+}
+
+# Remove comment?
+if(cat $f | 9 grep '^[ 	]*'$c' ' >/dev/null){
+	cat $f | 9 sed 's|'$c' ||'
+	rm $f
+	exit
+}
+
+# Add comment.
+s=`{f 1}
+if(~ $#s 0)
+	cat $f | 9 sed 's|^|'$c' |'
+if not
+	cat $f | 9 sed 's|^('$"s')|\1'$c' |'
+
+rm $f
