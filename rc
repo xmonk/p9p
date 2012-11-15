@@ -70,19 +70,5 @@ if [ $TERM = 9term ]; then
 	exec $PLAN9/bin/9 rc -il
 fi
 
-calendar()
-{
-	$PLAN9/bin/9 calendar
-}
-
-p9up()
-{
-	WD=$(pwd)
-	cd $PLAN9 || return 1;
-	hg pull -u
-	cd $WD
-	unset WD
-}
-
 # start your engines.
 [ -x $HOME/.p9p/bin/p9plumb ] && $HOME/.p9p/bin/p9plumb start
