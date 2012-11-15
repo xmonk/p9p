@@ -34,12 +34,19 @@ fn gt {
 	find . -name $1 | xargs grep -n $2
 }
 
-fn p9up {
-	wd = `{pwd}
-	cd $plan9
-	hg pull -u
-	cd $wd
-	wd = ()
+fn up {
+	wd=`{pwd}
+	if(~ $#1 0){
+		echo "up [path]" 
+		return 0
+	}
+	cd $1 || return 1
+	if(test -e .git) git pull
+	if(test -e .bzr) bzr pull
+	if(test -e .hg)  hg pull -u
+	if(test -e .svn) svn up
+	if(test -e CVS)  cvs -q up -Pd
+	cd $wd; wd = ()
 }
 
 plan9=/usr/local/plan9
