@@ -48,6 +48,7 @@ Edit B < grep -l her *	load all files containing her to buffers
 Edit X D	remove out all up-to-date files
 Edit X/'/w	write all modified files
 Edit X/.*/,x/
+Edit X/.* / ,s,loginAdmin,loginIdiAmin,g  # Search and replace on all files.
 /d	strip <cr> from all lines
 Edit Y/Edit/D	remove all non Edit files from file list
 Edit d	delete selection
