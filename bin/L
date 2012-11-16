@@ -1,0 +1,31 @@
+#!/usr/local/plan9/bin/rc
+
+TMP=/tmp
+
+if(~ $#* 0){
+	echo 'usage: L pth ...' >[1=2]
+	exit usage
+}
+
+fn dogrep {
+	if(~ $#* 1)
+		grep /$1
+	if not{
+		x=$1
+		shift
+		grep /$x | dogrep $*
+	}
+}
+
+# it is noticeably faster (.09s vs .55s) to just
+# save the raw locate database somewhere [sic]
+if(! test -f $TMP/locate-slash || test `{mtime $TMP/locate-slash | awk '{print $1}'} -lt `{hoc -e `{$PLAN9/bin/date -n}^-86400})
+	locate / >$TMP/locate-slash
+
+nl='
+'
+
+for(i){
+	ifs=$nl { pattern=`{echo $i | 9 sed 's;\*;[^/]*;g; s;/;/(.*/)?;g; s;^;(.*/)?;; s;$;$;'} }
+	egrep $pattern $TMP/locate-slash
+}

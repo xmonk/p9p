@@ -1,0 +1,3 @@
+#!/usr/local/plan9/bin/rc
+
+B `{L $*}
