@@ -39,16 +39,10 @@ else
 fi
 # Set default font.
 dejavusansmono=$home/lib/font/DejaVuSansMono/12a/font
-inconsolata=$home/lib/font/Inconsolata/13a/font
+inconsolata=$home/lib/font/Inconsolata/14a/font
 unicode8=/lib/font/bit/lucsans/unicode.8.font
-
-if [ -e $dejavusansmono ]; then
-	export font=$dejavusansmono
-elif [ -e $inconsolata ]; then
-	export font=$inconsolata
-else
-	export font=$unicode8
-fi
+unicode9=/lib/font/bit/luc/unicode.9.font
+export font=$unicode8
 
 # if $NAMESPACE doesn't exist, we need to create it.
 [ -d $NAMESPACE ] ||  mkdir $NAMESPACE 
@@ -67,7 +61,7 @@ if [ $TERM = 9term ]; then
 	set +o emacs
 	set +o vi
 	set -a # autoexport
-	exec $PLAN9/bin/9 rc -il
+#	exec $PLAN9/bin/9 rc -il # comment this line to use bash
 fi
 
 # start your engines.
