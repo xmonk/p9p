@@ -1,0 +1,10 @@
+#!/usr/bin/env rc
+
+if(~ $#winid 0){
+	echo "py9lint: Acme is not running."
+	exit
+}
+
+$home/bin/pyflakes $%
+$home/bin/pep8 $% --repeat
+true
