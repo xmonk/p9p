@@ -1,3 +1,0 @@
-#!/usr/bin/env rc
-
-$home/bin/pep8 $% --repeat --ignore E501
