@@ -1,6 +1,0 @@
-#!/usr/bin/env rc
-
-if(~ $#* 0){
-	* = '    '  # 4 spaces
-}
-sed 's!	!    !'
