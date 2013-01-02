@@ -1,8 +1,8 @@
 #!/bin/bash
 
 [ -d /usr/local/plan9 ] && export PLAN9=${PLAN9:-/usr/local/plan9}
-export PATH=$(puniq "$PATH:$PLAN9/bin:$HOME/.p9p/bin")
-export MANPATH=$(puniq "$MANPATH:$PLAN9/man")
+#export PATH=$(puniq "$PATH:$PLAN9/bin:$HOME/.p9p/bin")
+#export MANPATH=$(puniq "$MANPATH:$PLAN9/man")
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PLAN9/lib
 
 # Plumb files instead of starting new editor.
