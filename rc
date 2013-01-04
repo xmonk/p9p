@@ -61,6 +61,7 @@ if [ $TERM = 9term ]; then
 	set +o emacs
 	set +o vi
 	set -a # autoexport
+	unset PROMPT_COMMAND
 #	exec $PLAN9/bin/9 rc -il # comment this line to use bash
 fi
 

@@ -6,5 +6,5 @@ if(~ $#winid 0){
 }
 
 $home/bin/pyflakes $%
-$home/bin/pep8 $% --repeat
+$home/bin/pep8 --repeat $%
 true
