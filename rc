@@ -40,9 +40,14 @@ fi
 # Set default font.
 dejavusansmono=$home/lib/font/DejaVuSansMono/13a/font
 inconsolata=$home/lib/font/Inconsolata/15a/font
+sourcode=$home/lib/font/SourceCodePro-Semibold/13a/font
+unicode7=/lib/font/bit/lucsans/boldtypeunicode.7.font
 unicode8=/lib/font/bit/lucsans/unicode.8.font
 unicode9=/lib/font/bit/lucm/unicode.9.font
-export font=$dejavusansmono
+pelmunicode8=/lib/font/bit/pelm/unicode.8.font
+pelmeuro8=/lib/font/bit/pelm/euro.8.font
+export font=$pelmunicode8
+export fixedfont=$unicode9
 
 # if $NAMESPACE doesn't exist, we need to create it.
 [ -d $NAMESPACE ] ||  mkdir $NAMESPACE 
