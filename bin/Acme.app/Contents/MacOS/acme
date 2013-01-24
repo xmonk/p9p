@@ -4,12 +4,15 @@ if [ -f ~/.bashrc ]; then
 	. ~/.bashrc
 fi
 PLAN9=${PLAN9:-/usr/local/plan9}
-
+tabstop=4
 p9plumb start
-if [ -f $HOME/lib/acme/$H.dump ]; then
-	acme -l $HOME/lib/acme/$H.dump -W $GEOMETRY
+
+if [ -f $HOME/acme.dump ]; then
+	acme -f $font -l $HOME/acme.dump -W $GEOMETRY
+elif [ -f $HOME/lib/acme/$H.dump ]; then
+	acme -f $font -l $HOME/lib/acme/$H.dump -W $GEOMETRY
 elif [ -f $HOME/$H.dump ]; then
-	acme -l $HOME/$H.dump -W $GEOMETRY
+	acme -f $font -l $HOME/$H.dump -W $GEOMETRY
 else
-	acme -W $GEOMETRY
+	acme -f $font -W $GEOMETRY
 fi
