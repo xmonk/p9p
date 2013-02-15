@@ -46,8 +46,8 @@ pelmunicode8=/lib/font/bit/pelm/unicode.8.font
 unicode7=/lib/font/bit/lucsans/boldtypeunicode.7.font
 unicode8=/lib/font/bit/lucsans/unicode.8.font
 unicode9=/lib/font/bit/lucm/unicode.9.font
-export font=$euro8
-export fixedfont=$pelmeuro8
+export font=$dejavusansmono
+export fixedfont=$euro8
 
 # if $NAMESPACE doesn't exist, we need to create it.
 [ -d $NAMESPACE ] ||  mkdir $NAMESPACE 
