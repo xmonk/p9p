@@ -1,6 +1,9 @@
-#!/usr/bin/env rc
+#!/usr/local/plan9/bin/rc
 
-if(~ $#* 0){
-	* = '    '  # 4 spaces
+if(~ $#winid 0){
+	echo "Acme is not running."
+	exit
 }
-sed 's!	!    !'
+
+echo -n '1,$' | 9p write acme/$winid/addr
+9p read acme/$winid/body | tab -n 4 -u | 9p write acme/$winid/data
