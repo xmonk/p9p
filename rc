@@ -5,17 +5,21 @@
 #export MANPATH=$(puniq "$MANPATH:$PLAN9/man")
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PLAN9/lib
 
-# Plumb files instead of starting new editor.
-export EDITOR=${EDITOR:=E}
-unset FCEDIT VISUAL
-
 # Let gs find the plan9port document fonts.
 export GS_FONTPATH=$PLAN9/postscript/font
 # Make sure mpage prints in letter mode.
-export MPAGE="-t -bLetter"
+if [ $TERM = 9term ]; then
+    # Plumb files instead of starting new editor.
+    export EDITOR='E'
+    unset FCEDIT VISUAL
+    export MPAGE="-t -bLetter"
+    # Get rid of backspace characters in Unix man output.
+    export PAGER=nobs
+else
+    export EDITOR='emacs'
+    export PAGER='less'
+fi
 
-# Get rid of backspace characters in Unix man output.
-export PAGER=nobs
 if [ $(uname -s) = Darwin ]; then
 	export BROWSER=google-chrome
 else
@@ -39,8 +43,8 @@ else
 fi
 # Set default font.
 euro8=/lib/font/bit/lucsans/euro.8.font
-dejavusansmono=$home/lib/font/DejaVuSansMono/13a/font
-inconsolata=$home/lib/font/Inconsolata/15a/font
+dejavusansmono=$home/lib/font/DejaVuSansMono/12a/font
+inconsolata=$home/lib/font/Inconsolata/14a/font
 pelmeuro8=/lib/font/bit/pelm/euro.8.font
 pelmunicode8=/lib/font/bit/pelm/unicode.8.font
 unicode7=/lib/font/bit/lucsans/boldtypeunicode.7.font
@@ -50,7 +54,7 @@ export font=$dejavusansmono
 export fixedfont=$euro8
 
 # if $NAMESPACE doesn't exist, we need to create it.
-[ -d $NAMESPACE ] ||  mkdir $NAMESPACE 
+[ -d $NAMESPACE ] ||  mkdir $NAMESPACE
 
 if [ $TERM = 9term ]; then
 	_cd(){
