@@ -8,7 +8,7 @@
 # Let gs find the plan9port document fonts.
 export GS_FONTPATH=$PLAN9/postscript/font
 # Make sure mpage prints in letter mode.
-if [ $TERM = 9term ]; then
+if [ $TERM = dumb ]; then
     # Plumb files instead of starting new editor.
     export EDITOR='E'
     unset FCEDIT VISUAL
