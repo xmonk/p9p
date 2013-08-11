@@ -5,6 +5,6 @@ if(~ $#winid 0){
 	exit
 }
 
-$home/bin/pyflakes $%
-$home/bin/pep8 --repeat $%
+$home/.venv/bin/pyflakes $%
+$home/.venv/bin/pep8 --repeat $%
 true
