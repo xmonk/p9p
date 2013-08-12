@@ -56,7 +56,7 @@ export fixedfont=$euro8
 # if $NAMESPACE doesn't exist, we need to create it.
 [ -d $NAMESPACE ] ||  mkdir $NAMESPACE
 
-if [ $TERM = 9term ]; then
+if [ $TERM = dumb ]; then
 	_cd(){
 		\cd "$@" &&
 		case "TERM!$-" in
