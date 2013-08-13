@@ -11,3 +11,18 @@ type is text
 data matches '[a-zA-Z0-9Â¡-ï¿½_\-./]+'
 data matches '[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]+'
 plumb start rc -c 'cd '''$wdir'''; root=`{git root}; rev='''$0'''; {git-showall $rev} >[2=1] | nobs | plumb -i -d edit -a ''action=showdata filename=''$root/+$rev'
+
+# plumb to pydoc
+type is text
+data matches 'pydoc:([a-zA-Z0-9Â¡-ï¿½_\-./].*)'
+plumb start bash -c 'pydoc "'$1'" | plumb -i -d edit -a ''action=showdata filename=''/pydoc/'$1''
+
+# plumb import to pydoc
+type is text
+data matches 'import ([a-zA-Z0-9Â¡-ï¿½_\-./].*)'
+plumb start bash -c 'pydoc "'$1'" | plumb -i -d edit -a ''action=showdata filename=''/pydoc/'$1''
+
+# plumb from x import y to pydoc
+type is text
+data matches 'from ([a-zA-Z0-9Â¡-ï¿½_\-./].*) import ([a-zA-Z0-9Â¡-ï¿½_\-./].*)'
+plumb start bash -c 'pydoc "'$1'.'$2'" | plumb -i -d edit -a ''action=showdata filename=''/pydoc/'$1'.'$2''
