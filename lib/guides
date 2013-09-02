@@ -22,9 +22,20 @@ Edit .+#0/old/c/new/
 Edit .+1,/^}/-1|seq 4 4 5000 | sed 's/.*/stack&,/' | fmt
 # copy contents to the end of foo.go
 Edit ,t"foo.go"$
+# remove whitespace
+Edit , x/[ TAB]+$/ d
+# add parens
+Edit .s/(.|\n)*/(&)/
+# add " "
+Edit .s/(.|\n)*/"&"/
+# remove " "
+Edit .s/"//g
+# add ' '
+Edit .s/(.|\n)*/'&'/
 
 # List of Sam idioms that work in Acme compiled by Jason Catena
-
+# repeat
+Edit . s/X/'^$i^'/g
 Edit #10 		Goto the 10th column in line.
 Edit $-/text/	search for the last occurrence of text in file
 Edit +/here/	search for text forwards
@@ -52,8 +63,8 @@ Edit X/.* / ,s,loginAdmin,loginIdiAmin,g  # Search and replace on all files.
 /d	strip <cr> from all lines
 Edit Y/Edit/D	remove all non Edit files from file list
 Edit d	delete selection
-Edit e file	replace current file by content of external file
-Edit f 	set current file-name to null
+Edit e file	 replace current file by content of external file
+Edit f 	set  current file-name to null
 Edit r file	replace selection by external file
 Edit s,//[^\n]*\n,,g	strip C // comments from selection
 Edit s,/\*.*\*/\n,,g	strip C /* */ 1-line comments from selection
@@ -63,3 +74,15 @@ Edit x/[a-zA-Z0-9]+/ -#0;+#1 | tr a-z A-Z	capitalise every word (slow)
 Edit x/^	/d	remove 1 tab of indent from selection
 Edit x/^/ a/	/	indent selection 1 tab
 Lineno Edit w file	write selected range to file (default 0,$)
+Edit .{i/(* 
+a/*)
+}
+
+Edit .x/^ M/c/git add
+Edit .x/^ D/c/git rm --cached
+Edit .x/^\?\?/c/git add
+Edit .x/ of .*$/c/ _ -> failwith "TODO"
+Edit .x/$/i/ ->
+
+Edit .=#
+Edit .=
