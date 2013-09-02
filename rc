@@ -76,3 +76,4 @@ fi
 
 # start your engines.
 [ -x $HOME/.p9p/bin/p9plumb ] && $HOME/.p9p/bin/p9plumb start
+[ -f $HOME/.bashrc.d/functions ] && . $HOME/.bashrc.d/functions
