@@ -17,9 +17,7 @@ len()
 {
 	echo ${#args[*]}
 }
-
-[ ! -z $font ] && args[$(len)]="-f $font"
-[ ! -z $fixedfont ] && args[$(len)]="-F $fixedfont"
+args[$(len)]="-a"
 
 if [ -f $HOME/acme.dump ]; then
 	args[$(len)]="-l $HOME/acme.dump"
@@ -27,9 +25,11 @@ elif [ -f $HOME/lib/acme/$H.dump ]; then
 	args[$(len)]="-l $HOME/lib/acme/$H.dump"
 elif [ -f $HOME/$H.dump ]; then
 	args[$(len)]="-l $HOME/$H.dump"
+else
+	[ ! -z $font ] && args[$(len)]="-f $font"
+	[ ! -z $fixedfont ] && args[$(len)]="-F $fixedfont"
 fi
 [ ! -z $GEOMETRY ] &&  args[$(len)]="-W $GEOMETRY"
-
 [ $(len) = "0" ] && unset args
 
 acme ${args[*]}
