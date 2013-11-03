@@ -1,0 +1,134 @@
+diff -r eb8848342a93 src/cmd/acme/text.c
+--- a/src/cmd/acme/text.c	Tue Aug 13 12:46:38 2013 -0400
++++ b/src/cmd/acme/text.c	Mon Sep 30 09:23:34 2013 -0400
+@@ -521,6 +521,19 @@
+ 	return r;
+ }
+ 
++Rune*
++textreadstr(Text *t, uint q, int n)
++{
++	int i;
++	Rune *r = runemalloc(n+1);
++
++	for (i = 0; i < n; i++)
++		r[i] = textreadc(t, q+i);
++	r[n] = '\0';
++
++	return r;
++}
++
+ int
+ textbswidth(Text *t, Rune c)
+ {
+@@ -553,6 +566,88 @@
+ }
+ 
+ int
++isidentrune(Rune r)
++{
++	return isalnum(r) || r == '_';
++}
++
++int
++cursorident(Text *t)
++{
++	uint q;
++	Rune r;
++
++	q = t->q0;
++	while (q > 0){
++		r = textreadc(t, q-1);
++		if (!isidentrune(r))
++			break;
++		q--;
++	}
++	return q;
++}
++
++
++Rune*
++identcomplete(Text *t)
++{
++	int i, match, ncurs, ncomp;
++	uint p, q, q0, curs0, comp0;
++	Rune r;
++
++	if (t->file->b.nc == 0)
++		return nil;
++
++	// TODO(eaburns): there's a bug somewhere else in which textreadc
++	// returns the wrong value, and this if-statement fires when it shouldn't.
++	// 1-clicking in the buffer seems to fix it.  This also affects textcomplete.
++	if(t->q0<t->file->b.nc && isidentrune(textreadc(t, t->q0)))	/* must be at end of ident */
++		return nil;
++
++	curs0 = cursorident(t);
++	ncurs = t->q0 - curs0;
++	if (ncurs == 0)
++		return nil;
++
++	ncomp = -1;
++	q = comp0 = 0;
++	while(q < t->file->b.nc) {
++		do{
++			r = textreadc(t, q++);
++		}while(q < t->file->b.nc && !isidentrune(r));
++
++		if (q >= t->file->b.nc)
++			break;
++		q--;	// Unread trailing ident rune.
++
++		q0 = p = q;
++		match = q0 != curs0;	// Don't match the ident at the cursor.
++		do{
++			r = textreadc(t, q);
++			i = q-q0;
++			if (i < ncurs && r != textreadc(t, curs0+i))
++				match = 0;
++			if (match && p == q && (ncomp < 0 || r == textreadc(t, comp0+i)))
++				p++;
++			q++;
++		}while(q < t->file->b.nc && isidentrune(r));
++
++		if (!match || (ncomp > 0 && p-q0 > ncomp))
++			continue;
++
++		if (ncomp < 0)	// Chomp trailing non-ident rune.
++			p--;
++		comp0 = q0;
++		ncomp = p-q0;
++	}
++
++	if (ncomp < 0 || ncomp-ncurs == 0)	// No completion found.
++		return nil;
++
++	return textreadstr(t, comp0+ncurs, ncomp-ncurs);
++}
++
++int
+ textfilewidth(Text *t, uint q0, int oneelement)
+ {
+ 	uint q;
+@@ -808,6 +903,7 @@
+ 	switch(r){
+ 	case 0x06:	/* ^F: complete */
+ 	case Kins:
++		typecommit(t);
+ 		rp = textcomplete(t);
+ 		if(rp == nil)
+ 			return;
+@@ -820,6 +916,13 @@
+ 			typecommit(t);
+ 		t->iq1 = t->q0;
+ 		return;
++	case 0x07:	/* ^G: word complete */
++		typecommit(t);
++		rp = identcomplete(t);
++		if (rp == nil)
++			return;
++		nr = runestrlen(rp);
++		break;	/* fall through to normal insertion case */
+ 	case 0x08:	/* ^H: erase character */
+ 	case 0x15:	/* ^U: erase line */
+ 	case 0x17:	/* ^W: erase word */
