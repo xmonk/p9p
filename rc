@@ -7,18 +7,6 @@
 
 # Let gs find the plan9port document fonts.
 export GS_FONTPATH=$PLAN9/postscript/font
-# Make sure mpage prints in letter mode.
-if [ $TERM = dumb ]; then
-    # Plumb files instead of starting new editor.
-    export EDITOR='E'
-    unset FCEDIT VISUAL
-    export MPAGE="-t -bLetter"
-    # Get rid of backspace characters in Unix man output.
-    export PAGER=nobs
-else
-    export EDITOR='emacs'
-    export PAGER='less'
-fi
 
 if [ $(uname -s) = Darwin ]; then
 	export BROWSER=google-chrome
@@ -72,6 +60,16 @@ if [ $TERM = dumb ]; then
 	set -a # autoexport
 	unset PROMPT_COMMAND
 #	exec $PLAN9/bin/9 rc -il # comment this line to use bash
+	# Plumb files instead of starting new editor.
+	export EDITOR='E'
+	unset FCEDIT VISUAL
+	# Make sure mpage prints in letter mode.
+	export MPAGE="-t -bLetter"
+	# Get rid of backspace characters in Unix man output.
+	export PAGER=nobs
+else
+	export EDITOR='emacs'
+	export PAGER='less'
 fi
 
 # start your engines.
