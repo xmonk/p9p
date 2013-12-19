@@ -22,7 +22,7 @@ Index: src/cmd/acme/text.c
  int
  textbswidth(Text *t, Rune c)
  {
-@@ -553,6 +566,85 @@
+@@ -553,6 +566,88 @@
  }
  
  int
@@ -58,6 +58,9 @@ Index: src/cmd/acme/text.c
 +	if (t->file->b.nc == 0)
 +		return nil;
 +
++	// TODO(eaburns): there's a bug somewhere else in which textreadc
++	// returns the wrong value, and this if-statement fires when it shouldn't.
++	// 1-clicking in the buffer seems to fix it.  This also affects textcomplete.
 +	if(t->q0<t->file->b.nc && isidentrune(textreadc(t, t->q0)))	/* must be at end of ident */
 +		return nil;
 +
@@ -108,15 +111,7 @@ Index: src/cmd/acme/text.c
  textfilewidth(Text *t, uint q0, int oneelement)
  {
  	uint q;
-@@ -808,6 +900,7 @@
- 	switch(r){
- 	case 0x06:	/* ^F: complete */
- 	case Kins:
-+		typecommit(t);
- 		rp = textcomplete(t);
- 		if(rp == nil)
- 			return;
-@@ -820,6 +913,13 @@
+@@ -821,6 +916,13 @@
  			typecommit(t);
  		t->iq1 = t->q0;
  		return;
