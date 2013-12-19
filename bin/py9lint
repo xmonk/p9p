@@ -5,6 +5,14 @@ if(~ $#winid 0){
 	exit
 }
 
-$home/.venv/bin/pyflakes $%
-$home/.venv/bin/pep8 --repeat $%
+if(test -f $home/.venv/bin/flake8){
+	$home/.venv/bin/flake8 $%
+}
+if not {
+	echo "flake8 not installed."
+	exit
+}
+
+#$home/.venv/bin/pyflakes $%
+#$home/.venv/bin/pep8 --repeat $%
 true
