@@ -23,7 +23,9 @@ export prompt="$H=; 	"
 export user=$USER
 # Set geometry per host
 if [ $H = quorra ]; then
-	export GEOMETRY='1440x900@1,86'
+	res=$(/usr/sbin/system_profiler SPDisplaysDataType | grep Resolution | awk '{ print $2$3$4}')
+	export GEOMETRY=`echo $res | awk '{print $1"@1,86"}'`
+	#export GEOMETRY='1440x900@1,86'
 elif [ $H = moon ]; then
 	export GEOMETRY='1661x1109@1,86'
 else
