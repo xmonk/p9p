@@ -61,7 +61,6 @@ if [ $TERM = dumb ]; then
 	set +o vi
 	set -a # autoexport
 	unset PROMPT_COMMAND
-#	exec $PLAN9/bin/9 rc -il # comment this line to use bash
 	# Plumb files instead of starting new editor.
 	export EDITOR='E'
 	unset FCEDIT VISUAL
