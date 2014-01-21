@@ -1,0 +1,54 @@
+diff -ru a/src/cmd/acme/acme.c b/src/cmd/acme/acme.c
+--- a/src/cmd/acme/acme.c	2012-11-26 05:00:11.000000000 -0500
++++ b/src/cmd/acme/acme.c	2014-01-15 22:46:48.000000000 -0500
+@@ -30,6 +30,7 @@
+ int		mainpid;
+ int		swapscrollbuttons = FALSE;
+ char		*mtpt;
++char		*sessionfile;
+ 
+ enum{
+ 	NSnarf = 1000	/* less than 1024, I/O buffer size */
+@@ -70,6 +71,7 @@
+ 	ncol = -1;
+ 
+ 	loadfile = nil;
++	sessionfile = nil;
+ 	ARGBEGIN{
+ 	case 'D':
+ 		{extern int _threaddebuglevel;
+@@ -145,6 +147,7 @@
+ 		maxtab = 4;
+ 	if(loadfile)
+ 		rowloadfonts(loadfile);
++		sessionfile = loadfile;
+ 	putenv("font", fontnames[0]);
+ 	snarffd = open("/dev/snarf", OREAD|OCEXEC);
+ /*
+diff -ru a/src/cmd/acme/rows.c b/src/cmd/acme/rows.c
+--- a/src/cmd/acme/rows.c	2012-10-21 10:08:57.000000000 -0400
++++ b/src/cmd/acme/rows.c	2014-01-15 22:42:30.000000000 -0500
+@@ -12,6 +12,8 @@
+ #include "dat.h"
+ #include "fns.h"
+ 
++extern	char	*sessionfile;
++
+ static Rune Lcolhdr[] = {
+ 	'N', 'e', 'w', 'c', 'o', 'l', ' ',
+ 	'K', 'i', 'l', 'l', ' ',
+@@ -332,8 +334,12 @@
+ 			warning(nil, "can't find file for dump: $home not defined\n");
+ 			goto Rescue;
+ 		}
+-		sprint(buf, "%s/acme.dump", home);
+-		file = buf;
++		if(sessionfile == nil){
++			sprint(buf, "%s/acme.dump", home);
++			file = buf;
++		}else{
++			file = sessionfile;
++		}
+ 	}
+ 	fd = create(file, OWRITE, 0600);
+ 	if(fd < 0){
