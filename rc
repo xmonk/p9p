@@ -1,9 +1,6 @@
 #!/bin/bash
 
 [ -d /usr/local/plan9 ] && export PLAN9=${PLAN9:-/usr/local/plan9}
-#export PATH=$(puniq "$PATH:$PLAN9/bin:$HOME/.p9p/bin")
-#export MANPATH=$(puniq "$MANPATH:$PLAN9/man")
-#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PLAN9/lib
 
 # Let gs find the plan9port document fonts.
 export GS_FONTPATH=$PLAN9/postscript/font
@@ -19,29 +16,23 @@ export H=`hostname | sed 's/\..*//'`
 
 # Equivalent variables for rc(1).
 export home=$HOME
-export prompt="$H=; 	"
+export prompt=";; 	"
 export user=$USER
+
 # Set geometry per host
-if [ $H = quorra ]; then
-	res=$(/usr/sbin/system_profiler SPDisplaysDataType | grep Resolution | awk '{ print $2$3$4}')
-	export GEOMETRY=`echo $res | awk '{print $1"@1,86"}'`
-	#export GEOMETRY='1440x900@1,86'
-elif [ $H = moon ]; then
-	export GEOMETRY='1661x1109@1,86'
-else
-	export GEOMETRY='1280x800@1,86'
-fi
+#if [ $H = quorra ]; then
+#	res=$(/usr/sbin/system_profiler SPDisplaysDataType | grep Resolution | awk '{ print $2$3$4}')
+#	export GEOMETRY=`echo $res | awk '{print $1"@1,86"}'`
+#	unset res
+#elif [ $H = moon ]; then
+#	export GEOMETRY='1661x1109@1,86'
+#else
+#	export GEOMETRY='1280x800@1,86'
+#fi
+
 # Set default font.
-euro8=/lib/font/bit/lucsans/euro.8.font
-dejavusansmono=$home/lib/font/DejaVuSansMono/12a/font
-inconsolata=$home/lib/font/Inconsolata/14a/font
-pelmeuro8=/lib/font/bit/pelm/euro.8.font
-pelmunicode8=/lib/font/bit/pelm/unicode.8.font
-unicode7=/lib/font/bit/lucsans/boldtypeunicode.7.font
-unicode8=/lib/font/bit/lucsans/unicode.8.font
-unicode9=/lib/font/bit/lucm/unicode.9.font
-export font=$pelmeuro8
-export fixedfont=$pelmunicode8
+export font=/lib/font/bit/pelm/euro.8.font
+export fixedfont=/lib/font/bit/pelm/unicode.8.font
 
 # if $NAMESPACE doesn't exist, we need to create it.
 [ -d $NAMESPACE ] ||  mkdir $NAMESPACE
