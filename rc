@@ -31,7 +31,8 @@ export user=$USER
 #fi
 
 # Set default font.
-export font=/lib/font/bit/pelm/euro.8.font
+#export font=/lib/font/bit/pelm/euro.8.font
+export font=/lib/font/bit/lucsans/euro.8.font
 export fixedfont=/lib/font/bit/pelm/unicode.8.font
 
 # if $NAMESPACE doesn't exist, we need to create it.
