@@ -5,3 +5,4 @@ secstore.aes
 .pid
 o.*
 *.o
+bin/acmedot
