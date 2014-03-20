@@ -5,4 +5,4 @@ if [ -f ~/.bashrc ]; then
 fi
 PLAN9=${PLAN9:-/usr/local/plan9}
 p9plumb start
-sam
+sam -a
