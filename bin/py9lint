@@ -12,7 +12,4 @@ if not {
 	echo "flake8 not installed."
 	exit
 }
-
-#$home/.venv/bin/pyflakes $%
-#$home/.venv/bin/pep8 --repeat $%
 true
