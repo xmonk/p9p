@@ -2,9 +2,8 @@
 
 if(~ $#* 0)
 	what='	'
-if not {
+if not{
 	what=$1
 	shift
 }
-
 sed 's:^:'$what' :' $*
