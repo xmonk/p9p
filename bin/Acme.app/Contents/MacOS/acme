@@ -6,10 +6,6 @@ if [ -f ~/.bashrc ]; then
 	. ~/.bashrc
 fi
 
-PLAN9=${PLAN9:-/usr/local/plan9}
-tabstop=4
-p9plumb start
-
 set -e 
 set -a args
 
@@ -17,6 +13,13 @@ len()
 {
 	echo ${#args[*]}
 }
+
+PLAN9=${PLAN9:-/usr/local/plan9}
+tabstop=4
+p9plumb start
+res=$(/usr/sbin/system_profiler SPDisplaysDataType | grep Resolution | awk '{print $2$3$4}')
+GEOMETRY=`echo $res | awk '{print $1"@1,86"}'`
+
 args[$(len)]="-a"
 
 if [ -f $HOME/acme.dump ]; then
@@ -29,6 +32,7 @@ else
 	[ ! -z $font ] && args[$(len)]="-f $font"
 	[ ! -z $fixedfont ] && args[$(len)]="-F $fixedfont"
 fi
+
 [ ! -z $GEOMETRY ] &&  args[$(len)]="-W $GEOMETRY"
 [ $(len) = "0" ] && unset args
 
