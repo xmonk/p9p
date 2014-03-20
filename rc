@@ -19,21 +19,9 @@ export home=$HOME
 export prompt=";; 	"
 export user=$USER
 
-# Set geometry per host
-#if [ $H = quorra ]; then
-#	res=$(/usr/sbin/system_profiler SPDisplaysDataType | grep Resolution | awk '{ print $2$3$4}')
-#	export GEOMETRY=`echo $res | awk '{print $1"@1,86"}'`
-#	unset res
-#elif [ $H = moon ]; then
-#	export GEOMETRY='1661x1109@1,86'
-#else
-#	export GEOMETRY='1280x800@1,86'
-#fi
-
 # Set default font.
-#export font=/lib/font/bit/pelm/euro.8.font
 export font=/lib/font/bit/lucsans/euro.8.font
-export fixedfont=/lib/font/bit/pelm/unicode.8.font
+export fixedfont=/lib/font/bit/lucm/unicode.9.font
 
 # if $NAMESPACE doesn't exist, we need to create it.
 [ -d $NAMESPACE ] ||  mkdir $NAMESPACE
