@@ -6,12 +6,12 @@ ACME=$HOME/.p9p/lib/acme
 ACME_ARGS="-a"
 
 # setup our fonts
-if [[ ! -z $font && ! -z $fixed ]]; then
-	ACME_ARGS=$ACME_ARGS" -f $font -F $fixed"
-elif [[ ! -z $font && -z $fixed ]]; then
+if [[ ! -z $font && ! -z $fixedfont ]]; then
+	ACME_ARGS=$ACME_ARGS" -f $font -F $fixedfont"
+elif [[ ! -z $font && -z $fixedfont ]]; then
 	ACME_ARGS=$ACME_ARGS" -f $font"
-elif [[ -z $font && ! -z $fixed ]]; then
-	ACME_ARGS=$ACME_ARGS" -F $fixed"
+elif [[ -z $font && ! -z $fixedfont ]]; then
+	ACME_ARGS=$ACME_ARGS" -F $fixedfont"
 fi
 
 # setup screen geometry
@@ -27,7 +27,7 @@ usage()
 	cat<<-EOF
 	p9acme [ -h -l -t ]
 	    -h     Help
-	    -l     Load [ruby, code]
+	    -l     Load [python, code]
 	    -t     tabstop
 	EOF
 }
@@ -52,10 +52,10 @@ load_run()
 			acme_plain
 		fi
 		;;
-	ruby)
+	python)
 	
-		if [ -f $ACME/ruby.dump ]; then
-			acme_loaded $ACME/ruby.dump
+		if [ -f $ACME/python.dump ]; then
+			acme_loaded $ACME/python.dump
 		else
 			acme_plain
 		fi
