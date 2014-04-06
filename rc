@@ -6,9 +6,9 @@
 export GS_FONTPATH=$PLAN9/postscript/font
 
 if [ $(uname -s) = Darwin ]; then
-	export BROWSER=google-chrome
+	export BROWSER=safari
 else
-	export BROWSER=chromium-browser
+	export BROWSER=safari
 fi
 export NAMESPACE=/tmp/ns.$(hostname -s)
 # Prompt (is almost a no-op in bash)
@@ -18,7 +18,7 @@ export H=`hostname | sed 's/\..*//'`
 export home=$HOME
 export prompt=";; 	"
 export user=$USER
-
+export EDITOR='/usr/local/plan9/bin/E'
 # Set default font.
 export font=/lib/font/bit/lucsans/euro.8.font
 export fixedfont=/lib/font/bit/lucm/unicode.9.font
@@ -42,14 +42,12 @@ if [ $TERM = dumb ]; then
 	set -a # autoexport
 	unset PROMPT_COMMAND
 	# Plumb files instead of starting new editor.
-	export EDITOR='E'
 	unset FCEDIT VISUAL
 	# Make sure mpage prints in letter mode.
 	export MPAGE="-t -bLetter"
 	# Get rid of backspace characters in Unix man output.
 	export PAGER=nobs
 else
-	export EDITOR='emacs'
 	export PAGER='less'
 fi
 
