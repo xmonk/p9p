@@ -4,6 +4,5 @@ if(~ $#winid 0){
 	echo "Acme is not running"
 	exit
 }
-
 echo -n '1,$'|9p write acme/$winid/addr
 9p read acme/$winid/body|goimports|9p write acme/$winid/data
