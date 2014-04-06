@@ -4,6 +4,5 @@ if(~ $#winid 0){
 	echo "grun runs inside acme"
 	exit
 }
-
-if(test -r $GOROOT/bin/go)
-	$GOROOT/bin/go run $% $*
+if(test -r $GOPATH/go/bin/go)
+	$GOPATH/go/bin/go run $% $*
