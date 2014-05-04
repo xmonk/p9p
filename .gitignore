@@ -6,3 +6,4 @@ secstore.aes
 o.*
 *.o
 bin/acmedot
+bin/E2
