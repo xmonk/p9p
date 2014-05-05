@@ -6,3 +6,6 @@ if(~ $#winid 0){
 }
 echo -n '1,$'|9p write acme/$winid/addr
 9p read acme/$winid/body|goimports|9p write acme/$winid/data
+echo -n '#0'|9p write acme/$winid/addr
+echo -n 'dot=addr'|9p write acme/$winid/ctl
+echo -n show|9p write acme/$winid/ctl
