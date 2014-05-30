@@ -1,15 +1,22 @@
 #!/usr/bin/env rc
 
+flake=$home/.venv/bin/flake8
+
 if(~ $#winid 0){
 	echo "py9lint: Acme is not running."
 	exit
 }
 
-if(test -f $home/.venv/bin/flake8){
-	$home/.venv/bin/flake8 $%
+if (~ $#flake 0){
+	echo "flake8 not found or not installed."
+	exit
+}
+
+if(test -f $flake){
+	$flake $%
 }
 if not {
-	echo "flake8 not installed."
+	echo "flake8 not found or not installed."
 	exit
 }
 true
