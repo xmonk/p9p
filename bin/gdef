@@ -5,4 +5,4 @@ if(~ $winid 0){
 	exit
 }
 
-godef -acme -f $% $1
+godef -acme -f $samfile $1
