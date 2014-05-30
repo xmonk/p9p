@@ -1,9 +1,5 @@
 #!/usr/bin/env rc
-addr=`{acmedot} 
-if(test $1){
-	oracle -pos $addr $1 $%
-}
-if not {
-	oracle -pos $addr callees $%
-}
 
+addr=`{acmedot}
+
+oracle -pos $addr $1 $2
