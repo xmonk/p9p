@@ -19,9 +19,9 @@ export home=$HOME
 export prompt=";; 	"
 export user=$USER
 if [ -x $HOME/.p9p/bin/E2 ]; then
-	export EDITOR=$HOME/.p9p/bin/E2
+	export EDITOR=${EDITOR:-$HOME/.p9p/bin/E2}
 else
-	export EDITOR='/usr/local/plan9/bin/E'
+	export EDITOR=${EDITOR:-/usr/local/plan9/bin/E}
 fi
 # Set default font.
 export font=/lib/font/bit/lucsans/euro.8.font
