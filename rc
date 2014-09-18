@@ -8,9 +8,9 @@ export GS_FONTPATH=$PLAN9/postscript/font
 if [ $(uname -s) = Darwin ]; then
 	export BROWSER=safari
 else
-	export BROWSER=safari
+	export BROWSER=firefox
 fi
-export NAMESPACE=/tmp/ns.$(hostname -s)
+
 # Prompt (is almost a no-op in bash)
 export H=`hostname | sed 's/\..*//'`
 
@@ -27,6 +27,7 @@ fi
 export font=/lib/font/bit/lucsans/euro.8.font
 export fixedfont=/lib/font/bit/lucm/unicode.9.font
 
+export NAMESPACE=/tmp/ns.$(hostname -s)
 # if $NAMESPACE doesn't exist, we need to create it.
 [ -d $NAMESPACE ] ||  mkdir $NAMESPACE
 
