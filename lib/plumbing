@@ -40,3 +40,11 @@ data set $file
 attr add addr=$2
 plumb to edit
 plumb client $editor
+
+# Ocaml error messages
+type is text
+data matches 'File "([.a-zA-arg isfile      $1
+data set        $file
+attr add        addr=$2
+plumb to edit
+plumb client $editor
