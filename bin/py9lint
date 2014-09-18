@@ -7,11 +7,6 @@ if(~ $#winid 0){
 	exit
 }
 
-if (~ $#flake 0){
-	echo "flake8 not found or not installed."
-	exit
-}
-
 if(test -f $flake){
 	$flake $%
 }
