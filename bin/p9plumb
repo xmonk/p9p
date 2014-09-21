@@ -2,7 +2,7 @@
 
 set -e
 
-isup()
+status()
 {
     if [ -x $(which pidof)2>/dev/null ]; then
 		pid=$(pidof plumber)
@@ -45,12 +45,12 @@ case $1 in
 		start;;
 	stop) 
 		stop;;
-	isup) 
-		isup;;
+	status) 
+		status;;
 	restart)
 		stop
 		start;;
 	*) 
-		echo 2>&1 "p9plumb [start | stop | restart | isup ]"
+		echo 2>&1 "p9plumb [start | stop | restart | status ]"
 		exit 1;;
 esac
