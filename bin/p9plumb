@@ -18,7 +18,7 @@ status()
 
 start()
 {	
-	if [[ -z $(isup) ]]; then
+	if [[ -z $(status) ]]; then
 		$PLAN9/bin/9 plumber
 	fi
 	return 0
@@ -26,7 +26,7 @@ start()
 
 stop()
 {
-	pid=$(isup)
+	pid=$(status)
 	if [[ x$pid != x ]]; then
 		/bin/kill -9 $pid 2> /dev/null
 	fi
