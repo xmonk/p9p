@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 [ -d /usr/local/plan9 ] && export PLAN9=${PLAN9:-/usr/local/plan9}
 
@@ -58,4 +58,3 @@ fi
 
 # start your engines.
 [ -x $HOME/.p9p/bin/p9plumb ] && $HOME/.p9p/bin/p9plumb start
-[ -f $HOME/.bashrc.d/functions ] && . $HOME/.bashrc.d/functions
