@@ -5,4 +5,4 @@ if(~ $#winid 0){
 	exit
 }
 echo -n '1,$' | 9p write acme/$winid/addr
-9p read acme/$winid/body | tab -n 4 -u | 9p write acme/$winid/data
+9p read acme/$winid/body | tab -n 4 -u | sed 's/ *$//g'|9p write acme/$winid/data
