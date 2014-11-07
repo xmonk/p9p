@@ -1,0 +1,37 @@
+#!/bin/sh
+
+set -e
+tmp=/tmp/acmefmt.$$
+trap "rm -f $tmp $tmp.1 $tmp.2" 0 1 2
+
+w() {
+        9p write acme/$winid/$1
+}
+r() {
+        9p read acme/$winid/$1
+}
+echo() {
+	$PLAN9/bin/echo $@
+}
+ctl() {
+        echo -n "$@" | w ctl
+}
+
+if  -z $winid; then
+	echo "Acme is not running"
+	exit
+fi
+
+wintag=$(r tag | sed 's/ .*//')
+r body >$tmp
+if ! goimports <$tmp >$tmp.1 2>$tmp.2; then
+        sed "s:^<standard input>:$wintag:" $tmp.2
+else
+        if ! cmp $tmp $tmp.1 >/dev/null; then
+                echo -n , | w addr
+                ctl dot=addr
+                cat $tmp.1 | w wrsel
+                echo -n 0 | w addr
+                ctl dot=addr
+        fi
+fi
