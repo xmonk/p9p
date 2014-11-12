@@ -1,0 +1,10 @@
+#!/usr/bin/env rc
+
+if(~ $winid 0){
+	echo "Acme is not running"
+	exit
+}
+
+addr=`{acmedot|sed 's/\,.*$//'}
+
+gorename -offset $addr -to $1
