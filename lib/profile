@@ -48,6 +48,3 @@ plan9=/usr/local/plan9
 path = ($plan9/bin /bin /usr/bin /usr/local/bin /sbin /usr/sbin /usr/local/sbin $home/bin $home/.p9p/bin)
 . $plan9/lib/acme.rc
 editor=E
-
-
-
