@@ -1,0 +1,41 @@
+diff -r d910a9a12fba src/cmd/devdraw/cocoa-screen.m
+--- a/src/cmd/devdraw/cocoa-screen.m	Fri Nov 07 22:52:31 2014 +0100
++++ b/src/cmd/devdraw/cocoa-screen.m	Thu Nov 13 22:51:41 2014 +0100
+@@ -98,7 +98,6 @@
+ 	[NSApplication sharedApplication];
+ 	[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
+ 	[NSApp setDelegate:[appdelegate new]];
+-	[NSApp activateIgnoringOtherApps:YES];
+ 	[NSApp run];
+ }
+ 
+@@ -345,6 +344,8 @@
+ 		initWithContentRect:r
+ 		styleMask:Winstyle
+ 		backing:NSBackingStoreBuffered defer:NO];
++	[w setTitle:@"devdraw"];
++
+ 	if(!set)
+ 		[w center];
+ #if OSX_VERSION >= 100700
+@@ -366,6 +367,8 @@
+ 	win.isofs = 0;
+ 	win.content = [contentview new];
+ 	[WIN setContentView:win.content];
++
++	topwin();
+ }
+ 
+ static Memimage*
+diff -r d910a9a12fba src/libdraw/string.c
+--- a/src/libdraw/string.c	Fri Nov 07 22:52:31 2014 +0100
++++ b/src/libdraw/string.c	Thu Nov 13 22:51:41 2014 +0100
+@@ -78,7 +78,7 @@
+ 	}else
+ 		rptr = &r;
+ 	sf = nil;
+-	while((*s || *r) && len){
++	while((*s || *r) && len > 0){
+ 		max = Max;
+ 		if(len < max)
+ 			max = len;
