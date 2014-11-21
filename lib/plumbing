@@ -43,7 +43,7 @@ plumb client $editor
 
 # Ocaml error messages
 type is text
-data matches data matches 'File "([.a-zA-Z¡-<U+FFFF>0-9_/\-]*[a-zA-Z¡-<U+FFFF>0-9_/\-])", line ([0-9]+)?'
+data matches 'File "([.a-zA-Z¡-<U+FFFF>0-9_/\-]*[a-zA-Z¡-<U+FFFF>0-9_/\-])", line ([0-9]+)?'
 data set        $file
 attr add        addr=$2
 plumb to edit
