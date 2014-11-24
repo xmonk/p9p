@@ -6,7 +6,7 @@
 export GS_FONTPATH=$PLAN9/postscript/font
 
 if [ $(uname -s) = Darwin ]; then
-	export BROWSER=safari
+	export BROWSER='Google Chrome'
 else
 	export BROWSER=firefox
 fi
@@ -52,8 +52,6 @@ if [ $TERM = dumb ]; then
 	export MPAGE="-t -bLetter"
 	# Get rid of backspace characters in Unix man output.
 	export PAGER=nobs
-else
-	export PAGER='less'
 fi
 
 # start your engines.
