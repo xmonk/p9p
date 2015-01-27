@@ -7,3 +7,6 @@ o.*
 *.o
 bin/acmedot
 bin/E2
+bin/Watchlog
+bin/acmego
+bin/rw
