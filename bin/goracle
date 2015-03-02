@@ -1,5 +1,20 @@
-#!/usr/bin/env rc
+#!/bin/bash
 
-addr=`{acmedot}
+set -e
 
-oracle -pos $addr $1 $2
+
+CMD="describe"
+
+if [ -n "$1" ]; then
+	CMD="$1"
+fi
+
+PKG=`go list`
+ADR=`acmedot`
+
+(oracle -pos "$ADR" "$CMD" "$PKG" | awk '
+	{
+		printf "%s\n", $1
+		$1=""
+		printf "%s\n---\n", $0
+	}') 2>&1 | plumb -i -d edit -a 'action=showdata filename=+oracle'
