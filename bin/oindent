@@ -1,0 +1,11 @@
+#!/usr/local/plan9/bin/rc
+
+if(~ $#winid 0){
+	echo "Acme is not running"
+	exit
+}
+echo -n '1,$'|9p write acme/$winid/addr
+9p read acme/$winid/body|ocp-indent|9p write acme/$winid/data
+echo -n '#0'|9p write acme/$winid/addr
+echo -n 'dot=addr'|9p write acme/$winid/ctl
+echo -n show|9p write acme/$winid/ctl
