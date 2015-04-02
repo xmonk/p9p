@@ -3,15 +3,15 @@
 cd $HOME
 
 if [ -f ~/.bashrc ]; then
-	. ~/.bashrc
+	  . ~/.bashrc
 fi
 
-set -e 
+set -e
 set -a args
 
 len()
 {
-	echo ${#args[*]}
+	  echo ${#args[*]}
 }
 
 PLAN9=${PLAN9:-/usr/local/plan9}
@@ -23,14 +23,14 @@ GEOMETRY=`echo $res | awk '{print $1"@1,86"}'`
 args[$(len)]="-a"
 
 if [ -f $HOME/acme.dump ]; then
-	args[$(len)]="-l $HOME/acme.dump"
+	  args[$(len)]="-l $HOME/acme.dump"
 elif [ -f $HOME/lib/acme/$H.dump ]; then
-	args[$(len)]="-l $HOME/lib/acme/$H.dump"
+	  args[$(len)]="-l $HOME/lib/acme/$H.dump"
 elif [ -f $HOME/$H.dump ]; then
-	args[$(len)]="-l $HOME/$H.dump"
+	  args[$(len)]="-l $HOME/$H.dump"
 else
-	[ ! -z $font ] && args[$(len)]="-f $font"
-	[ ! -z $fixedfont ] && args[$(len)]="-F $fixedfont"
+	  [ ! -z $font ] && args[$(len)]="-f $font"
+	  [ ! -z $fixedfont ] && args[$(len)]="-F $fixedfont"
 fi
 
 [ ! -z $GEOMETRY ] &&  args[$(len)]="-W $GEOMETRY"
