@@ -5,4 +5,4 @@ if(~ $winid 0){
 	exit
 }
 
-godef -acme -f $samfile $1
+godef -A -acme | plumb -i -d edit -a 'action=showdata filename=+godef'
