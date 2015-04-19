@@ -1,0 +1,29 @@
+Index: src/cmd/devdraw/cocoa-screen.m
+===================================================================
+--- a/src/cmd/devdraw/cocoa-screen.m
++++ b/src/cmd/devdraw/cocoa-screen.m
+@@ -877,9 +877,12 @@
+ updatecursor(void)
+ {
+ 	NSCursor *c;
++	NSRect rect;
+ 	int isdown, isinside;
+ 
+-	isinside = NSPointInRect(in.mpos, [win.content bounds]);
++	rect = [win.content bounds];
++	rect = dilate(scalerect(rect, win.topixelscale));
++	isinside = NSPointInRect(in.mpos, rect);
+ 	isdown = (in.mbuttons || in.kbuttons);
+ 
+ 	if(win.cursor && (isinside || isdown))
+@@ -1434,8 +1437,8 @@
+ 	r.origin.x *= scale;
+ 	r.origin.y *= scale;
+ 	r.size.width *= scale;
+-	 r.size.height *= scale;
+-	 return r;
++	r.size.height *= scale;
++	return r;
+ }
+ 
+ /*
