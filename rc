@@ -20,7 +20,8 @@ export prompt=";; 	"
 export user=$USER
 export EDITOR=/usr/local/plan9/bin/E
 # Set default font.
-export font=/lib/font/bit/lucsans/euro.8.font
+export font=/mnt/font/LucidaGrandeMono/13a/font
+#export font=/lib/font/bit/lucsans/euro.8.font
 export fixedfont=/lib/font/bit/lucm/unicode.9.font
 
 export NAMESPACE=/tmp/ns.$(hostname -s)
