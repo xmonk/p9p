@@ -6,7 +6,7 @@
 export GS_FONTPATH=$PLAN9/postscript/font
 
 if [ $(uname -s) = Darwin ]; then
-	  export BROWSER='Google Chrome'
+	  export BROWSER='Safari'
 else
 	  export BROWSER=firefox
 fi
