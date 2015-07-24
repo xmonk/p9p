@@ -1,0 +1,38 @@
+#!/usr/local/plan9/bin/rc
+
+# Given a python name foo.bar.baz, try to find that module in source.
+# Start relative to the current path; eventually, look up in stdlib.
+
+rfork en
+. 9.rc
+
+wdir=$1
+shift
+
+# Given args 'dir', 'foo' and 'bar', find 'foo/bar.py' in various dirs; stop at first hit.
+fn findfile {
+	cwd=$1
+	while(! ~ $cwd '') {
+		d=`{basename $cwd | tr -d '
+'}
+		if(~ $d $2) {
+			if(test -r $cwd^/^$3^.py) {
+				echo -n $cwd^/^$3^.py
+			}
+		}
+		cwd=`{basename -d $cwd | tr -d '
+'}
+	}
+}
+
+for (i in $*) {
+	ifs=' ' args=`{echo $i | tr . ' '}
+
+	dir=$args(1)
+	mod=$args(2)
+	def=`{echo $args(3) | tr -d '
+'}
+	file=`{findfile $wdir $dir $mod}
+	addr=`{echo -n 'addr=/^def.'^$def}
+	plumb -d edit -a $"addr $file
+}
