@@ -62,3 +62,15 @@ data set        $file
 attr add        addr=$2
 plumb to edit
 plumb client $editor
+
+# Find python modules.
+type is text
+data matches '([0-9A-Za-z]*)\.([0-9A-Za-z]*)\.([0-9A-Za-z]*)'
+plumb start apy $wdir $0
+
+# Open bitbucket PR.
+type is text
+data matches 'BBPR:([0-9A-Za-z]*)\:([0-9A-Za-z]*)\:([0-9]+)'
+data set https://bitbucket.org/$1/$2/pull-request/$3
+plumb to web
+plumb start web $data
