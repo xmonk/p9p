@@ -30,7 +30,7 @@ export NAMESPACE=/tmp/ns.$(hostname -s)
 
 if [ $TERM = dumb ]; then
 	_cd(){
-		\cd "$@" && {
+		\cd "$@" &&
 		case "TERM!$-" in
 		linux!*)
 			;;
