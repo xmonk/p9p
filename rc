@@ -6,9 +6,9 @@
 export GS_FONTPATH=$PLAN9/postscript/font
 
 if [ $(uname -s) = Darwin ]; then
-	  export BROWSER='Safari'
+	export BROWSER='Safari'
 else
-	  export BROWSER=firefox
+	export BROWSER=firefox
 fi
 
 # Prompt (is almost a no-op in bash)
@@ -29,26 +29,26 @@ export NAMESPACE=/tmp/ns.$(hostname -s)
 [ -d $NAMESPACE ] ||  mkdir $NAMESPACE
 
 if [ $TERM = dumb ]; then
-	  _cd(){
-		    \cd "$@" &&
-		        case "TERM!$-" in
-		            linux!*)
-			          ;;
-		            *!*i*)
-			              awd
-		        esac
+	_cd(){
+		\cd "$@" && {
+		case "TERM!$-" in
+		linux!*)
+			;;
+		 *!*i*)
+			awd
+		 esac
 	  }
-	  alias cd=_cd
-	  set +o emacs
-	  set +o vi
-	  set -a # autoexport
-	  unset PROMPT_COMMAND
-	  # Plumb files instead of starting new editor.
-	  unset FCEDIT VISUAL
-	  # Make sure mpage prints in letter mode.
-	  export MPAGE="-t -bLetter"
-	  # Get rid of backspace characters in Unix man output.
-	  export PAGER=nobs
+	alias cd=_cd
+	set +o emacs
+	set +o vi
+	set -a # autoexport
+	unset PROMPT_COMMAND
+	# Plumb files instead of starting new editor.
+	unset FCEDIT VISUAL
+	# Make sure mpage prints in letter mode.
+	export MPAGE="-t -bLetter"
+	# Get rid of backspace characters in Unix man output.
+	export PAGER=nobs
 fi
 
 # start your engines.
