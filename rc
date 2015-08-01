@@ -37,7 +37,7 @@ if [ $TERM = dumb ]; then
 		 *!*i*)
 			awd
 		 esac
-	  }
+	}
 	alias cd=_cd
 	set +o emacs
 	set +o vi
