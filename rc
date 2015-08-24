@@ -18,11 +18,7 @@ export H=`hostname | sed 's/\..*//'`
 export home=$HOME
 export prompt=";; 	"
 export user=$USER
-if [ -x $GOPATH/bin/E2 ]; then
-	export EDITOR=$GOPATH/bin/E2
-else
-	export EDITOR=/usr/local/plan9/bin/E
-fi
+export EDITOR=/usr/local/plan9/bin/E
 # Set default font.
 export font=/mnt/font/LucidaGrandeMono/13a/font
 #export font=/lib/font/bit/lucsans/euro.8.font
