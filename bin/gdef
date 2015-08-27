@@ -5,4 +5,8 @@ if(~ $winid 0){
 	exit
 }
 
-godef -A -acme | plumb -i -d edit -a 'action=showdata filename=+godef'
+dst = `{godef -acme | sed -n 2p}
+fname = `{echo $dst | cut -d ':' -f1}
+loc = `{echo $dst | cut -d ':' -s -f '2-'}
+
+plumb -d edit -a 'action=showfile addr='$loc $fname
