@@ -4,13 +4,7 @@
 
 # Let gs find the plan9port document fonts.
 export GS_FONTPATH=$PLAN9/postscript/font
-
-if [ $(uname -s) = Darwin ]; then
-	export BROWSER='Safari'
-else
-	export BROWSER=firefox
-fi
-
+export BROWSER=google-chrome
 # Prompt (is almost a no-op in bash)
 export H=`hostname | sed 's/\..*//'`
 
