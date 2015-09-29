@@ -4,30 +4,28 @@ set -e
 
 status()
 {
-    if [ -x $(which pidof)2>/dev/null ]; then
-		pid=$(pidof plumber)
-    else
-		pid=$(/bin/ps ax | grep plumber | grep -v grep | awk '{print $1}')
-    fi
+    pid=$(/bin/ps ax | grep plumber | grep -v grep | awk '{print $1}')
 
-    if [[ x$pid != x ]]; then
+    if [[ $pid ]]; then
 		echo $pid
     fi
     unset pid
 }
 
 start()
-{	
-	if [[ -z $(status) ]]; then
-		$PLAN9/bin/9 plumber
-	fi
-	return 0
+{
+    pid=$(status)	
+    if [ ! $pid ]; then
+        $PLAN9/bin/9 plumber
+        return $?
+    fi
+    return 0
 }
 
 stop()
 {
 	pid=$(status)
-	if [[ x$pid != x ]]; then
+	if [ $pid ]; then
 		/bin/kill -9 $pid 2> /dev/null
 	fi
 	unset pid
