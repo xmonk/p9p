@@ -4,17 +4,16 @@ set -e
 
 status()
 {
-    pid=$(/bin/ps ax | grep plumber | grep -v grep | awk '{print $1}')
+    ppid=$(/bin/ps ax | grep plumber | grep -v grep | awk '{print $1}')
 
-    if [[ $pid ]]; then
-		echo $pid
+    if [[ $ppid ]]; then
+		echo $ppid
     fi
-    unset pid
+    unset ppid
 }
 
 start()
 {
-    pid=$(status)	
     if [ ! $pid ]; then
         $PLAN9/bin/9 plumber
         return $?
@@ -24,7 +23,6 @@ start()
 
 stop()
 {
-	pid=$(status)
 	if [ $pid ]; then
 		/bin/kill -9 $pid 2> /dev/null
 	fi
@@ -32,23 +30,26 @@ stop()
 	return $?
 }
 
+PLAN9=${PLAN9:-/usr/local/plan9}
 
 if [ ! -x $PLAN9/bin/plumber ]; then
-	echo 2>&1 "Error: plumber does not exist, you might need to build $PLAN9"
+	echo 2>&1 "Error: plumber does not exist, you might need to build plan9port"
 	exit 1
 fi
 
+pid=$(status)
+
 case $1 in
-	start) 
+	start)
 		start;;
-	stop) 
+	stop)
 		stop;;
-	status) 
-		status;;
+	status)
+		echo "$pid";;
 	restart)
 		stop
 		start;;
-	*) 
+	*)
 		echo 2>&1 "p9plumb [start | stop | restart | status ]"
 		exit 1;;
 esac
