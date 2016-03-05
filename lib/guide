@@ -13,9 +13,6 @@ Edit s/^#//g
 Edit ,s/	/    /g  # cleanup for python pep8 compliance
 git diff
 Load /Users/jj/.p9p/lib/acme/acme.dump
-Load /Users/jj/lib/acme/gxfw.dump
-Load /Users/jj/lib/acme/ruby.dump
-Load /Users/jj/lib/acme/gxs3dep.dump
 Edit X/filename/ ,s/some/thing/g
 Edit .+#0/old/c/new/
 # sed uses & as placeholder for args passed.
