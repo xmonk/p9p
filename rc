@@ -12,7 +12,7 @@ export H=`hostname | sed 's/\..*//'`
 export home=$HOME
 export prompt=";; 	"
 export user=$USER
-export EDITOR=/usr/local/plan9/bin/E
+export EDITOR=/usr/local/plan9/bin/B
 # Set default font.
 export font=/mnt/font/LucidaGrande/13a/font
 export fixedfont=/mnt/font/LucidaGrandeMono/13a/font
