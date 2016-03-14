@@ -12,9 +12,9 @@ fi
 PKG=`go list`
 ADR=`acmedot`
 
-(oracle -pos "$ADR" "$CMD" "$PKG" | awk '
+(guru -scope "$PKG" "$CMD" "$ADR"  | awk '
 	{
 		printf "%s\n", $1
 		$1=""
 		printf "%s\n---\n", $0
-	}') 2>&1 | plumb -i -d edit -a 'action=showdata filename=+oracle'
+	}') 2>&1 | plumb -i -d edit -a 'action=showdata filename=+guru'
