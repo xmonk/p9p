@@ -1,5 +1,6 @@
-This is my personal plan9port configuration. It should work in all platforms
-supported by plan9port. To install just do:
+This is my personal plan9port configuration. It should work in all
+platforms supported by plan9port. To install just do:
+
 
 	cd $HOME
 	git clone https://github.com/xmonk/p9p.git .p9p
@@ -11,10 +12,8 @@ Then add the following to your .bashrc:
 	fi
 
 	. $HOME/.bashrc
+	./.p9p/install    # Optional.
 
-All should be good to go. If you're using OS X then one more step to install
-Acme.app and Sam.app.
-
-	./.p9p/osx.install
-
-Now you'll be able to use Acme, Sam, and 9term like any other mac app.
+If you're using OS X the install script will install Acme.app and
+Sam.app in /Applications. It will download and install a few useful
+tools from github.com.
