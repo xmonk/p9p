@@ -44,4 +44,3 @@ data set        $file
 attr add        addr=$2
 plumb to edit
 plumb client $editor
-
