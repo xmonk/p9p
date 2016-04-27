@@ -33,13 +33,12 @@ fi
 [ ! -d $base/cmd/devdrawserver ] && {
 	cd $base/cmd/
 	git clone ssh://git@github.com/mariusae/devdrawserver.git
-	cd $base/cmd/devdrawser && mk install && mk clean
 }
+cd $base/cmd/devdrawser && mk install && mk clean
 
 [ ! -d $base/cmd/gitfiles ] && {
 	cd $base/cmd/
 	git clone ssh://git@github.com/mariusae/gitfiles.git
-	cd $base/cmd/gitfiles && mk install && mk clean
 }
-
+cd $base/cmd/gitfiles && mk install && mk clean
 cd $base
