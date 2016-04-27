@@ -1,0 +1,10 @@
+#!/usr/local/plan9/bin/rc
+
+. $HOME/lib/profile
+
+if(test -f  $HOME/acme.dump){
+	DISPLAY=:0 DEVDRAW=devdrawserver acme -l $HOME/acme.dump $*
+} 
+if not {
+	DISPLAY=:0 DEVDRAW=devdrawserver acme -f $font $*
+}
