@@ -34,7 +34,7 @@ fi
 	cd $base/cmd/
 	git clone ssh://git@github.com/mariusae/devdrawserver.git
 }
-cd $base/cmd/devdrawser && mk install && mk clean
+cd $base/cmd/devdrawserver && mk install && mk clean
 
 [ ! -d $base/cmd/gitfiles ] && {
 	cd $base/cmd/
