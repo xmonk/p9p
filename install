@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-base=$HOME/.p9p2
+base=$HOME/.p9p
 
 install_darwin()
 {
