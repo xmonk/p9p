@@ -1,0 +1,78 @@
+diff --git a/src/cmd/devdraw/cocoa-screen.m b/src/cmd/devdraw/cocoa-screen.m
+index fc73814..f65f653 100644
+--- a/src/cmd/devdraw/cocoa-screen.m
++++ b/src/cmd/devdraw/cocoa-screen.m
+@@ -37,8 +37,12 @@ int usegestures = 0;
+ int useliveresizing = 0;
+ int useoldfullscreen = 0;
+ int usebigarrow = 0;
++int pressurestage = 0;
++int stagebuttons = 0;
+
+ static void setprocname(const char*);
++static void sendclick(int);
++
+
+ /*
+  * By default, devdraw uses retina displays.
+@@ -786,6 +790,35 @@ static void updatecursor(void);
+ {
+        gettouch(e, NSTouchPhaseCancelled);
+ }
++
++- (void)pressureChangeWithEvent:(NSEvent *)e
++{
++       if(pressurestage == 1 && e.stage == 2){
++               switch(stagebuttons = in.mbuttons){
++               case 1:
++                       in.mbuttons = 0;
++                       sendmouse();
++                       in.mbuttons = 4;
++                       sendmouse();
++                       break;
++               case 2:
++                       in.mbuttons |= 1;
++                       sendmouse();
++               default:
++                       break;
++               }
++       }else if(pressurestage == 2 && e.stage == 1){
++               if(stagebuttons != 0){
++                       in.mbuttons = 0;
++                       sendmouse();
++                       in.mbuttons = stagebuttons;
++               }
++               stagebuttons = 0;
++       }
++
++       pressurestage = e.stage;
++}
++
+ @end
+
+ static int keycvt[] =
+@@ -1057,7 +1090,6 @@ getgesture(NSEvent *e)
+        }
+ }
+
+-static void sendclick(int);
+
+ static uint
+ msec(void)
+@@ -1072,7 +1104,7 @@ gettouch(NSEvent *e, int type)
+        static uint taptime;
+        NSSet *set;
+        int p;
+-
++
+        switch(type){
+        case NSTouchPhaseBegan:
+                p = NSTouchPhaseTouching;
+@@ -1126,6 +1158,7 @@ sendmouse(void)
+        mouserect = Rect(0, 0, size.width, size.height);
+
+        b = in.kbuttons | in.mbuttons | in.mscroll;
++
+        mousetrack(in.mpos.x, in.mpos.y, b, msec());
+        in.mscroll = 0;
+ }
