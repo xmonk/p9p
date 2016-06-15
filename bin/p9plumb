@@ -33,7 +33,7 @@ stop()
 PLAN9=${PLAN9:-/usr/local/plan9}
 
 if [ ! -x $PLAN9/bin/plumber ]; then
-	echo 2>&1 "Error: plumber does not exist, you might need to build plan9port"
+	#echo 2>&1 "Error: plumber does not exist, you might need to build plan9port"
 	exit 1
 fi
 
