@@ -4,5 +4,13 @@ if(~ $#winid 0){
 	echo "Acme is not running."
 	exit
 }
+
+if(test -f $home/.venv/bin/yapf)
+	yapf=$home/.venv/bin/yapf
+if not {
+	yapf=tab -n 4 -u
+}
+
 echo -n '1,$' | 9p write acme/$winid/addr
-9p read acme/$winid/body | tab -n 4 -u | sed 's/ *$//g'|9p write acme/$winid/data
+9p read acme/$winid/body | $yapf | 9p write acme/$winid/data
+exit 0
