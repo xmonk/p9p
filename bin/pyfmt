@@ -6,7 +6,7 @@ if(~ $#winid 0){
 }
 
 if(test -f $home/.venv/bin/yapf)
-	yapf=$home/.venv/bin/yapf
+	yapf=yapf
 if not {
 	yapf=tab -n 4 -u
 }
