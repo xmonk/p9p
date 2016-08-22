@@ -15,5 +15,5 @@ Then add the following to your .bashrc:
 	./.p9p/install    # Optional.
 
 If you're using OS X the install script will install Acme.app and
-Sam.app in /Applications. It will download and install a few useful
+Sam.app in $HOME/Applications. It will download and install a few useful
 tools from github.com.
