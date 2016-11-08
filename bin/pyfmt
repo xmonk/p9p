@@ -4,11 +4,13 @@ if(~ $#winid 0){
 	echo "Acme is not running."
 	exit
 }
+yapf=$home/Library/Python/2.7/bin/yapf
+tab=$PLAN9/bin/tab
 
-if(test -f $home/.venv/bin/yapf)
-	yapf=yapf
+if(test -f $yapf)
+	yapf=$home/Library/Python/2.7/bin/yapf
 if not {
-	yapf=tab -n 4 -u
+	yapf=$tab -n 4 -u
 }
 
 echo -n '1,$' | 9p write acme/$winid/addr
