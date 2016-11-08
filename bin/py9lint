@@ -1,6 +1,6 @@
 #!/usr/bin/env rc
 
-flake=flake8
+flake=$home/Library/Python/2.7/bin/flake8
 
 if(~ $#winid 0){
 	echo "py9lint: Acme is not running."
