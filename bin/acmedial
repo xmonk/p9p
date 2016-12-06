@@ -3,7 +3,7 @@
 DEFAULTHOST=xmonk
 
 _connection() {
-	ssh -n -f $1 '$(nohup /home/jj/.p9p/bin/acmeremote)'
+	ssh -n -f $1 '$(nohup $HOME/.p9p/bin/acmeremote)'
 	9 dialdevdraw 'ssh '$1' 9 dial -e unix!/tmp/devdrawserver'&
 }
 
