@@ -12,7 +12,9 @@ export H=`hostname | sed 's/\..*//'`
 export home=$HOME
 export prompt=";; 	"
 export user=$USER
-export EDITOR=/usr/local/plan9/bin/B
+export EDITOR=/usr/local/plan9/bin/E
+export font=/mnt/font/LucidaGrande/14a/font,/mnt/font/LucidaGrande/28a/font
+export fixedfont=/mnt/font/LucidaGrandeMono/13a/font,/mnt/font/LucidaGrandeMono/26a/font
 export NAMESPACE=/tmp/ns.$(hostname -s)
 # if $NAMESPACE doesn't exist, we need to create it.
 [ -d $NAMESPACE ] ||  mkdir $NAMESPACE
