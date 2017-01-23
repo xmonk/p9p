@@ -14,7 +14,7 @@ ctl() {
         $PLAN9/bin/echo -n "$@" | w ctl
 }
 
-if  -z $winid; then
+if [ -z $winid ]; then
 	echo "Acme is not running"
 	exit
 fi
