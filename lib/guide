@@ -83,3 +83,5 @@ Edit .x/$/i/ ->
 
 Edit .=#
 Edit .=
+
+Edit /`/-+ x/`/c/‘/  Select line with matching character and replace the matching character on the selected line.
