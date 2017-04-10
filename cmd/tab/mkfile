@@ -1,7 +1,0 @@
-<$PLAN9/src/mkhdr
-
-TARG=tab
-
-OFILES=tab.$O
-
-<$PLAN9/src/mkone
