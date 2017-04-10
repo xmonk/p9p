@@ -26,10 +26,7 @@ if [ $(uname -s) = Darwin ]; then
 	install_darwin
 fi
 
-# Get devdrawserver and gitfiles
-[ -d $base/cmd/tab ] && {
-	cd $base/cmd/tab && mk install && mk clean
-}
+# Get devdrawserver
 
 [ ! -d $base/cmd/devdrawserver ] && {
 	cd $base/cmd/
@@ -37,14 +34,6 @@ fi
 }
 
 cd $base/cmd/devdrawserver && mk install && mk clean
-
-[ ! -d $base/cmd/gitfiles ] && {
-	cd $base/cmd/
-	git clone ssh://git@github.com/mariusae/gitfiles.git
-}
-
-cd $base/cmd/gitfiles && mk install && mk clean
-cd $base
 
 [ ! -x $base/bin/acmedot ] && {
 	cd $base/cmd
