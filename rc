@@ -13,8 +13,10 @@ export home=$HOME
 export prompt=";; 	"
 export user=$USER
 export EDITOR=/usr/local/plan9/bin/E
-export font=/mnt/font/LucidaGrande/14a/font,/mnt/font/LucidaGrande/28a/font
-export fixedfont=/mnt/font/LucidaGrandeMono/13a/font,/mnt/font/LucidaGrandeMono/26a/font
+#export font=/lib/font/bit/lucsans/euro.8.font
+#export fixedfont=/lib/font/bit/lucm/unicode.9.font
+export font=/mnt/font/LucidaGrandeMono/13a/font,/mnt/font/LucidaGrandeMono/26a/font
+export fixedfont=/mnt/font/LucidaGrande/13a/font,/mnt/font/LucidaGrande/26a/font
 export NAMESPACE=/tmp/ns.$(hostname -s)
 # if $NAMESPACE doesn't exist, we need to create it.
 [ -d $NAMESPACE ] ||  mkdir $NAMESPACE
@@ -40,6 +42,7 @@ if [ $TERM = dumb ]; then
 	export MPAGE="-t -bLetter"
 	# Get rid of backspace characters in Unix man output.
 	export PAGER=nobs
+	export IPY_TEST_SIMPLE_PROMPT=1
 fi
 
 # start your engines.
