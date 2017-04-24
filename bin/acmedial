@@ -1,14 +1,16 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+set -e
 
 DEFAULTHOST=xmonk
 
 _connection() {
-	ssh -n -f $1 '$(nohup $HOME/.p9p/bin/acmeremote)'
-	9 dialdevdraw 'ssh '$1' 9 dial -e unix!/tmp/devdrawserver'&
+	ssh -n -f "$1" '$(nohup "$HOME"/.p9p/bin/acmeremote)'
+	9 dialdevdraw "ssh $1 9 dial -e unix!/tmp/devdrawserver"&
 }
 
 if [ ! "$1" ]; then
-	_connection $DEFAULTHOST
+	_connection "$DEFAULTHOST"
 else
-	_connection $1
+	_connection "$1"
 fi

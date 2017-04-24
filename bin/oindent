@@ -1,4 +1,6 @@
-#!/usr/local/plan9/bin/rc
+#!/usr/bin/env rc
+
+#ocp-indent wrapper
 
 if(~ $#winid 0){
 	echo "Acme is not running"

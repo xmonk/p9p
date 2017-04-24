@@ -1,16 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 usage(){ 
 	echo "setup_imap [imap.server.uri user]" 
 }
 
 ! [ $# = 2 ] && usage && exit 0
-[ -z $1 -o -z $2 ] && usage && exit 0
-if [ -z `pidof factotum` ]; then
+[ -z "$1" ] || [ -z "$2" ] && usage && exit 0
+if [ -z "$(pidof factotum)" ]; then
 	echo "Starting factotum"
 	echo "Run: 9 factotum -g 'proto=pass service=imap server=$1 user=$2 !password?'"
 fi
 
-if [ -z `pidof mailfs` ]; then
+if [ -z "$(pidof mailfs)" ]; then
 	echo "Run: 9 mailfs $1"
 fi

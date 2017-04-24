@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 export PLAN9=export PLAN9=${PLAN9:-/usr/local/plan9}
@@ -15,7 +15,7 @@ elif [[ -z $font && ! -z $fixedfont ]]; then
 fi
 
 # setup screen geometry
-if [ ! -z $GEOMETRY ]; then
+if [ ! -z "$GEOMETRY" ]; then
 	ACME_ARGS=$ACME_ARGS" -W $GEOMETRY"
 fi
 
@@ -34,28 +34,28 @@ usage()
 
 acme_plain()
 {
-	$PLAN9/bin/9 acme $ACME_ARGS
+	$PLAN9/bin/9 acme "$ACME_ARGS"
 }
 
 acme_loaded()
 {
-	$PLAN9/bin/9 acme $ACME_ARGS -l $1
+	$PLAN9/bin/9 acme "$ACME_ARGS" -l "$1"
 }
 
 load_run()
 {
 	case $1 in
 	code)
-		if [ -f $ACME/default.dump ]; then
-			acme_loaded $ACME/default.dump
+		if [ -f "$ACME"/default.dump ]; then
+			acme_loaded "$ACME"/default.dump
 		else
 			acme_plain
 		fi
 		;;
 	python)
 	
-		if [ -f $ACME/python.dump ]; then
-			acme_loaded $ACME/python.dump
+		if [ -f "$ACME"/python.dump ]; then
+			acme_loaded "$ACME"/python.dump
 		else
 			acme_plain
 		fi

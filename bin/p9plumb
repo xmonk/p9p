@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -7,15 +7,15 @@ status()
     ppid=$(/bin/ps ax | grep plumber | grep -v grep | awk '{print $1}')
 
     if [[ $ppid ]]; then
-		echo $ppid
+		echo "$ppid"
     fi
     unset ppid
 }
 
 start()
 {
-    if [ ! $pid ]; then
-        $PLAN9/bin/9 plumber
+    if [ ! "$pid" ]; then
+        "$PLAN9"/bin/9 plumber
         return $?
     fi
     return 0
@@ -24,7 +24,7 @@ start()
 stop()
 {
 	if [[ $pid ]]; then
-		/bin/kill -9 $pid 2> /dev/null
+		/bin/kill -9 "$pid" 2> /dev/null
 	fi
 	unset pid
 	return $?
@@ -32,7 +32,7 @@ stop()
 
 PLAN9=${PLAN9:-/usr/local/plan9}
 
-if [ ! -x $PLAN9/bin/plumber ]; then
+if [ ! -x "$PLAN9"/bin/plumber ]; then
 	#echo 2>&1 "Error: plumber does not exist, you might need to build plan9port"
 	exit 1
 fi

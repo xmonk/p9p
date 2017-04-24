@@ -1,25 +1,25 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 set -e
 
 w() {
-        9p write acme/$winid/$1
+        9p write acme/"$winid"/"$1"
 }
 
 r() {
-        9p read acme/$winid/$1
+        9p read acme/"$winid"/"$1"
 }
 
 ctl() {
-        $PLAN9/bin/echo -n "$@" | w ctl
+        "$PLAN9"/bin/echo -n "$@" | w ctl
 }
 
-if [ -z $winid ]; then
+if [ -z "$winid" ]; then
 	echo "Acme is not running"
 	exit
 fi
 
-$PLAN9/bin/echo -n Edit ,d | w body
-$PLAN9/bin/echo -n /Edit ,d/ | w addr
+"$PLAN9"/bin/echo -n Edit ,d | w body
+"$PLAN9"/bin/echo -n /Edit ,d/ | w addr
 ctl dot=addr
 r addr | awk '{printf("MX%s %s\n", $1, $2)}' | w event

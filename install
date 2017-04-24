@@ -1,44 +1,44 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
-base=$HOME/.p9p
+
+base="$HOME"/.p9p
 
 install_darwin()
 {
 	# Copy Plumb.app acme.app and 9term.app to $HOME/Applications
-	for i in $PLAN9/mac/Plumb.app $PLAN9/mac/9term.app $base/bin/Acme.app $base/bin/Sam.app; do
-		if [ ! -d $HOME/Applications/$(basename $i) ]; then
-			echo "Installing $i in $HOME/Applications/$(basename $i)"
-			cp -r $i $HOME/Applications
+	for i in "$PLAN9"/mac/Plumb.app "$PLAN9"/mac/9term.app $base/bin/Acme.app $base/bin/Sam.app; do
+		if [ ! -d "$HOME"/Applications/"$(basename "$i")" ]; then
+			echo "Installing $i in $HOME/Applications/$(basename "$i")"
+			cp -r "$i" "$HOME"/Applications
 		else
-			echo "$HOME/Applications/$(basename $i) already exists.. skipping"
+			echo "$HOME/Applications/$(basename "$i") already exists.. skipping"
 		fi
 	done
 }
 
-if [ ! -d $base ]; then
+if [ ! -d "$base" ]; then
 	echo "$base not found or doesn't exist, please set \$base in $0 to the correct path"
 	exit 2
 fi
 
-if [ $(uname -s) = Darwin ]; then
-	mkdir -p $HOME/Applications
+if [ "$(uname -s)" = "Darwin" ]; then
+	mkdir -p "$HOME"/Applications
 	install_darwin
 fi
 
 # Get devdrawserver
 
-[ ! -d $base/cmd/devdrawserver ] && {
-	cd $base/cmd/
+[ ! -d "$base"/cmd/devdrawserver ] && {
+	cd "$base"/cmd/
 	git clone ssh://git@github.com/mariusae/devdrawserver.git
 }
 
-cd $base/cmd/devdrawserver && mk install && mk clean
+cd "$base"/cmd/devdrawserver && mk install && mk clean
 
-[ ! -x $base/bin/acmedot ] && {
-	cd $base/cmd
-	go build acmedot.go
-	mv acmedot $base/bin/
+[ ! -x "$base"/bin/acmedot ] && {
+	cd "$base"/cmd
+	go build acmedot.go && mv acmedot $base/bin/
 }
 
-cd $base
+cd "$base"

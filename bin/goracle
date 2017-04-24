@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -9,8 +9,8 @@ if [ -n "$1" ]; then
 	CMD="$1"
 fi
 
-PKG=`go list`
-ADR=`acmedot`
+PKG=$(go list)
+ADR=$(acmedot)
 
 (guru -scope "$PKG" "$CMD" "$ADR"  | awk '{ 
 	printf "%s\n", $1

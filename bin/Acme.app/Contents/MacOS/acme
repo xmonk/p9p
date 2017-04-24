@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-cd $HOME
+cd "$HOME" || exit -1
 
-if [ -f ~/.bashrc ]; then
-	  . ~/.bashrc
+if [ -f  "$HOME"/.bashrc ]; then
+	. "$HOME"/.bashrc
 fi
 
 set -e
@@ -11,30 +11,23 @@ set -a args
 
 len()
 {
-	  echo ${#args[*]}
+	echo "${#args[*]}"
 }
 
 PLAN9=${PLAN9:-/usr/local/plan9}
 tabstop=4
 p9plumb start
-#res=$(/usr/sbin/system_profiler SPDisplaysDataType | grep Resolution | awk '{print $2$3$4}')
-#GEOMETRY=`echo $res | awk '{print $1"@1,86"}'`
 
 args[$(len)]="-a"
 
-if [ -f $HOME/acme.dump ]; then
-	  args[$(len)]="-l $HOME/acme.dump"
-elif [ -f $HOME/lib/acme/$H.dump ]; then
-	  args[$(len)]="-l $HOME/lib/acme/$H.dump"
-elif [ -f $HOME/$H.dump ]; then
-	  args[$(len)]="-l $HOME/$H.dump"
+if [ -f "$HOME"/acme.dump ]; then
+	args[$(len)]="-l $HOME/acme.dump"
 else
-	  [ ! -z $font ] && args[$(len)]="-f $font"
-	  [ ! -z $fixedfont ] && args[$(len)]="-F $fixedfont"
+	[ ! -z "$font" ] && args[$(len)]="-f $font"
+	[ ! -z "$fixedfont" ] && args[$(len)]="-F $fixedfont"
 fi
 
-[ ! -z $GEOMETRY ] &&  args[$(len)]="-W $GEOMETRY"
-[ $(len) = "0" ] && unset args
+[ "$(len)" = "0" ] && unset args
 
 acme ${args[*]}
 unset args

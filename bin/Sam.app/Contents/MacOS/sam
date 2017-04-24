@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-cd $HOME
+cd "$HOME"
 
-if [ -f ~/.bashrc ]; then
-	. ~/.bashrc
+if [ -f "$HOME"/.bashrc ]; then
+	. "$HOME"/.bashrc
 fi
 
 set -e
