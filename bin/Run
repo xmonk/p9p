@@ -1,21 +1,21 @@
 #!/usr/bin/env rc 
 
 if(! ~ $#* 1) { 
-        echo 'usage: Run title' >[1=2] 
-        exit 1 
+	echo 'usage: Run title' >[1=2] 
+	exit 1 
 } 
 
 id=`{awk -v 'pat='$1 '$6 ~ pat {print $1}' <{9p read acme/index}} 
 if(~ $#id 0) { 
-        echo 'no match for pattern' >[1=2] 
-        exit 2 
+	echo 'no match for pattern' >[1=2] 
+	exit 2 
 } 
 if(! ~ $#id 1) { 
-        echo 'ambiguous pattern' >[1=2] 
-        exit 3 
+	echo 'ambiguous pattern' >[1=2] 
+	exit 3 
 } 
 if(~ `{wc -w <{9p read acme/$id/rdsel}} 0) { 
-        echo 'no command selected' >[1=2] 
-        exit 4 
+	echo 'no command selected' >[1=2] 
+	exit 4 
 } 
 exec /usr/bin/env rc <{9p read acme/$id/rdsel;echo;}

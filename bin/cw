@@ -3,15 +3,15 @@
 set -e
 
 w() {
-        9p write acme/"$winid"/"$1"
+	9p write acme/"$winid"/"$1"
 }
 
 r() {
-        9p read acme/"$winid"/"$1"
+	9p read acme/"$winid"/"$1"
 }
 
 ctl() {
-        "$PLAN9"/bin/echo -n "$@" | w ctl
+	"$PLAN9"/bin/echo -n "$@" | w ctl
 }
 
 if [ -z "$winid" ]; then

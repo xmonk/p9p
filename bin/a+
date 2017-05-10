@@ -1,6 +1,6 @@
 #!/usr/bin/env rc
 
 if(~ $#* 0){
-    * = '	'    # tab
+	* = '	'    # tab
 }
 sed 's!^!'^$1^!
