@@ -31,12 +31,7 @@ if [ $TERM = dumb ]; then
 			awd
 		 esac
 	}
-	_br(){
-		cmd=$1;shift
-		pkg="$@"
-		brew $cmd $pkg|nobs
-	}
-	alias brew=_br
+
 	alias cd=_cd
 	set +o emacs
 	set +o vi
@@ -52,6 +47,12 @@ if [ $TERM = dumb ]; then
 	if [ -x /usr/local/bin/brew ]; then
 		export HOMEBREW_NO_EMOJI=1
 		export HOMEBREW_INSTALL_BADGE=''
+		_br(){
+			cmd=$1;shift
+			pkg="$@"
+			brew $cmd $pkg|nobs
+		}
+		alias brew=_br
 	fi
 fi
 
