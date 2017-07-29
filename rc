@@ -5,6 +5,7 @@
 # Let gs find the plan9port document fonts.
 export GS_FONTPATH=$PLAN9/postscript/font
 export BROWSER=google-chrome
+
 # Prompt (is almost a no-op in bash)
 export H=`hostname | sed 's/\..*//'`
 
@@ -15,11 +16,13 @@ export user=$USER
 export EDITOR=/usr/local/plan9/bin/E
 #export font=/lib/font/bit/lucsans/euro.8.font
 #export fixedfont=/lib/font/bit/lucm/unicode.9.font
-export font=/mnt/font/LucidaGrandeMono/13a/font,/mnt/font/LucidaGrandeMono/26a/font
+#export font=/mnt/font/LucidaGrandeMono/13a/font,/mnt/font/LucidaGrandeMono/26a/font
+export font=/mnt/font/SFMono-Semibold/13a/font,/mnt/font/SFMono-Semibold/26a/font
 export fixedfont=/mnt/font/LucidaGrande/13a/font,/mnt/font/LucidaGrande/26a/font
-export NAMESPACE=/tmp/ns.$(hostname -s)
+export NAMESPACE=/tmp/ns.$H
+
 # if $NAMESPACE doesn't exist, we need to create it.
-[ -d $NAMESPACE ] ||  mkdir $NAMESPACE
+[ -d $NAMESPACE ] || mkdir $NAMESPACE
 
 if [ $TERM = dumb ]; then
 	_cd(){
@@ -31,7 +34,6 @@ if [ $TERM = dumb ]; then
 			awd
 		 esac
 	}
-
 	alias cd=_cd
 	set +o emacs
 	set +o vi
