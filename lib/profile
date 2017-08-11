@@ -43,7 +43,7 @@ fn up {
 	cd $wd; wd = ()
 }
 
-prompt=':; '
+prompt='% '
 plan9=/usr/local/plan9
 path = (/bin /usr/bin /usr/local/bin /sbin /usr/sbin /usr/local/sbin $plan9/bin $home/bin $home/.p9p/bin)
 manpath = (/usr/man /usr/share/man /usr/local/man /usr/local/share/man $plan9/man)
