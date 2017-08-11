@@ -4,7 +4,7 @@
 
 # Let gs find the plan9port document fonts.
 export GS_FONTPATH=$PLAN9/postscript/font
-export BROWSER=google-chrome
+export BROWSER=safari
 
 # Prompt (is almost a no-op in bash)
 export H=`hostname | sed 's/\..*//'`
