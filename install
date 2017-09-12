@@ -27,6 +27,14 @@ if [ "$(uname -s)" = "Darwin" ]; then
 	install_darwin
 fi
 
+# Install devdrawserver
+[ ! -d "$base"/cmd/devdrawserver ] && {
+	cd "$base"/cmd/
+	git clone ssh://git@github.com/mariusae/devdrawserver.git
+}
+
+cd "$base"/cmd/devdrawserver && mk install && mk clean
+
 [ ! -x "$base"/bin/acmedot ] && {
 	cd "$base"/cmd
 	go build acmedot.go && mv acmedot $base/bin/
