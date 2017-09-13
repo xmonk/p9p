@@ -1,11 +1,11 @@
 #!/usr/bin/env rc
 
-flake=$home/Library/Python/2.7/bin/flake8
-
 if(~ $#winid 0){
 	echo "py9lint: Acme is not running."
 	exit
 }
+
+flake=`{which flake8}
 
 if(test -f $flake){
 	$flake $%
