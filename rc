@@ -35,6 +35,7 @@ if [ $TERM = dumb ]; then
 		 esac
 	}
 	alias cd=_cd
+	alias cls=cw
 	set +o emacs
 	set +o vi
 	set -a # autoexport
