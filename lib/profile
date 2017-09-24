@@ -49,7 +49,3 @@ path = (/bin /usr/bin /usr/local/bin /sbin /usr/sbin /usr/local/sbin $plan9/bin 
 manpath = (/usr/man /usr/share/man /usr/local/man /usr/local/share/man $plan9/man)
 . $plan9/lib/acme.rc
 editor=/usr/local/plan9/bin/E
-font=/mnt/font/SFMono-Semibold/13a/font,/mnt/font/SFMono-Semibold/26a/font
-#font=/mnt/font/LucidaGrandeMono/13a/font,/mnt/font/LucidaGrandeMono/26a/font
-fixedfont=/mnt/font/LucidaGrande/13a/font,/mnt/font/LucidaGrande/26a/font
-
