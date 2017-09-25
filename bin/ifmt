@@ -1,0 +1,57 @@
+#!/bin/bash
+
+norm()
+{
+	awk '
+	/^import/ {
+		if(current) print current
+		current = $0
+	}
+	$0 !~ /^import/ {
+		current = current $0
+	}
+
+	END{
+		if(current) print current
+	}'
+}
+
+ifmt()
+{
+	awk '
+	length > 100 && /{/ {
+		i = index($0, "{")
+		pre = substr($0, 1, i)
+		post = substr($0, i+1, length($0))
+		sub("}.*$", "", post)
+		gsub(" +", " ", post)
+
+		line = pre
+		n=split(post, fs, ", *")
+		for(i in fs){
+			sub("^ +", "", fs[i])
+			sub(" +$", "", fs[i])
+		}
+		asort(fs)
+		print line
+		line = "  "
+		for(i=1; i<=n; i++){
+			# if empty, continue, and n--?
+			line = line fs[i]
+			if(i!=n)
+				line = line ", "
+			if(i==n){
+				print line "}"
+			#	print "}"
+			} else if(length(line) > 70){
+				print line
+				line = "  "
+			}
+		}
+		next;
+	}
+	{print}
+	'
+}
+
+norm|sort|ifmt
