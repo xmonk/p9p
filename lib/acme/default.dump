@@ -1,13 +1,11 @@
-/Users/jj/lib/acme
+/Users/jj
 /lib/font/bit/lucsans/euro.8.font
 /lib/font/bit/lucm/unicode.9.font
-  0.0000000  59.9638772
+  0.0000000  59.9893447
 w Newcol Kill Putall Dump Exit 
 c          0 New Cut Paste Snarf Sort Zerox Delcol 
-c          1 New Cut Paste Snarf Sort Zerox Delcol 
-F          0           0           0           0   1.3711152           0 
-          2          18           0           0           0  Del Snarf | Look 
-f          1           1           0           0   1.3711152 
-          1          71          58           1           0 /Users/jj/lib/acme/ Del Snarf Get | Look Edit = Edit s/^/#/ Edit s/^#//
-f          1           5           0           0   5.2102377 
-          5          32         431           1           0 /Users/jj/ Del Snarf Get | Look 
+c          1 New Cut Paste Snarf Sort Zerox Delcol
+e          1           0           0           0   1.4035088 
+          2          40        1306           0           1 /Users/jj/-quorra Del Snarf | Look  Send
+/Users/jj/
+win
