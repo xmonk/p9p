@@ -1,7 +1,6 @@
 #!/bin/bash
 
-norm()
-{
+norm() {
 	awk '
 	/^import/ {
 		if(current) print current
@@ -16,8 +15,7 @@ norm()
 	}'
 }
 
-ifmt()
-{
+ifmt() {
 	awk '
 	length > 100 && /{/ {
 		i = index($0, "{")

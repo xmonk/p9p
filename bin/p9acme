@@ -32,18 +32,15 @@ usage()
 	EOF
 }
 
-acme_plain()
-{
+acme_plain() {
 	$PLAN9/bin/9 acme "$ACME_ARGS"
 }
 
-acme_loaded()
-{
+acme_loaded() {
 	$PLAN9/bin/9 acme "$ACME_ARGS" -l "$1"
 }
 
-load_run()
-{
+load_run() {
 	case $1 in
 	code)
 		if [ -f "$ACME"/default.dump ]; then

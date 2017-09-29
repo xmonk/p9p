@@ -2,8 +2,7 @@
 
 set -e
 
-status()
-{
+status() {
 	ppid=$(/bin/ps ax | grep plumber | grep -v grep | awk '{print $1}')
 
 	if [[ $ppid ]]; then
@@ -12,8 +11,7 @@ status()
 	unset ppid
 }
 
-start()
-{
+start() {
 	if [ ! "$pid" ]; then
 		"$PLAN9"/bin/9 plumber
 		return $?
@@ -21,8 +19,7 @@ start()
 	return 0
 }
 
-stop()
-{
+stop() {
 	if [[ $pid ]]; then
 		/bin/kill -9 "$pid" 2> /dev/null
 	fi
@@ -39,16 +36,16 @@ fi
 pid=$(status)
 
 case $1 in
-	start)
-		start;;
-	stop)
-		stop;;
-	status)
-		echo "$pid";;
-	restart)
-		stop
-		start;;
-	*)
-		echo 2>&1 "p9plumb [start | stop | restart | status ]"
-		exit 1;;
+start)
+	start;;
+stop)
+	stop;;
+status)
+	echo "$pid";;
+restart)
+	stop
+	start;;
+*)
+	echo 2>&1 "p9plumb [start | stop | restart | status ]"
+	exit 1;;
 esac
