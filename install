@@ -6,13 +6,13 @@ base="$HOME"/.p9p
 
 install_darwin()
 {
-	# Copy Plumb.app acme.app and 9term.app to $HOME/Applications
+	# Copy Plumb.app acme.app and 9term.app to /Applications
 	for i in "$PLAN9"/mac/Plumb.app "$PLAN9"/mac/9term.app $base/bin/Acme.app $base/bin/Sam.app; do
-		if [ ! -d "$HOME"/Applications/"$(basename "$i")" ]; then
-			echo "Installing $i in $HOME/Applications/$(basename "$i")"
-			cp -r "$i" "$HOME"/Applications
+		if [ ! -d /Applications/"$(basename "$i")" ]; then
+			echo "Installing $i in /Applications/$(basename "$i")"
+			cp -r "$i" /Applications/
 		else
-			echo "$HOME/Applications/$(basename "$i") already exists.. skipping"
+			echo "/Applications/$(basename "$i") already exists.. skipping"
 		fi
 	done
 }
@@ -23,7 +23,6 @@ if [ ! -d "$base" ]; then
 fi
 
 if [ "$(uname -s)" = "Darwin" ]; then
-	mkdir -p "$HOME"/Applications
 	install_darwin
 fi
 
