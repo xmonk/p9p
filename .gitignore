@@ -10,3 +10,4 @@ bin/E2
 bin/Watchlog
 bin/acmego
 bin/rw
+cmd/devdrawserver
