@@ -30,13 +30,15 @@ fi
 [ ! -d "$base"/cmd/devdrawserver ] && {
 	cd "$base"/cmd/
 	git clone ssh://git@github.com/mariusae/devdrawserver.git
-}
+} 
 
-cd "$base"/cmd/devdrawserver && mk install && mk clean
+[ ! -x $PLAN9/bin/devdrawserver ] && {
+	cd "$base"/cmd/devdrawserver && mk install && mk clean
+}|| echo "devdrawserver is already installed in: $PLAN9/bin/devdrawserver"
 
 [ ! -x "$base"/bin/acmedot ] && {
 	cd "$base"/cmd
 	go build acmedot.go && mv acmedot $base/bin/
-}
+} || echo "acmedot already installed in: $base/bin/acmedot"
 
 cd "$base"
