@@ -74,18 +74,5 @@ bld_plan9()
 	unset wd
 }
 
-up_plan9()
-{
-	if [ -z $PLAN9 ]; then
-		echo "\$PLAN9 is not set or plan9port is not installed"
-		return 1
-	fi
-	wd=$(pwd)
-	cd $PLAN9
-	git fetch upstream && git merge upstream/master
-	cd $wd
-	unset wd
-}
-
 # start your engines.
 [ -x $HOME/.p9p/bin/p9plumb ] && $HOME/.p9p/bin/p9plumb start
