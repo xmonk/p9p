@@ -65,8 +65,7 @@ alias vi=$PLAN9/bin/B "$@"
 alias vim=vi
 
 # functions
-bld_plan9()
-{
+bld_plan9() {
 	wd=$(pwd)
 	cd $PLAN9
 	./INSTALL
