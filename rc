@@ -62,8 +62,6 @@ fi
 # aliases
 alias get_plan9="git clone git@github.com:xmonk/plan9port.git $HOME/t/plan9"
 alias lf="$PLAN9/bin/lc -F"
-alias vi=$PLAN9/bin/B "$@"
-alias vim=vi
 
 # functions
 bld_plan9() {
