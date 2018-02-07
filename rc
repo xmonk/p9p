@@ -3,28 +3,29 @@
 [ -d /usr/local/plan9 ] && export PLAN9=${PLAN9:-/usr/local/plan9}
 
 # Let gs find the plan9port document fonts.
-export GS_FONTPATH=$PLAN9/postscript/font
-export BROWSER=safari
+GS_FONTPATH=$PLAN9/postscript/font
+BROWSER=safari
 
 # Prompt (is almost a no-op in bash)
-export H=`hostname | sed 's/\..*//'`
+H=$(hostname | sed 's/\..*//')
 
 # Equivalent variables for rc(1).
-export home=$HOME
-export prompt="% 	"
-export user=$USER
-export EDITOR=/usr/local/plan9/bin/B
-export GIT_EDITOR=$(command -v editinacme)
-#export font=/lib/font/bit/lucsans/euro.8.font
-#export fixedfont=/lib/font/bit/lucm/unicode.9.font
-export font=/mnt/font/LucidaGrande/14a/font,/mnt/font/LucidaGrande/28a/font
-export fontfixed=/mnt/font/LucidaGrandeMono/13a/font,/mnt/font/LucidaGrandeMono/26a/font
-export NAMESPACE=/tmp/ns.$H
+home=$HOME
+prompt="% 	"
+user=$USER
+EDITOR=/usr/local/plan9/bin/B
+GIT_EDITOR=$(command -v editinacme)
+#font=/lib/font/bit/lucsans/euro.8.font
+#fixedfont=/lib/font/bit/lucm/unicode.9.font
+font=/mnt/font/LucidaGrande/14a/font,/mnt/font/LucidaGrande/28a/font
+fontfixed=/mnt/font/LucidaGrandeMono/13a/font,/mnt/font/LucidaGrandeMono/26a/font
+NAMESPACE=/tmp/ns.$H
+export home prompt user font fontfixed GS_FONTPATH BROWSER H EDITOR GIT_EDITOR NAMESPACE
 
 # if $NAMESPACE doesn't exist, we need to create it.
-[ -d $NAMESPACE ] || mkdir $NAMESPACE
+[ -d "$NAMESPACE" ] || mkdir "$NAMESPACE"
 
-if [ $TERM = dumb ]; then
+if [ "$TERM" = dumb ]; then
 	_cd(){
 		\cd "$@" &&
 		case "TERM!$-" in
@@ -43,17 +44,19 @@ if [ $TERM = dumb ]; then
 	# Plumb files instead of starting new editor.
 	unset FCEDIT VISUAL
 	# Make sure mpage prints in letter mode.
-	export MPAGE="-t -bLetter"
+	MPAGE="-t -bLetter"
 	# Get rid of backspace characters in Unix man output.
-	export PAGER=nobs
-	export IPY_TEST_SIMPLE_PROMPT=1
+	PAGER=nobs
+	IPY_TEST_SIMPLE_PROMPT=1
+	export MPAGE PAGER IPY_TEST_SIMPLE_PROMPT
+
 	if [ -x /usr/local/bin/brew ]; then
-		export HOMEBREW_NO_EMOJI=1
-		export HOMEBREW_INSTALL_BADGE=''
+		HOMEBREW_NO_EMOJI=1
+		HOMEBREW_INSTALL_BADGE=''
+		export HOMEBREW_NO_EMOJI HOMEBREW_INSTALL_BADGE
 		_br(){
-			cmd=$1;shift
-			pkg="$@"
-			brew $cmd $pkg|nobs
+			cmd="$1";shift
+			brew "$cmd" "$@"|nobs
 		}
 		alias brew=_br
 	fi
@@ -66,11 +69,11 @@ alias lf="$PLAN9/bin/lc -F"
 # functions
 bld_plan9() {
 	wd=$(pwd)
-	cd $PLAN9
+	cd "$PLAN9" || return
 	./INSTALL
-	cd $wd
+	cd "$wd" || return
 	unset wd
 }
 
 # start your engines.
-[ -x $HOME/.p9p/bin/p9plumb ] && $HOME/.p9p/bin/p9plumb start
+[ -x "$HOME"/.p9p/bin/p9plumb ] && "$HOME"/.p9p/bin/p9plumb start
