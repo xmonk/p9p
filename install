@@ -33,7 +33,7 @@ fi
 } 
 
 [ ! -x $PLAN9/bin/devdrawserver ] && {
-	cd "$base"/cmd/devdrawserver && mk install && mk clean
+	cd "$base"/cmd/devdrawserver && git pull && mk install && mk clean
 }|| echo "devdrawserver is already installed in: $PLAN9/bin/devdrawserver"
 
 [ ! -x "$base"/bin/acmedot ] && {
