@@ -2,8 +2,8 @@ This is my personal plan9port configuration. It should work in all
 platforms supported by plan9port. To install just do:
 
 
-	cd $HOME
-	git clone https://github.com/xmonk/p9p.git .p9p
+	$ cd $HOME
+	$ git clone https://github.com/xmonk/p9p.git .p9p
 
 Then add the following to your .bashrc:
 
@@ -11,8 +11,8 @@ Then add the following to your .bashrc:
 		. $HOME/.p9p/rc
 	fi
 
-	. $HOME/.bashrc
-	./.p9p/install    # Optional.
+	$ . $HOME/.bashrc
+	$ ./.p9p/install    # Optional.
 
 If you're using OS X the install script will install Acme.app and
 Sam.app in $HOME/Applications. It will download and install a few useful
