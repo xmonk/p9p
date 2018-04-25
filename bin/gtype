@@ -1,0 +1,8 @@
+#!/usr/local/plan9/bin/rc
+
+if(~ $winid 0){
+	echo "Acme is not running"
+	exit
+}
+
+godef -acme -t $* | sed -n '2,$p'
