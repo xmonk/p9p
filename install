@@ -29,7 +29,7 @@ fi
 # Install devdrawserver
 [ ! -d "$base"/cmd/devdrawserver ] && {
 	cd "$base"/cmd/
-	git clone ssh://git@github.com/mariusae/devdrawserver.git
+	git clone https://github.com/mariusae/devdrawserver.git
 } 
 
 [ ! -x $PLAN9/bin/devdrawserver ] && {
