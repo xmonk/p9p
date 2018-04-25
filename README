@@ -1,5 +1,7 @@
 This is my personal plan9port configuration. It should work in all
-platforms supported by plan9port. To install just do:
+platforms supported by plan9port.
+
+To install just do:
 
 
 	$ cd $HOME
@@ -14,6 +16,5 @@ Then add the following to your .bashrc:
 	$ . $HOME/.bashrc
 	$ ./.p9p/install    # Optional.
 
-If you're using OS X the install script will install Acme.app and
-Sam.app in $HOME/Applications. It will download and install a few useful
-tools from github.com.
+If you're using macOS the install script will install Acme.app and
+Sam.app in $HOME/Applications. It will download and install a few useful tools from github.com.
