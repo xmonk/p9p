@@ -8,7 +8,7 @@ if(~ $#winid 0){
 flake=`{which flake8}
 
 if(test -f $flake){
-	$flake $%
+	$flake $%| plumb -i -d edit -a 'action=showdata filename=+py9lint'
 }
 if not {
 	echo "flake8 not found or not installed."
