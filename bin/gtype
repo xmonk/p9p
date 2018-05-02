@@ -5,4 +5,4 @@ if(~ $winid 0){
 	exit
 }
 
-godef -acme -t $* | sed -n '2,$p'
+godef -acme -t $* | sed -n '2,$p' | plumb -i -d edit -a 'action=showdata filename=+gtype'
