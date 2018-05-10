@@ -19,9 +19,9 @@ usage(){
 }
 
 [ $# != 2 ] && usage && exit 2
-[ ! -x $(command -v cscope) ] && echo "This script requires cscope." && exit 2
+[ ! -x "$(command -v cscope)" ] && echo "This script requires cscope." && exit 2
 
-if [ $winid ]; then
+if [ "$winid" ]; then
 	cscope -L "$1" "$2" | awk '{ s = ""; for (i = 4; i <= NF; i++) s = s $i " "; print $1":"$3" "$2" " s }'| plumb -i -d edit -a 'action=showdata filename=+cscope'
 else
 	cscope -L "$1" "$2" | awk '{ s = ""; for (i = 4; i <= NF; i++) s = s $i " "; print $1":"$3" "$2" " s }'
