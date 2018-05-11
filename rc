@@ -53,7 +53,9 @@ if [ "$TERM" = dumb ]; then
 	# Get rid of backspace characters in Unix man output.
 	PAGER=nobs
 	IPY_TEST_SIMPLE_PROMPT=1
-	export MPAGE PAGER IPY_TEST_SIMPLE_PROMPT
+	PIPENV_COLORBLIND=1
+	PIPENV_NOSPIN=1
+	export MPAGE PAGER IPY_TEST_SIMPLE_PROMPT PIPENV_COLORBLIND PIPENV_NOSPIN
 
 	if [ -x /usr/local/bin/brew ]; then
 		HOMEBREW_NO_EMOJI=1
