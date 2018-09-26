@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+[ ! -x $(type -p global) ] && echo "gnu global is not installed or not in your path" && exit 1
+
+[ $# = "0" ] && echo "ggtags <symbol>" && exit 2
+
+
+global --result grep -a -x -g "$1"
