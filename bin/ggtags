@@ -7,4 +7,4 @@ set -e
 [ $# = "0" ] && echo "ggtags <symbol>" && exit 2
 
 
-global --result grep -a -x -g "$1"
+global --gtagslabel pygments --result grep -a -x -g "$1"
