@@ -18,8 +18,8 @@ GIT_EDITOR=$(command -v E)
 #font=/lib/font/bit/lucsans/euro.8.font
 #fixedfont=/lib/font/bit/lucm/unicode.9.font
 if [ "$(uname -s)" = "Linux" ]; then
-	font='/mnt/font/Lucida Grande Regular W/12a/font,/mnt/font/Lucida Grande Regular W/24a/font'
-	fontfixed='/mnt/font/Lucida Grande Mono/11a/font,/mnt/font/Lucida Grande Mono/22a/font'
+	font='/mnt/font/LucidaGrande-RegularW/10a/font,/mnt/font/LucidaGrande-RegularW/20a/font'
+	fontfixed='/mnt/font/LucidaGrandeMono/11a/font,/mnt/font/LucidaGrandeMono/22a/font'
 else
 	font=/mnt/font/LucidaGrande/14a/font,/mnt/font/LucidaGrande/28a/font
 	fontfixed=/mnt/font/LucidaGrandeMono/13a/font,/mnt/font/LucidaGrandeMono/26a/font
