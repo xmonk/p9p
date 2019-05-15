@@ -42,6 +42,7 @@ if [ "$TERM" = dumb ]; then
 	}
 	alias cd=_cd
 	alias cls=cw
+	alias ipython="ipython --simple-prompt --colors=NoColor"
 	set +o emacs
 	set +o vi
 	set -a # autoexport
