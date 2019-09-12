@@ -11,7 +11,6 @@ H=$(hostname | sed 's/\..*//')
 
 # Equivalent variables for rc(1).
 home=$HOME
-prompt="% 	"
 user=$USER
 EDITOR=/usr/local/plan9/bin/B
 GIT_EDITOR=$(command -v E)
@@ -62,6 +61,8 @@ if [ "$TERM" = dumb ]; then
 		unset zle_bracketed_paste
 		unsetopt PROMPT_SP
 		export PS1="%.%% "
+	elif [ "$(basename $SHELL)" = "rc" ]; then
+		prompt="% 	"
 	fi
 
 	if [ -x /usr/local/bin/brew ]; then
