@@ -58,6 +58,12 @@ if [ "$TERM" = dumb ]; then
 	PIPENV_NOSPIN=1
 	export MPAGE PAGER IPY_TEST_SIMPLE_PROMPT PIPENV_COLORBLIND PIPENV_NOSPIN
 
+	if [ "$(basename $SHELL)" = "zsh" ]; then
+		unset zle_bracketed_paste
+		unsetopt PROMPT_SP
+		prompt="%.%% "
+	fi
+
 	if [ -x /usr/local/bin/brew ]; then
 		HOMEBREW_NO_EMOJI=1
 		HOMEBREW_INSTALL_BADGE=''
