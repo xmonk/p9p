@@ -61,6 +61,7 @@ if [ "$TERM" = dumb ]; then
 		unset zle_bracketed_paste
 		unsetopt PROMPT_SP
 		export PS1="%.%% "
+		export IFS=''
 	elif [ "$(basename $SHELL)" = "rc" ]; then
 		prompt="% 	"
 	fi
