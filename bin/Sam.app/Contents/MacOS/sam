@@ -1,12 +1,10 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 
 cd "$HOME"
 
-if [ -f "$HOME"/.bashrc ]; then
-	. "$HOME"/.bashrc
+if [ -f $HOME/.p9p/rc ]; then
+	source $HOME/.p9p/rc
 fi
-
-set -e
 
 PLAN9=${PLAN9:-/usr/local/plan9}
 p9plumb start
