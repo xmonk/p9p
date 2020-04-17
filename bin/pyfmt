@@ -1,16 +1,12 @@
 #!/usr/bin/env rc
 
 if(~ $#winid 0){
-	echo "Acme is not running."
+	echo "Acme is not running"
 	exit
 }
-yapf=`{which yapf}
-tab=$PLAN9/bin/tab
 
-if(~ $#yapf 0) {
-	yapf=$tab -n 4 -u
-}
-
-echo -n '1,$' | 9p write acme/$winid/addr
-9p read acme/$winid/body | $yapf | 9p write acme/$winid/data
-exit 0
+echo -n '1,$'|9p write acme/$winid/addr
+9p read acme/$winid/body|black -q - |9p write acme/$winid/data
+echo -n '#0'|9p write acme/$winid/addr
+echo -n 'dot=addr'|9p write acme/$winid/ctl
+echo -n show|9p write acme/$winid/ctl
