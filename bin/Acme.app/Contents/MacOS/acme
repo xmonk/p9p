@@ -6,8 +6,12 @@ if [ -f $HOME/.p9p/rc ]; then
 	source $HOME/.p9p/rc
 fi
 
+
 PLAN9=${PLAN9:-/usr/local/plan9}
 tabstop=4
+
+PATH=$PATH:$PLAN9/bin:/usr/local/bin
+export PATH
 p9plumb start
 
 args=("-a")
