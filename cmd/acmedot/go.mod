@@ -1,4 +1,4 @@
-module xmonk.org/acmedot
+module acmedot
 
 go 1.18
 
