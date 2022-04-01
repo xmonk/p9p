@@ -1,26 +1,28 @@
-#!/bin/zsh
+#!/bin/zsh -i
 
-cd "$HOME" || exit -1
+cd "$HOME" || exit 1
 
-if [ -f $HOME/.p9p/rc ]; then
-	source $HOME/.p9p/rc
+if [ -f "$HOME"/.p9p/rc ]; then
+	source "$HOME"/.p9p/rc
 fi
 
 
 PLAN9=${PLAN9:-/usr/local/plan9}
-tabstop=4
 
-PATH=$PATH:$PLAN9/bin:/usr/local/bin
-export PATH
+if [ -x /usr/libexec/path_helper ]; then
+	eval "$(/usr/libexec/path_helper -s)"
+fi
+
 p9plumb start
 
+tabstop=4
 args=("-a")
 
 if [ -f "$HOME"/acme.dump ]; then
 	args+=("-l" "$HOME/acme.dump")
 else
-	[ ! -z "$font" ] && args+=("-f" "$font")
-	[ ! -z "$fixedfont" ] && args+=("-F" "$fixedfont")
+	[ -n "$font" ] && args+=("-f" "$font")
+	[ -n "$fixedfont" ] && args+=("-F" "$fixedfont")
 fi
 
 acme "${args[@]}"
