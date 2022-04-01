@@ -2,6 +2,10 @@
 
 [ -d /usr/local/plan9 ] && export PLAN9=${PLAN9:-/usr/local/plan9}
 
+if ! [[ :$PATH: =~ :.p9p: ]]; then
+        PATH=$PATH:$HOME/.p9p/bin
+fi
+
 # Let gs find the plan9port document fonts.
 GS_FONTPATH=$PLAN9/postscript/font
 BROWSER=safari
