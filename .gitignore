@@ -11,3 +11,5 @@ bin/Watchlog
 bin/acmego
 bin/rw
 cmd/devdrawserver
+bin/Watch
+cmd/Watch
