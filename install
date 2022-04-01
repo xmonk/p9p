@@ -7,7 +7,7 @@ base="$HOME"/.p9p
 install_darwin()
 {
 	# Copy Plumb.app acme.app and 9term.app to /Applications
-	for i in "$PLAN9"/mac/Plumb.app "$PLAN9"/mac/9term.app $base/bin/Acme.app $base/bin/Sam.app; do
+	for i in "$PLAN9"/mac/Plumb.app "$PLAN9"/mac/9term.app $base/mac/Acme.app $base/bin/Sam.app; do
 		if [ ! -d /Applications/"$(basename "$i")" ]; then
 			echo "Installing $i in /Applications/$(basename "$i")"
 			cp -r "$i" /Applications/
@@ -37,8 +37,8 @@ fi
 }|| echo "devdrawserver is already installed in: $PLAN9/bin/devdrawserver"
 
 [ ! -x "$base"/bin/acmedot ] && {
-	cd "$base"/cmd
-	go build acmedot.go && mv acmedot "$base"/bin/
+	cd "$base"/cmd/acmedot
+	go build && mv acmedot "$base"/bin/
 } || echo "acmedot already installed in: $base/bin/acmedot"
 
 cd "$base"
