@@ -72,8 +72,8 @@ if [ "$TERM" = dumb ]; then
 
 	if [ -x /usr/local/bin/brew ]; then
 		HOMEBREW_NO_EMOJI=1
-		HOMEBREW_INSTALL_BADGE=''
-		export HOMEBREW_NO_EMOJI HOMEBREW_INSTALL_BADGE
+		HOMEBREW_NO_COLOR=1
+		export HOMEBREW_NO_EMOJI HOMEBREW_NO_COLOR
 		_br(){
 			cmd="$1";shift
 			brew "$cmd" "$@"|nobs
