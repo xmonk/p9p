@@ -1,0 +1,2 @@
+#!/usr/bin/env rc
+exec L comp $*
