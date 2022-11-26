@@ -1,0 +1,3 @@
+#/usr/bin/env bash
+
+rg -n -tpy -e "def\s*\w*\b\s*\(" | plumb -i -d edit -a 'action=showdata filename=+pytree'
