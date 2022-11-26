@@ -1,0 +1,10 @@
+#!/usr/bin/env rc
+
+if(~ $#winid 0){
+        echo "Acme is not running."
+        exit
+ }
+
+echo -n '1,$' | 9p write acme/$winid/addr
+9p read acme/$winid/body | tab -n 4 -u | 9p write acme/$winid/data
+exit 0
