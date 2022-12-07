@@ -1,8 +1,24 @@
 #!/usr/bin/env bash
 
+if [ $#winid = 0 ]; then
+	echo "Acme is not running"
+	exit 1
+fi
+
 r() {
 	9p read acme/"$winid"/rdsel
 }
 
+ROOT=$(dirname $PWD)
 REF=$(r)
-rg -n -tpy -e "def\s*$REF\b\s*\(" | plumb -i -d edit -a 'action=showdata filename=+pyref'
+R=$(rg -n -tpy -e "(class|def)\s*$REF\b\s*\(" $ROOT)  # | plumb -i -d edit -a 'action=showdata filename=+pyref'
+RR=($(echo $R))
+COUNT=${#R[@]}
+
+if [ $COUNT -gt 1 ]; then
+    echo "$R" | plumb -i -d edit -a 'action=showdata filename=+pyref'
+else
+    fname=$(echo $R | cut -d ':' -f1)
+    loc=$(echo $R | cut -d ':' -f2)
+    plumb -d edit -a 'action=showfile addr='$loc $fname
+fi
