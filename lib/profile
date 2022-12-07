@@ -16,7 +16,7 @@ fn win {
 	$plan9/bin/9 win rc -l
 }
 
-fn lnum { 
+fn lnum {
 	awk '{print NR " " $0 }'
 }
 
@@ -31,7 +31,7 @@ fn gt {
 fn up {
 	wd=`{pwd}
 	if(~ $#1 0){
-		echo "up [path]" 
+		echo "up [path]"
 		return 0
 	}
 	cd $1 || return 1
@@ -43,6 +43,8 @@ fn up {
 	cd $wd; wd = ()
 }
 
+H=`{hostname | sed 's/\..*//'}
+NAMESPACE=/tmp/ns.$H
 prompt='% '
 plan9=/usr/local/plan9
 path = (/bin /usr/bin /usr/local/bin /sbin /usr/sbin /usr/local/sbin $plan9/bin $home/bin $home/.p9p/bin)
