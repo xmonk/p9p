@@ -1,3 +1,9 @@
 #/usr/bin/env bash
 
-rg -n -tpy -e "def\s*\w*\b\s*\(" | plumb -i -d edit -a 'action=showdata filename=+pytree'
+if [ $#winid = 0 ]; then
+	echo "Acme is not running"
+	exit 1
+fi
+
+ROOT=$(dirname $PWD)
+rg --vimgrep -tpy -e "(class|def)\s*\w*\b\s*\(" $ROOT | plumb -i -d edit -a 'action=showdata filename=+pytree'
