@@ -67,6 +67,7 @@ if [ "$TERM" = dumb ]; then
 	if [ "$(basename $SHELL)" = "zsh" ]; then
 		unset zle_bracketed_paste
 		unsetopt PROMPT_SP
+		unsetopt prompt_cr
 		export PS1="%.%% "
 		export IFS=''
 	elif [ "$(basename $SHELL)" = "rc" ]; then
