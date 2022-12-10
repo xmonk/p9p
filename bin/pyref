@@ -5,20 +5,17 @@ if [ $#winid = 0 ]; then
 	exit 1
 fi
 
-r() {
-	9p read acme/"$winid"/rdsel
-}
-
 ROOT=$(dirname $PWD)
-REF=$(r)
-R=$(rg -n -tpy -e "(class|def)\s*$REF\b\s*\(" $ROOT)  # | plumb -i -d edit -a 'action=showdata filename=+pyref'
-RR=($(echo $R))
+SEL=$(9p read acme/"$winid"/rdsel)
+PATTALL="((class|def)\s*$SEL\b\s*\(?|^\s*\b$SEL(:?\s\w*)\s*=[^=\n]+)"
+R=$(rg -n -tpy -e $PATTALL $ROOT)
 COUNT=${#R[@]}
 
-if [ $COUNT -gt 1 ]; then
-    echo "$R" | plumb -i -d edit -a 'action=showdata filename=+pyref'
+if [ $COUNT = "0" ]; then
+	fname=$(echo $R | cut -d ':' -f1)
+	loc=$(echo $R | cut -d ':' -f2)
+	plumb -d edit -a 'action=showfile addr='$loc $fname
 else
-    fname=$(echo $R | cut -d ':' -f1)
-    loc=$(echo $R | cut -d ':' -f2)
-    plumb -d edit -a 'action=showfile addr='$loc $fname
+	echo "$R" | plumb -i -d edit -a 'action=showdata filename=+pyref'
 fi
+exit 0
