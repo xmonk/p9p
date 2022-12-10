@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+!/usr/bin/env bash
 
 set -e
 
@@ -17,6 +17,18 @@ install_darwin()
 	done
 }
 
+install_devdrawserver()
+{
+	[ ! -d "$base"/cmd/devdrawserver ] && {
+		cd "$base"/cmd/
+		git clone https://github.com/mariusae/devdrawserver.git
+	}
+
+	[ ! -x "$PLAN9"/bin/devdrawserver ] && {
+		cd "$base"/cmd/devdrawserver && git pull && mk install && mk clean
+	}|| echo "devdrawserver is already installed in: $PLAN9/bin/devdrawserver"
+}
+
 if [ ! -d "$base" ]; then
 	echo "$base not found or doesn't exist, please set \$base in $0 to the correct path"
 	exit 2
@@ -27,14 +39,7 @@ if [ "$(uname -s)" = "Darwin" ]; then
 fi
 
 # Install devdrawserver
-[ ! -d "$base"/cmd/devdrawserver ] && {
-	cd "$base"/cmd/
-	git clone https://github.com/mariusae/devdrawserver.git
-} 
-
-[ ! -x "$PLAN9"/bin/devdrawserver ] && {
-	cd "$base"/cmd/devdrawserver && git pull && mk install && mk clean
-}|| echo "devdrawserver is already installed in: $PLAN9/bin/devdrawserver"
+# install_devdrawserver
 
 [ ! -x "$base"/bin/acmedot ] && {
 	cd "$base"/cmd/acmedot
