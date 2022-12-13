@@ -43,8 +43,17 @@ fn up {
 	cd $wd; wd = ()
 }
 
+
 H=`{hostname | sed 's/\..*//'}
 NAMESPACE=/tmp/ns.$H
+NO_COLOR=1
+PIPENV_QUIET=1
+PIPENV_DONT_LOAD_ENV=1
+PIPENV_HIDE_EMOJIS=1
+PIPENV_NOSPIN=1
+HOMEBREW_NO_EMOJI=1
+HOMEBREW_NO_COLOR=1
+
 prompt='% '
 plan9=/usr/local/plan9
 path = (/bin /usr/bin /usr/local/bin /sbin /usr/sbin /usr/local/sbin $plan9/bin $home/.local/bin $home/.p9p/bin $home/go/bin /usr/local/go/bin)
