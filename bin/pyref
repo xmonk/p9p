@@ -1,21 +1,25 @@
-#!/usr/bin/env bash
+#!/usr/bin/env rc
 
-if [ $#winid = 0 ]; then
+if (~ $#winid 0) {
 	echo "Acme is not running"
 	exit 1
-fi
+}
 
-ROOT=$(dirname $PWD)
-SEL=$(9p read acme/"$winid"/rdsel)
-PATTALL="((class|def)\s*$SEL\b\s*\(?|^\s*\b$SEL(:?\s\w*)\s*=[^=\n]+)"
-R=$(rg -n -tpy -e $PATTALL $ROOT)
-COUNT=${#R[@]}
+pwd=`{pwd}
+root=`{dirname $pwd}
+sel=`{9p read acme/$winid/rdsel}
+pat='(class|def)\s*'^$sel^'\b\s*\(?|^\s*\b'^$sel^'(:?\s\w*)\s*=[^=\n]+'
+ifs='
+'
+ref=`{rg -n -tpy -e $pat $root}
 
-if [ $COUNT = "0" ]; then
-	fname=$(echo $R | cut -d ':' -f1)
-	loc=$(echo $R | cut -d ':' -f2)
+if (~ $#ref 1) {
+	fname=`{echo $ref | cut -d':' -f1}
+	loc=`{echo $ref | cut -d':' -f2 }
 	plumb -d edit -a 'action=showfile addr='$loc $fname
-else
-	echo "$R" | plumb -i -d edit -a 'action=showdata filename=+pyref'
-fi
+}
+if not {
+	printf '%s\n' $ref | plumb -i -d edit -a 'action=showdata filename=+pyref'
+}
 exit 0
+
