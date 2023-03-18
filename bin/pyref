@@ -12,7 +12,6 @@ pat='(class|def)\s*'^$sel^'\b\s*\(?|^\s*\b'^$sel^'(:?\s\w*)\s*=[^=\n]+'
 ifs='
 '
 ref=`{rg -n -tpy -e $pat $root}
-
 if (~ $#ref 1) {
 	fname=`{echo $ref | cut -d':' -f1}
 	loc=`{echo $ref | cut -d':' -f2 }

@@ -30,7 +30,7 @@ plumb start rc -c 'cd '''$wdir'''; root=`{git root}; rev='''$0'''; {git show $re
 
 # python errors
 type is text
-data matches '  File "([.a-zA-Z¡-<U+FFFF>0-9_/\-]*[a-zA-Z¡-<U+FFFF>0-9_/\-])", line ([0-9]+)?.*$'
+data matches ' *File "([a-zA-Z¡-￿0-9_\-./]+)", line ([0-9]+).*'
 arg isfile $1
 data set $file
 attr add addr=$2
