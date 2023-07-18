@@ -6,6 +6,10 @@ if ! [[ :$PATH: =~ :.p9p: ]]; then
         PATH=$PATH:$HOME/.p9p/bin
 fi
 
+if ! [[ :$PATH: =~ :$PLAN9: ]]; then
+        PATH=$PATH:$PLAN9/bin
+fi
+
 # Let gs find the plan9port document fonts.
 GS_FONTPATH=$PLAN9/postscript/font
 BROWSER=safari
@@ -28,7 +32,7 @@ else
 	fontfixed=/mnt/font/LucidaGrandeMono/13a/font,/mnt/font/LucidaGrandeMono/26a/font
 fi
 NAMESPACE=/tmp/ns.$H
-export home prompt user font fontfixed GS_FONTPATH BROWSER H EDITOR GIT_EDITOR NAMESPACE
+export home prompt user font fontfixed GS_FONTPATH BROWSER H EDITOR GIT_EDITOR NAMESPACE PATH
 
 # if $NAMESPACE doesn't exist, we need to create it.
 [ -d "$NAMESPACE" ] || mkdir "$NAMESPACE"
