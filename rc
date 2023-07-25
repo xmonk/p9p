@@ -21,7 +21,7 @@ H=$(hostname | sed 's/\..*//')
 home=$HOME
 user=$USER
 EDITOR=/usr/local/plan9/bin/B
-GIT_EDITOR=$(command -v E)
+GIT_EDITOR=/usr/local/plan9/bin/E
 #font=/lib/font/bit/lucsans/euro.8.font
 #fixedfont=/lib/font/bit/lucm/unicode.9.font
 if [ "$(uname -s)" = "Linux" ]; then
@@ -69,9 +69,17 @@ if [ "$TERM" = dumb ]; then
 	export MPAGE PAGER IPY_TEST_SIMPLE_PROMPT NO_COLOR PIPENV_QUIET PIPENV_DONT_LOAD_ENV PIPENV_HIDE_EMOJIS PIPENV_NOSPIN
 
 	if [ "$(basename $SHELL)" = "zsh" ]; then
+		unset zle
 		unset zle_bracketed_paste
 		unsetopt PROMPT_SP
 		unsetopt prompt_cr
+		unsetopt prompt_subst
+		if whence -w precmd > /dev/null; then
+			unfunction precmd
+		fi
+		if whence -2 preexec > /dev/null; then
+			unfunction preexec
+		fi
 		export PS1="%.%% "
 		export IFS=''
 	elif [ "$(basename $SHELL)" = "rc" ]; then
