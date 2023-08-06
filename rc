@@ -26,13 +26,15 @@ GIT_EDITOR=/usr/local/plan9/bin/E
 #fixedfont=/lib/font/bit/lucm/unicode.9.font
 if [ "$(uname -s)" = "Linux" ]; then
 	font='/mnt/font/LucidaGrande-RegularW/10a/font,/mnt/font/LucidaGrande-RegularW/20a/font'
-	fontfixed='/mnt/font/LucidaGrandeMono/11a/font,/mnt/font/LucidaGrandeMono/22a/font'
+	fixedfont='/mnt/font/LucidaGrandeMono/11a/font,/mnt/font/LucidaGrandeMono/22a/font'
 else
-	font=/mnt/font/LucidaGrande/14a/font,/mnt/font/LucidaGrande/28a/font
-	fontfixed=/mnt/font/LucidaGrandeMono/13a/font,/mnt/font/LucidaGrandeMono/26a/font
+	font=/mnt/font/GoMedium/16a/font,/mnt/font/GoMedium/32a/font
+	fixedfont=/mnt/font/GoMono-Bold/15a/font,/mnt/font/GoMono-Bold/30a/font
+	#font=/mnt/font/LucidaGrande/14a/font,/mnt/font/LucidaGrande/28a/font
+	#fixedfont=/mnt/font/LucidaGrandeMono/13a/font,/mnt/font/LucidaGrandeMono/26a/font
 fi
 NAMESPACE=/tmp/ns.$H
-export home prompt user font fontfixed GS_FONTPATH BROWSER H EDITOR GIT_EDITOR NAMESPACE PATH
+export home prompt user font fixedfont GS_FONTPATH BROWSER H EDITOR GIT_EDITOR NAMESPACE PATH
 
 # if $NAMESPACE doesn't exist, we need to create it.
 [ -d "$NAMESPACE" ] || mkdir "$NAMESPACE"
@@ -77,13 +79,15 @@ if [ "$TERM" = dumb ]; then
 		if whence -w precmd > /dev/null; then
 			unfunction precmd
 		fi
-		if whence -2 preexec > /dev/null; then
+		if whence -w preexec > /dev/null; then
 			unfunction preexec
 		fi
 		export PS1="%.%% "
 		export IFS=''
 	elif [ "$(basename $SHELL)" = "rc" ]; then
 		prompt="% 	"
+	else
+		prompt="% "
 	fi
 
 	if [ -x /usr/local/bin/brew ]; then
