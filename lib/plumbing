@@ -1,6 +1,5 @@
 editor = acme
 
-include /usr/local/plan9/plumb/basic
 
 kind is text
 data matches '[a-zA-Z0-9_\-./~{}@]+('$addr')?'
@@ -44,3 +43,13 @@ data set        $file
 attr add        addr=$2
 plumb to edit
 plumb client $editor
+
+# Open pdf with Preview.app or whatever is the default for pdf.
+# Preview.app no longer support postscript or eps files.
+type is text
+data matches '[a-zA-Z¡-￿0-9_\-./@]+'
+data matches '([a-zA-Z¡-￿0-9_\-./@]+)\.(pdf|PDF)'
+arg isfile	$0
+plumb start open $file
+
+include /usr/local/plan9/plumb/basic
