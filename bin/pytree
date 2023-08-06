@@ -1,9 +1,5 @@
-#/usr/bin/env bash
+#!/usr/bin/env rc
 
-if [ $#winid = 0 ]; then
-	echo "Acme is not running"
-	exit 1
-fi
-
-ROOT=$(dirname $PWD)
-rg --vimgrep -tpy -e "(class|def)\s*\w*\b\s*\(" $ROOT | plumb -i -d edit -a 'action=showdata filename=+pytree'
+root=`{pwd}
+pat='(class|def)\s*\w*\b\s*\('
+rg --vimgrep -tpy -e $pat $root | plumb -i -d edit -a 'action=showdata filename=+pytree'
