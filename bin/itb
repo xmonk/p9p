@@ -1,0 +1,17 @@
+#!/bin/bash
+# iTerm2 semantic history helper script
+set -e
+cat -- "$@" > /dev/null 2> /dev/null &
+
+export PLAN9=/usr/local/plan9
+export PATH=$PLAN9/bin:$PATH
+export NAMESPACE="/tmp/ns.$(hostname -s)"
+
+FILE=$(echo $* | cut -d":" -f1)
+LINE=$(echo $* | cut -d":" -f2)
+
+if [ -z $LINE ]; then
+	$PLAN9/bin/B $FILE
+else
+	$PLAN9/bin/B "$*"
+fi
