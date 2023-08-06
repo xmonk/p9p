@@ -43,6 +43,9 @@ fn up {
 	cd $wd; wd = ()
 }
 
+fn cls {
+	cw
+}
 
 H=`{hostname | sed 's/\..*//'}
 NAMESPACE=/tmp/ns.$H
