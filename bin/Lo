@@ -3,7 +3,7 @@
 TMP=/tmp
 
 if(~ $#* 0){
-	echo 'usage: L pth ...' >[1=2]
+	echo 'usage: Lo pth ...' >[1=2]
 	exit usage
 }
 
