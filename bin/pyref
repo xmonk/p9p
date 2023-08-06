@@ -5,8 +5,8 @@ if (~ $#winid 0) {
 	exit 1
 }
 
-pwd=`{pwd}
-root=`{dirname $pwd}
+wd=`{pwd}
+root=`{dirname $wd}
 sel=`{9p read acme/$winid/rdsel}
 pat='(class|def)\s*'^$sel^'\b\s*\(?|^\s*\b'^$sel^'(:?\s\w*)\s*=[^=\n]+'
 ifs='
