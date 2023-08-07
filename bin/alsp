@@ -1,0 +1,84 @@
+#!/usr/bin/env rc
+
+fn usage {
+	echo `{basename $0}^' [list|stop|start|status|restart|load|logclear]'
+}
+
+fn list {
+	launchctl list | grep '9lab.org.acme'
+}
+
+fn load {
+	x = `{list}
+	if(~ $#x 0){
+		launchctl load -w $home/Library/LaunchAgents/9lab.org.acme-lsp.plist
+	}
+}
+
+fn status {
+	launchctl list 9lab.org.acme-lsp | awk '/PID/ { gsub(";",""); print $3 }'
+}
+
+fn propertylists {
+	launchctl dumpstate | grep 'path = .*9lab.org.acme.*.plist$' | ssam 's/^.* = //g'
+}
+
+fn restart {
+	for(p in `{list}) {
+		launchctl stop $p
+		launchctl start $p
+	}
+}
+
+fn stop {
+	for(p in `{list}) {
+		launchctl stop $p
+	}
+}
+
+fn start {
+	for(p in `{list}) {
+		launchctl start $p
+	}
+}
+
+fn LogClear {
+	for(p in `{Propertylists}) {
+		# Extract log files from .plist launch agent definition:
+		#
+		#  <key>StandardOutPath</key>
+		#  <string>/usr/local/var/log/9lab/acmefocused.out.log</string>
+		#  <key>StandardErrorPath</key>
+		#  <string>/usr/local/var/log/9lab/acmefocused.err.log</string>
+		#
+		logs=`{cat $p | grep '\.log' | awk -F '[<|>]' '{print $3}'}
+		for(l in $logs) {
+			echo 'Truncating log file ">'^$l^'"'
+			>$l
+		}
+	  }
+}
+
+switch ($#*) {
+	case 0
+		usage
+	case *
+	switch ($1) {
+		case list
+			list
+		case start
+			start
+		case stop
+			stop
+		case status
+			status
+		case load
+			load
+		case restart
+			restart
+		case logclear
+			logclear
+		case *
+			usage
+	}
+}
