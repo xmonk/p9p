@@ -5,22 +5,22 @@ fn usage {
 }
 
 fn list {
-	launchctl list | grep '9lab.org.acme'
+	launchctl list | grep 'p9.org.acme'
 }
 
 fn load {
 	x = `{list}
 	if(~ $#x 0){
-		launchctl load -w $home/Library/LaunchAgents/9lab.org.acme-lsp.plist
+		launchctl load -w $home/Library/LaunchAgents/p9.org.acme-lsp.plist
 	}
 }
 
 fn status {
-	launchctl list 9lab.org.acme-lsp | awk '/PID/ { gsub(";",""); print $3 }'
+	launchctl list p9.org.acme-lsp | awk '/PID/ { gsub(";",""); print $3 }'
 }
 
 fn propertylists {
-	launchctl dumpstate | grep 'path = .*9lab.org.acme.*.plist$' | ssam 's/^.* = //g'
+	launchctl dumpstate | grep 'path = .*p9.org.acme.*.plist$' | ssam 's/^.* = //g'
 }
 
 fn restart {
