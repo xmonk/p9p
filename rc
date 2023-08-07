@@ -90,7 +90,7 @@ if [ "$TERM" = dumb ]; then
 		prompt="% "
 	fi
 
-	if [ -x /usr/local/bin/brew ]; then
+	if [ -x $HOMEBREW_PREFIX/bin/brew ]; then
 		HOMEBREW_NO_EMOJI=1
 		HOMEBREW_NO_COLOR=1
 		export HOMEBREW_NO_EMOJI HOMEBREW_NO_COLOR
