@@ -12,7 +12,7 @@ f=/tmp/com.$pid
 cat >$f
 
 switch($%){
-case *.go *.c
+case *.go *.c *.rs *.zig *.cc *.h
 	c='//'
 case *
 	c='#'
