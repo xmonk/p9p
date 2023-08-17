@@ -75,6 +75,11 @@ fn truncatelogs {
 	}
 }
 
+if(~ `{uname -o} Linux linux) {
+	echo "This script is for use only in macOS"
+	exit 1
+}
+
 switch ($#*) {
 	case 0
 		usage
