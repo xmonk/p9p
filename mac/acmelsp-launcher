@@ -1,0 +1,69 @@
+#!/usr/bin/env sh
+
+[ -f $HOME/.p9p/rc ] && . $HOME/.p9p/rc
+
+if [ $(uname -m) = "arm64" ]; then
+	NPTH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:$PLAN9/bin:$HOME/.local/bin:$HOME/.p9p/bin:$HOME/go/bin"
+else
+	NPTH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:$PLAN9/bin:$HOME/.local/bin:$HOME/.p9p/bin:$HOME/go/bin"
+fi
+
+OUTPUT="p9.org.acme-lsp.plist"
+LAUNCHAGENT_DIR="$HOME/Library/LaunchAgents"
+
+PLIST=`cat <<!
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>NAMESPACE</key>
+		<string>$NAMESPACE</string>
+		<key>PATH</key>
+		<string>$NPTH</string>
+		<key>PLAN9</key>
+		<string>$PLAN9</string>
+	</dict>
+	<key>KeepAlive</key>
+	<false/>
+	<key>Label</key>
+	<string>p9.org.acme-lsp</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>$HOME/go/bin/acme-lsp</string>
+	</array>
+	<key>RunAtLoad</key>
+	<false/>
+	<key>StandardErrorPath</key>
+	<string>$HOME/Library/Logs/acme-lsp/error.log</string>
+	<key>StandardOutPath</key>
+	<string>$HOME/Library/Logs/acme-lsp/message.log</string>
+</dict>
+</plist>
+!`
+
+plist_install() {
+	if [ ! -d $LAUNCHAGENT_DIR ]; then 
+		mkdir -p $LAUCNHAGENT_DIR
+	fi
+	if [ -f $LAUNCHAGENT_DIR/$OUTPUT ]; then  
+		/bin/launchctl unload -w $LAUNCHAGENT_DIR/$OUTPUT 
+		mv $LAUNCHAGENT_DIR/$OUTPUT $LAUNCHAGENT_DIR/$OUTPUT.bak
+	fi
+	if [ ! -f $LAUNCHAGENT_DIR/$OUTPUT ]; then
+		cp $OUTPUT $LAUNCHAGENT_DIR/$OUTPUT 
+		/bin/launchctl load -w $LAUNCHAGENT_DIR/$OUTPUT && echo "$OUTPUT has been installed in $LAUNCHAGENT_DIR and loaded" 
+	fi
+	return 0
+}
+
+echo "$PLIST" > $OUTPUT
+R=$(plutil -lint $OUTPUT)
+[[ ! $R =~ "OK" ]] && {
+	rm $OUTPUT
+	echo "$R"
+	exit 1
+}
+
+plist_install && rm $OUTPUT
