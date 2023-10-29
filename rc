@@ -10,6 +10,14 @@ if ! [[ :$PATH: =~ :$PLAN9: ]]; then
         PATH=$PATH:$PLAN9/bin
 fi
 
+if ! [[ :$PATH: =~ :$HOME/go/bin: ]]; then
+        PATH=$PATH:$HOME/go/bin
+fi
+
+if ! [[ :$PATH: =~ :$HOME/.cargo/bin: ]]; then
+        PATH=$PATH:$HOME/.cargo/bin
+fi
+
 # Let gs find the plan9port document fonts.
 GS_FONTPATH=$PLAN9/postscript/font
 BROWSER=firefox
