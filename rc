@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 [ -d /usr/local/plan9 ] && export PLAN9=${PLAN9:-/usr/local/plan9}
 
@@ -36,13 +36,24 @@ if [ "$(uname -s)" = "Linux" ]; then
 	font='/mnt/font/LucidaGrande-RegularW/10a/font,/mnt/font/LucidaGrande-RegularW/20a/font'
 	fixedfont='/mnt/font/LucidaGrandeMono/11a/font,/mnt/font/LucidaGrandeMono/22a/font'
 else
-	font=/mnt/font/GoMedium/16a/font,/mnt/font/GoMedium/32a/font
-	fixedfont=/mnt/font/GoMono-Bold/15a/font,/mnt/font/GoMono-Bold/30a/font
-	#font=/mnt/font/LucidaGrande/14a/font,/mnt/font/LucidaGrande/28a/font
-	#fixedfont=/mnt/font/LucidaGrandeMono/13a/font,/mnt/font/LucidaGrandeMono/26a/font
+	font=/mnt/font/LucidaGrande/14a/font,/mnt/font/LucidaGrande/28a/font
+	fixedfont=/mnt/font/LucidaGrandeMono/13a/font,/mnt/font/LucidaGrandeMono/26a/font
 fi
 NAMESPACE=/tmp/ns.$H
-export home prompt user font fixedfont GS_FONTPATH BROWSER H EDITOR GIT_EDITOR NAMESPACE PATH
+
+# On Apple Sillicon certain binaries fail to execute in 9term, sam or acme
+# due to bad CPU, arch(1) reports plan9port binaries are built for a i386 arch
+# instead of arm. To get this to work I'm setting the ARCH variable to be used
+# in Acme.app, Sam.app, 9term.app to execute with `arch -$ARCH` to solve the
+# issue.
+case "$(uname -a)" in
+*ARM64*)
+	ARCH="arm64";;
+*)
+	ARCH=$(arch);;
+esac
+
+export home prompt user font fixedfont GS_FONTPATH BROWSER H EDITOR GIT_EDITOR NAMESPACE PATH ARCH
 
 # if $NAMESPACE doesn't exist, we need to create it.
 [ -d "$NAMESPACE" ] || mkdir "$NAMESPACE"
@@ -78,7 +89,7 @@ if [ "$TERM" = dumb ]; then
 	PIPENV_NOSPIN=1
 	export MPAGE PAGER IPY_TEST_SIMPLE_PROMPT NO_COLOR PIPENV_QUIET PIPENV_DONT_LOAD_ENV PIPENV_HIDE_EMOJIS PIPENV_NOSPIN
 
-	if [ "$(basename $SHELL)" = "zsh" ]; then
+	if [[ "$SHELL" =~ "zsh" ]]; then
 		unset zle
 		unset zle_bracketed_paste
 		unsetopt PROMPT_SP
@@ -90,38 +101,27 @@ if [ "$TERM" = dumb ]; then
 		if whence -w preexec > /dev/null; then
 			unfunction preexec
 		fi
-		export PS1="%.%% "
-		export IFS=''
+		unset IFS PS1 prompt
+		IFS=''
+		PS1="%% "
 	elif [ "$(basename $SHELL)" = "rc" ]; then
 		prompt="% 	"
 	else
-		prompt="% "
+		IFS=''
+		prompt='% '
 	fi
 
 	if [ -x $HOMEBREW_PREFIX/bin/brew ]; then
-		HOMEBREW_NO_EMOJI=1
-		HOMEBREW_NO_COLOR=1
-		export HOMEBREW_NO_EMOJI HOMEBREW_NO_COLOR
 		_br(){
 			cmd="$1";shift
-			brew "$cmd" "$@"|nobs
+			$HOMEBREW_PREFIX/bin/brew "$cmd" "$@"|nobs
 		}
 		alias brew=_br
 	fi
 fi
 
 # aliases
-alias get_plan9="git clone git@github.com:xmonk/plan9port.git $HOME/t/plan9"
 alias lf="$PLAN9/bin/lc -F"
-
-# functions
-bld_plan9() {
-	wd=$(pwd)
-	cd "$PLAN9" || return
-	./INSTALL
-	cd "$wd" || return
-	unset wd
-}
 
 # start your engines.
 [ -x "$HOME"/.p9p/bin/p9plumb ] && "$HOME"/.p9p/bin/p9plumb start
