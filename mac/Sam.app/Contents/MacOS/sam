@@ -15,7 +15,7 @@ PLAN9=${PLAN9:-/usr/local/plan9}
 p9plumb start
 tabstop=4
 SHELL=rc
-if [ "$ARCH" = "ARM64" ]; then
+if [ "$ARCH" = "arm64" ]; then
        arch -arm64 $PLAN9/bin/sam -a
 else
 	$PLAN9/bin/sam -a

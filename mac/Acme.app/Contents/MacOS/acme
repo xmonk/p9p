@@ -25,7 +25,7 @@ else
 	[ -n "$fixedfont" ] && args+=("-F" "$fixedfont")
 fi
 
-if [ "$ARCH" = "ARM64" ]; then
+if [ "$ARCH" = "arm64" ]; then
 	arch -arm64 acme "${args[@]}"
 else
 	acme "${args[@]}"
