@@ -41,11 +41,11 @@ else
 fi
 NAMESPACE=/tmp/ns.$H
 
-# On Apple Sillicon certain binaries fail to execute in 9term, sam or acme
-# due to bad CPU, arch(1) reports plan9port binaries are built for a i386 arch
-# instead of arm. To get this to work I'm setting the ARCH variable to be used
-# in Acme.app, Sam.app, 9term.app to execute with `arch -$ARCH` to solve the
-# issue.
+# On Apple silicon certain binaries fail to execute in 9term, sam or acme
+# due to bad CPU, arch(1) when run in plan9port binaries, returns i386 
+# instead of arm (plan9port INSTALL program is setting arch as arm64). 
+#
+# So we need to pass `arch -arm64` to acme, sam, 9term to to solve the issue.
 case "$(uname -a)" in
 *ARM64*)
 	ARCH="arm64";;
