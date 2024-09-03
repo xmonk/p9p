@@ -36,8 +36,8 @@ if [ "$(uname -s)" = "Linux" ]; then
 	font='/mnt/font/LucidaGrande-RegularW/10a/font,/mnt/font/LucidaGrande-RegularW/20a/font'
 	fixedfont='/mnt/font/LucidaGrandeMono/11a/font,/mnt/font/LucidaGrandeMono/22a/font'
 else
-	font=/mnt/font/LucidaGrande/14a/font,/mnt/font/LucidaGrande/28a/font
-	fixedfont=/mnt/font/LucidaGrandeMono/13a/font,/mnt/font/LucidaGrandeMono/26a/font
+	font=/mnt/font/LucidaGrande/15a/font,/mnt/font/LucidaGrande/30a/font
+	fixedfont=/mnt/font/BerkeleyMono-Regular/15a/font,/mnt/font/BerkeleyMono-Regular/30a/font
 fi
 NAMESPACE=/tmp/ns.$H
 
