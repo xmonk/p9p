@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
-export PLAN9=export PLAN9=${PLAN9:-/usr/local/plan9}
+export PLAN9=PLAN9=${PLAN9:-/usr/local/plan9}
 ARGS=("-a")
+
+font=/mnt/font/BerkeleyMono-Regular/16a/font,/mnt/font/BerkeleyMono-Regular/32a/font
+fixedfont=/mnt/font/LucidaGrandeMono/16a/font,/mnt/font/LucidaGrandeMono/32a/font
 
 # setup our fonts
 [ -n "$font" ] && ARGS+=("-f" "$font")

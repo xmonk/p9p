@@ -1,7 +1,7 @@
 #!/usr/bin/env rc
 
 fn usage {
-	echo `{basename $0}^' [list|stop|start|status|restart|load|unload|showlogs|truncatelogs]'
+	echo `{basename $0}^' [list|stop|start|status|restart|load|unload|showlogs|truncatelogs|propertylists]'
 }
 
 fn list {
@@ -39,6 +39,7 @@ fn showlogs {
 	}
 
 }
+
 fn restart {
 	for(p in `{list}) {
 		launchctl stop $p
@@ -101,6 +102,8 @@ switch ($#*) {
 			showlogs
 		case truncatelogs
 			truncatelogs
+		case propertylists
+			propertylists
 		case *
 			usage
 	}
