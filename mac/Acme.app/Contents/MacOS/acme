@@ -26,8 +26,8 @@ else
 fi
 
 if [ "$ARCH" = "arm64" ]; then
-	arch -arm64 acme "${args[@]}"
+	arch -arm64 $PLAN9/bin/acme "${args[@]}"
 else
-	acme "${args[@]}"
+	$PLAN9/bin/acme "${args[@]}"
 fi
 unset args
