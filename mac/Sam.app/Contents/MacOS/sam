@@ -1,4 +1,4 @@
-#!/bin/zsh -i
+#!/bin/bash
 
 cd "$HOME"
 
@@ -16,7 +16,7 @@ p9plumb start
 tabstop=4
 SHELL=rc
 if [ "$ARCH" = "arm64" ]; then
-       arch -arm64 $PLAN9/bin/sam -a
+	arch -arm64 $PLAN9/bin/sam -a
 else
 	$PLAN9/bin/sam -a
 fi
