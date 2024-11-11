@@ -1,5 +1,10 @@
 #!/bin/bash
 
+arch=x86_64
+if arch -arch arm64 date >/dev/null 2>&1; then
+        arch=arm64
+fi
+
 cd "$HOME" || exit 1
 
 if [ -f "$HOME"/.p9p/rc ]; then
@@ -25,9 +30,5 @@ else
 	[ -n "$fixedfont" ] && args+=("-F" "$fixedfont")
 fi
 
-if [ "$ARCH" = "arm64" ]; then
-	arch -arm64 $PLAN9/bin/acme "${args[@]}"
-else
-	$PLAN9/bin/acme "${args[@]}"
-fi
-unset args
+arch -arch $arch $PLAN9/bin/acme "${args[@]}"
+unset args arch
