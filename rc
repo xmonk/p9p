@@ -28,7 +28,7 @@ H=$(hostname | sed 's/\..*//')
 # Equivalent variables for rc(1).
 home=$HOME
 user=$USER
-EDITOR=$HOME/go/bin/editinacme
+EDITOR=/usr/local/plan9/bin/E
 GIT_EDITOR=$EDITOR
 #font=/lib/font/bit/lucsans/euro.8.font
 #fixedfont=/lib/font/bit/lucm/unicode.9.font
@@ -120,17 +120,8 @@ if [ "$TERM" = dumb ]; then
 	fi
 fi
 
-_acme() {
-	if [ -f $HOME/acme.dump ]; then
-		$PLAN9/bin/acme -a -l $HOME/acme.dump $*
-	else
-		$PLAN9/bin/acme -a -f $font -F $fixedfont $*
-	fi
-}
-
 # aliases
 alias lf="$PLAN9/bin/lc -F"
-alias acme=_acme
 
 # start your engines.
 [ -x "$HOME"/.p9p/bin/p9plumb ] && "$HOME"/.p9p/bin/p9plumb start
