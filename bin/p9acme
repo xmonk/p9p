@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
-export PLAN9=PLAN9=${PLAN9:-/usr/local/plan9}
+export PLAN9=${PLAN9:-/usr/local/plan9}
 ARGS=("-a")
 
-font=/mnt/font/BerkeleyMono-Regular/16a/font,/mnt/font/BerkeleyMono-Regular/32a/font
-fixedfont=/mnt/font/LucidaGrandeMono/16a/font,/mnt/font/LucidaGrandeMono/32a/font
+font=/mnt/font/AtkinsonHyperlegibleNext-Medium/16a/font,/mnt/font/AtkinsonHyperlegibleNext-Medium/32a/font
+fixedfont=/mnt/font/BerkeleyMono-Medium/15a/font,/mnt/font/BerkeleyMono-Medium/30a/font
 
 # setup our fonts
 [ -n "$font" ] && ARGS+=("-f" "$font")
@@ -17,5 +17,5 @@ fixedfont=/mnt/font/LucidaGrandeMono/16a/font,/mnt/font/LucidaGrandeMono/32a/fon
 # start plumber if not already running.
 p9plumb start
 
-$PLAN9/bin/9 acme "${ARGS[@]}"
+"$PLAN9"/bin/acme "${ARGS[@]}"
 unset ARGS
