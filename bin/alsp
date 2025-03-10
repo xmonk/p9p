@@ -27,7 +27,7 @@ fn status {
 }
 
 fn propertylists {
-	launchctl dumpstate | grep 'path = .*p9.org.acme.*.plist$' | ssam 's/^.* = //g'
+	launchctl dumpstate | grep 'path = .*p9.org.acme.*.plist$' | 9 ssam 's/^.* = //g'
 }
 
 fn showlogs {
