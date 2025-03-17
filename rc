@@ -20,7 +20,6 @@ fi
 
 # Let gs find the plan9port document fonts.
 GS_FONTPATH=$PLAN9/postscript/font
-BROWSER=safari
 
 # Prompt (is almost a no-op in bash)
 H=$(hostname | sed 's/\..*//')
@@ -36,22 +35,10 @@ if [ "$(uname -s)" = "Linux" ]; then
 	font='/mnt/font/LucidaGrande-RegularW/10a/font,/mnt/font/LucidaGrande-RegularW/20a/font'
 	fixedfont='/mnt/font/LucidaGrandeMono/11a/font,/mnt/font/LucidaGrandeMono/22a/font'
 else
-	font=/mnt/font/LucidaGrande/15a/font,/mnt/font/LucidaGrande/30a/font
+	font=/mnt/font/AtkinsonHyperlegibleNext-Medium/16a/font,/mnt/font/AtkinsonHyperlegibleNext-Medium/32a/font
 	fixedfont=/mnt/font/BerkeleyMono-Regular/15a/font,/mnt/font/BerkeleyMono-Regular/30a/font
 fi
 NAMESPACE=/tmp/ns.$H
-
-# On Apple silicon certain binaries fail to execute in 9term, sam or acme
-# due to bad CPU, arch(1) when run in plan9port binaries, returns i386
-# instead of arm (plan9port INSTALL program is setting arch as arm64).
-#
-# So we need to pass `arch -arm64` to acme, sam, 9term to to solve the issue.
-case "$(uname -a)" in
-*ARM64*)
-	ARCH="arm64";;
-*)
-	ARCH=$(arch);;
-esac
 
 export home prompt user font fixedfont GS_FONTPATH BROWSER H EDITOR GIT_EDITOR NAMESPACE PATH ARCH
 
@@ -83,11 +70,9 @@ if [ "$TERM" = dumb ]; then
 	PAGER=nobs
 	IPY_TEST_SIMPLE_PROMPT=1
 	NO_COLOR=1
-	PIPENV_QUIET=1
-	PIPENV_DONT_LOAD_ENV=1
-	PIPENV_HIDE_EMOJIS=1
-	PIPENV_NOSPIN=1
-	export MPAGE PAGER IPY_TEST_SIMPLE_PROMPT NO_COLOR PIPENV_QUIET PIPENV_DONT_LOAD_ENV PIPENV_HIDE_EMOJIS PIPENV_NOSPIN
+	GH_NO_EMOJI=1
+	CLICOLOR=0=0
+	export MPAGE PAGER IPY_TEST_SIMPLE_PROMPT NO_COLOR GH_NO_EMOJI CLICOLOR
 
 	if [[ "$SHELL" =~ "zsh" ]]; then
 		unset zle
