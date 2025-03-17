@@ -24,17 +24,29 @@ plumb client $editor
 # Ocaml error messages
 type is text
 data matches 'File "([.a-zA-Z¡-<U+FFFF>0-9_/\-]*[a-zA-Z¡-<U+FFFF>0-9_/\-])", line ([0-9]+)?'
-data set        $file
-attr add        addr=$2
+data set $file
+attr add addr=$2
 plumb to edit
 plumb client $editor
 
 # Open pdf with Preview.app or whatever is the default for pdf.
 # Preview.app no longer support postscript or eps files.
-type is text
-data matches '[a-zA-Z¡-￿0-9_\-./@]+'
-data matches '([a-zA-Z¡-￿0-9_\-./@]+)\.(pdf|PDF)'
-arg isfile	$0
+# type is text
+# data matches '[a-zA-Z¡-￿0-9_\-./@]+'
+# data matches '([a-zA-Z¡-￿0-9_\-./@]+)\.(pdf|PDF)'
+# arg isfile	$0
+# plumb start open $file
+
+type	is text
+data	matches	'[a-zA-Z¡-￿0-9_\-./@]+'
+data	matches	'([a-zA-Z¡-￿0-9_\-./@]+)\.(jpg|jpe?g|JPE?G|gif|GIF|tiff?|TIFF?|ppm|bit|png|PNG)'
+arg	isfile	$0
+plumb start open $file
+
+type	is text
+data	matches	'[a-zA-Z¡-￿0-9_\-./@]+'
+data	matches	'([a-zA-Z¡-￿0-9_\-./@]+)\.(ps|PS|eps|EPS|pdf|PDF|dvi|DVI)'
+arg	isfile	$0
 plumb start open $file
 
 include /usr/local/plan9/plumb/basic
