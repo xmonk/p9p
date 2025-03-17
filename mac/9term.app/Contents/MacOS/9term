@@ -16,11 +16,8 @@ case "$SHELL" in
 	' | $SHELL -l
 	exit 0
 	;;
-*/bash)
-	. ~/.bash_profile
-	;;
 *)
-	. ~/.profile
+	[ -f "$HOME"/.p9p/rc ] && . "$HOME"/.p9p/rc
 	;;
 esac
 
@@ -28,6 +25,5 @@ if ! [[ :$PATH: =~ :$PLAN9/bin: ]]
 then
 	PATH=$PATH:$PLAN9/bin
 fi
-arch -arch $arch $PLAN9/bin/9term -l -W600x800 &
+arch -arch $arch $PLAN9/bin/9term -l -W800x800
 exit 0
-
