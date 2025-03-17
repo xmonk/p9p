@@ -1,7 +1,7 @@
 #!/usr/bin/env rc
 
 fn usage {
-	echo `{basename $0}^' [list|stop|start|status|restart|load|unload|showlogs|truncatelogs|propertylists]'
+	echo `{basename $0}^' [list|stop|start|status|restart|load|unload|showlogs|tail|truncatelogs|propertylists]'
 }
 
 fn list {
@@ -37,7 +37,6 @@ fn showlogs {
 			echo $l
 		}
 	}
-
 }
 
 fn restart {
@@ -76,6 +75,15 @@ fn truncatelogs {
 	}
 }
 
+fn tail {
+	for (log in `{showlogs}) {
+		if(~ $#log 1 && test -f $log) {
+			echo "****** $log ******"
+			9 tail -10 $log
+		}
+	}
+}
+
 if(~ `{uname -o} Linux linux) {
 	echo "This script is for use only in macOS"
 	exit 1
@@ -100,6 +108,8 @@ switch ($#*) {
 			restart
 		case showlogs
 			showlogs
+		case tail
+			tail
 		case truncatelogs
 			truncatelogs
 		case propertylists
