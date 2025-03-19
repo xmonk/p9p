@@ -13,3 +13,6 @@ bin/rw
 cmd/devdrawserver
 bin/Watch
 cmd/Watch
+bin/Gitfiles
+bin/gitfile*
+cmd/gitfiles/
