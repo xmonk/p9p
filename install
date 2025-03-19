@@ -14,6 +14,24 @@ install_darwin()
 			echo "/Applications/$(basename "$i") already exists.. skipping"
 		fi
 	done
+
+	# install acme-lsp LaunchAgent if acme-lsp is installed.
+	if command -v acme-lsp &> /dev/null; then
+		"$base"/mac/acmelsp-launcher
+	fi
+}
+
+install_gitfiles()
+{
+	[ ! -d "$base"/cmd/gitfiles ] && {
+		cd "$base"/cmd/
+		git clone https://github.com/mariusae/gitfiles.git
+	}
+	[ ! -x "$HOME"/.p9p/bin/gitfileshow ] && {
+		cd "$base"/cmd/gitfiles && git pull
+		mk && install o.Gitfiles "$HOME"/.p9p/bin/Gitfiles && cp gitfile* "$HOME"/.p9p/bin/
+		mk clean
+	} || echo "gitfiles are already installed in: $HOME/.p9p/bin"
 }
 
 install_devdrawserver()
@@ -35,14 +53,11 @@ fi
 
 if [ "$(uname -s)" = "Darwin" ]; then
 	install_darwin
-	# install acme-lsp LaunchAgent if acme-lsp is installed.
-	if command -v acme-lsp &> /dev/null; then
-		"$base"/bin/alsp -L
-	fi
 fi
 
 # Install devdrawserver
 # install_devdrawserver
+install_gitfiles
 
 [ ! -x "$base"/bin/acmedot ] && {
 	cd "$base"/cmd/acmedot
