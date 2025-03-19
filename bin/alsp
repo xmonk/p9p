@@ -1,7 +1,20 @@
 #!/usr/bin/env rc
 
 fn usage {
-	echo `{basename $0}^' [list|stop|start|status|restart|load|unload|showlogs|tail|truncatelogs|propertylists]'
+	echo 'usage: '^`{basename $0}^' [-hlsStLuTtpc]
+	-h	show this help message
+	-l	list acme-lsp services
+	-s	start acme-lsp services
+	-S	stop acme-lsp services
+	-t	show status of acme-lsp services
+	-r	restart acme-lsp services
+	-L	load acme-lsp services
+	-u	unload acme-lsp services
+	-T	tail acme-lsp log files
+	-p	show paths to property list files
+	-c	truncate log files
+	-o	show paths to log files'
+	exit 1
 }
 
 fn list {
@@ -53,6 +66,24 @@ fn stop {
 }
 
 fn start {
+	# Ensure log directories exist
+	logdirs = `{acme-lsp -showconfig | egrep 'StderrFile|LogFile' | sed 's/.*= "//;s/\/[^/]*$//;s/"$//' | sort | uniq}
+
+	switch($#logdirs) {
+	case 0
+		echo 'No log directories found in acme-lsp config'
+	case 1
+		if(! test -d $logdirs) {
+			mkdir -p $logdirs
+		}
+	case *
+		for(dir in $logdirs) {
+			if(! test -d $dir) {
+				mkdir -p $dir
+			}
+		}
+	}
+
 	for(p in `{list}) {
 		launchctl start $p
 	}
@@ -89,32 +120,38 @@ if(~ `{uname -o} Linux linux) {
 	exit 1
 }
 
-switch ($#*) {
-	case 0
+if(~ $#* 0) {
+	usage
+}
+
+while(~ $1 -*) {
+	switch($1) {
+	case -h
 		usage
+	case -l
+		list
+	case -s
+		start
+	case -S
+		stop
+	case -t
+		status
+	case -r
+		restart
+	case -L
+		load
+	case -u
+		unload
+	case -T
+		tail
+	case -c
+		truncatelogs
+	case -p
+		propertylists
+	case -o
+		showlogs
 	case *
-	switch ($1) {
-		case list
-			list
-		case start
-			start
-		case stop
-			stop
-		case status
-			status
-		case load
-			load
-		case restart
-			restart
-		case showlogs
-			showlogs
-		case tail
-			tail
-		case truncatelogs
-			truncatelogs
-		case propertylists
-			propertylists
-		case *
-			usage
+		usage
 	}
+	shift
 }
