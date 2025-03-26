@@ -46,6 +46,7 @@ export home prompt user font fixedfont GS_FONTPATH BROWSER H EDITOR GIT_EDITOR N
 [ -d "$NAMESPACE" ] || mkdir "$NAMESPACE"
 
 if [ "$TERM" = dumb ]; then
+	[ $TERM_PROGRAM = "9term" ] && awd
 	_cd(){
 		\cd "$@" &&
 		case "TERM!$-" in
@@ -71,7 +72,7 @@ if [ "$TERM" = dumb ]; then
 	IPY_TEST_SIMPLE_PROMPT=1
 	NO_COLOR=1
 	GH_NO_EMOJI=1
-	CLICOLOR=0=0
+	CLICOLOR=0
 	export MPAGE PAGER IPY_TEST_SIMPLE_PROMPT NO_COLOR GH_NO_EMOJI CLICOLOR
 
 	if [[ "$SHELL" =~ "zsh" ]]; then
