@@ -2,21 +2,19 @@
 
 [ -d /usr/local/plan9 ] && export PLAN9=${PLAN9:-/usr/local/plan9}
 
-if ! [[ :$PATH: =~ :.p9p: ]]; then
-        PATH=$PATH:$HOME/.p9p/bin
-fi
+_setpath() {
+	if ! [[ :$PATH: =~ :"$1": ]]; then
+		PATH="$PATH":"$1"
+	fi
+}
 
-if ! [[ :$PATH: =~ :$PLAN9: ]]; then
-        PATH=$PATH:$PLAN9/bin
-fi
-
-if ! [[ :$PATH: =~ :$HOME/go/bin: ]]; then
-        PATH=$PATH:$HOME/go/bin
-fi
-
-if ! [[ :$PATH: =~ :$HOME/.cargo/bin: ]]; then
-        PATH=$PATH:$HOME/.cargo/bin
-fi
+_setpath $PLAN9/bin
+_setpath $HOME/.p9p/bin
+_setpath $HOME/.local/bin
+_setpath $HOME/go/bin
+_setpath $HOME/.cargo/bin
+_setpath /usr/local/go/bin
+_setpath /usr/local/zig/bin
 
 # Let gs find the plan9port document fonts.
 GS_FONTPATH=$PLAN9/postscript/font
@@ -36,7 +34,7 @@ if [ "$(uname -s)" = "Linux" ]; then
 	fixedfont='/mnt/font/LucidaGrandeMono/11a/font,/mnt/font/LucidaGrandeMono/22a/font'
 else
 	font=/mnt/font/AtkinsonHyperlegibleNext-Medium/16a/font,/mnt/font/AtkinsonHyperlegibleNext-Medium/32a/font
-	fixedfont=/mnt/font/BerkeleyMono-Regular/15a/font,/mnt/font/BerkeleyMono-Regular/30a/font
+	fixedfont=/mnt/font/BerkeleyMono-Medium/15a/font,/mnt/font/BerkeleyMono-Medium/30a/font
 fi
 NAMESPACE=/tmp/ns.$H
 
