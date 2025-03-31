@@ -25,8 +25,8 @@ H=$(hostname | sed 's/\..*//')
 # Equivalent variables for rc(1).
 home=$HOME
 user=$USER
-EDITOR=/usr/local/plan9/bin/E
-GIT_EDITOR=$EDITOR
+EDITOR=/usr/local/plan9/bin/B
+GIT_EDITOR=/usr/local/plan9/bin/E
 #font=/lib/font/bit/lucsans/euro.8.font
 #fixedfont=/lib/font/bit/lucm/unicode.9.font
 if [ "$(uname -s)" = "Linux" ]; then
