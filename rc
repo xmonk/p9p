@@ -44,7 +44,7 @@ export home prompt user font fixedfont GS_FONTPATH BROWSER H EDITOR GIT_EDITOR N
 [ -d "$NAMESPACE" ] || mkdir "$NAMESPACE"
 
 if [ "$TERM" = dumb ]; then
-	[ $TERM_PROGRAM = "9term" ] && awd
+	[[ $TERM_PROGRAM = "9term" ]] && awd
 	_cd(){
 		\cd "$@" &&
 		case "TERM!$-" in
