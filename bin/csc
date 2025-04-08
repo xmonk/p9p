@@ -3,43 +3,43 @@
 set -e
 
 usage() {
-    echo "Usage: csc COMMAND symbol"
-    echo "Commands:"
-    echo "  symbol      Find this C symbol"
-    echo "  global      Find this global definition"
-    echo "  calledby    Find functions called by this function"
-    echo "  calling     Find functions calling this function"
-    echo "  text        Find this text string"
-    echo "  change      Change this text string"
-    echo "  pattern     Find this egrep pattern"
-    echo "  file        Find this file"
-    echo "  including   Find files #including this file"
-    echo "  assign      Find assignments to this symbol"
-    echo "  help        Show this help message"
+    echo "Usage: csc FLAG|COMMAND symbol"
+    echo "Flags and commands:"
+    echo "  -s, symbol      Find this C symbol"
+    echo "  -g, global      Find this global definition"
+    echo "  -b, calledby    Find functions called by this function"
+    echo "  -c, calling     Find functions calling this function"
+    echo "  -t, text        Find this text string"
+    echo "  -C, change      Change this text string"
+    echo "  -p, pattern     Find this egrep pattern"
+    echo "  -f, file        Find this file"
+    echo "  -i, including   Find files #including this file"
+    echo "  -a, assign      Find assignments to this symbol"
+    echo "  -h, help        Show this help message"
 }
 
 [ ! -x "$(command -v cscope)" ] && echo "This script requires cscope." && exit 2
 
-if [ $# -eq 0 ] || [ "$1" = "help" ]; then
+if [ $# -eq 0 ] || [ "$1" = "help" ] || [ "$1" = "-h" ]; then
     usage
     exit 0
 fi
 
 [ $# -ne 2 ] && usage && exit 2
 
-# Map commands to cscope numeric options
+# Map commands and flags to cscope numeric options
 case "$1" in
-    symbol)     option=0 ;;
-    global)     option=1 ;;
-    calledby)   option=2 ;;
-    calling)    option=3 ;;
-    text)       option=4 ;;
-    change)     option=5 ;;
-    pattern)    option=6 ;;
-    file)       option=7 ;;
-    including)  option=8 ;;
-    assign)     option=9 ;;
-    *)          echo "Unknown command: $1"; usage; exit 2 ;;
+    symbol|-s)     option=0 ;;
+    global|-g)     option=1 ;;
+    calledby|-b)   option=2 ;;
+    calling|-c)    option=3 ;;
+    text|-t)       option=4 ;;
+    change|-C)     option=5 ;;
+    pattern|-p)    option=6 ;;
+    file|-f)       option=7 ;;
+    including|-i)  option=8 ;;
+    assign|-a)     option=9 ;;
+    *)             echo "Unknown command: $1"; usage; exit 2 ;;
 esac
 
 if [ "$winid" ]; then
