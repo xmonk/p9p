@@ -1,4 +1,4 @@
-editor = acme
+editor = p9acme
 
 # plumb mercurial contributed by Russ Cox
 type is text
