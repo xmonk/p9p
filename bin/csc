@@ -2,28 +2,49 @@
 
 set -e
 
-usage(){
-	echo "csc [-0..9] symbol"
-	echo "options: "
-	echo "	0 Find this C symbol"
-	echo "	1 Find this global definition"
-	echo "	2 Find functions called by this function"
-	echo "	3 Find functions calling this function"
-	echo "	4 Find this text string"
-	echo "	5 Change this text string"
-	echo "	6 Find this egrep pattern"
-	echo "	7 Find this file"
-	echo "	8 Find files #including this file"
-	echo "	9 Find assignments to this symbol"
-
+usage() {
+    echo "Usage: csc COMMAND symbol"
+    echo "Commands:"
+    echo "  symbol      Find this C symbol"
+    echo "  global      Find this global definition"
+    echo "  calledby    Find functions called by this function"
+    echo "  calling     Find functions calling this function"
+    echo "  text        Find this text string"
+    echo "  change      Change this text string"
+    echo "  pattern     Find this egrep pattern"
+    echo "  file        Find this file"
+    echo "  including   Find files #including this file"
+    echo "  assign      Find assignments to this symbol"
+    echo "  help        Show this help message"
 }
 
-[ $# != 2 ] && usage && exit 2
 [ ! -x "$(command -v cscope)" ] && echo "This script requires cscope." && exit 2
 
+if [ $# -eq 0 ] || [ "$1" = "help" ]; then
+    usage
+    exit 0
+fi
+
+[ $# -ne 2 ] && usage && exit 2
+
+# Map commands to cscope numeric options
+case "$1" in
+    symbol)     option=0 ;;
+    global)     option=1 ;;
+    calledby)   option=2 ;;
+    calling)    option=3 ;;
+    text)       option=4 ;;
+    change)     option=5 ;;
+    pattern)    option=6 ;;
+    file)       option=7 ;;
+    including)  option=8 ;;
+    assign)     option=9 ;;
+    *)          echo "Unknown command: $1"; usage; exit 2 ;;
+esac
+
 if [ "$winid" ]; then
-	cscope -L "$1" "$2" | awk '{ s = ""; for (i = 4; i <= NF; i++) s = s $i " "; print $1":"$3" "$2" " s }'| plumb -i -d edit -a 'action=showdata filename=+cscope'
+    cscope -L"$option" "$2" | awk '{ s = ""; for (i = 4; i <= NF; i++) s = s $i " "; print $1":"$3" "$2" " s }'| plumb -i -d edit -a 'action=showdata filename=+cscope'
 else
-	cscope -L "$1" "$2" | awk '{ s = ""; for (i = 4; i <= NF; i++) s = s $i " "; print $1":"$3" "$2" " s }'
+    cscope -L"$option" "$2" | awk '{ s = ""; for (i = 4; i <= NF; i++) s = s $i " "; print $1":"$3" "$2" " s }'
 fi
 exit 0
