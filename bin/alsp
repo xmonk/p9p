@@ -1,19 +1,20 @@
 #!/usr/bin/env rc
 
 fn usage {
-	echo 'usage: '^`{basename $0}^' [-hlsStLuTtpc]
-	-h	show this help message
-	-l	list acme-lsp services
-	-s	start acme-lsp services
-	-S	stop acme-lsp services
-	-t	show status of acme-lsp services
-	-r	restart acme-lsp services
-	-L	load acme-lsp services
-	-u	unload acme-lsp services
-	-T	tail acme-lsp log files
-	-p	show paths to property list files
-	-c	truncate log files
-	-o	show paths to log files'
+	echo 'usage: '^`{basename $0}^' OPTION|COMMAND
+Options and commands:
+	-h, help        show this help message
+	-l, list        list acme-lsp services
+	-s, start       start acme-lsp services
+	-S, stop        stop acme-lsp services
+	-t, status      show status of acme-lsp services
+	-r, restart     restart acme-lsp services
+	-L, load        load acme-lsp services
+	-u, unload      unload acme-lsp services
+	-T, tail        tail acme-lsp log files
+	-p, plist       show paths to property list files
+	-c, truncate    truncate log files
+	-o, logs        show paths to log files'
 	exit 1
 }
 
@@ -124,34 +125,34 @@ if(~ $#* 0) {
 	usage
 }
 
-while(~ $1 -*) {
-	switch($1) {
-	case -h
-		usage
-	case -l
-		list
-	case -s
-		start
-	case -S
-		stop
-	case -t
-		status
-	case -r
-		restart
-	case -L
-		load
-	case -u
-		unload
-	case -T
-		tail
-	case -c
-		truncatelogs
-	case -p
-		propertylists
-	case -o
-		showlogs
-	case *
-		usage
-	}
-	shift
+cmd=$1
+shift
+
+switch($cmd) {
+case -h help
+	usage
+case -l list
+	list
+case -s start
+	start
+case -S stop
+	stop
+case -t status
+	status
+case -r restart
+	restart
+case -L load
+	load
+case -u unload
+	unload
+case -T tail
+	tail
+case -c truncate
+	truncatelogs
+case -p plist
+	propertylists
+case -o logs
+	showlogs
+case *
+	usage
 }
