@@ -25,6 +25,6 @@ else
 	[ -n "$fixedfont" ] && args+=("-F" "$fixedfont")
 fi
 
-arch -arch $arch $PLAN9/bin/acme "${args[@]}"
+arch -arch $arch acme "${args[@]}"
 unset args
 exit 0
