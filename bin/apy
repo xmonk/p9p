@@ -4,7 +4,7 @@
 # Start relative to the current path; eventually, look up in stdlib.
 
 rfork en
-. 9.rc
+. $PLAN9/bin/9.rc
 
 wdir=$1
 shift
