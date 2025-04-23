@@ -1,0 +1,15 @@
+#!/usr/bin/env rc
+
+# Check if file exists and is a binary
+if(test -f $1) {
+	filetype=`{file $1 | egrep -q 'ELF|Mach-O|PE32|PE32+|COFF|a.out|shared object'}
+	if(~ $status '') {
+		objdump -d $1 | plumb -i -d edit -a 'filename='$1'_disassembly'
+	}
+	if not {
+		plumb -d edit $1
+	}
+}
+if not {
+	echo 'File not found: '$1 >[1=2]
+}
