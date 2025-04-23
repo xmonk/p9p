@@ -7,17 +7,20 @@ arch=x86_64
 if arch -arch arm64 date >/dev/null 2>&1; then
 	arch=arm64
 fi
+
+[ -f "$HOME"/.p9p/rc ] && . "$HOME"/.p9p/rc
+
 case "$SHELL" in
 */rc)
 	echo '
 		if(! ~ $PLAN9/bin $path)
 			path=($path $PLAN9/bin)
-		arch -arch '$arch' 9term -l -W600x800 &
-	' | $SHELL -l
+		arch -arch '$arch' 9term -s -l -W800x800 &
+	' | $SHELL -il
 	exit 0
 	;;
 *)
-	[ -f "$HOME"/.p9p/rc ] && . "$HOME"/.p9p/rc
+	. ~/.bashrc
 	;;
 esac
 
@@ -25,5 +28,5 @@ if ! [[ :$PATH: =~ :$PLAN9/bin: ]]
 then
 	PATH=$PATH:$PLAN9/bin
 fi
-arch -arch $arch 9term -l -W800x800
+arch -arch $arch 9term -f $font -s -l -W800x800
 exit 0
