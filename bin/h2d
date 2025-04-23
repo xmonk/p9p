@@ -1,0 +1,4 @@
+#!/usr/bin/env rc
+
+echo 'ibase=16; print '^`{echo $1 | tr a-f A-F} | bc
+echo

@@ -1,0 +1,4 @@
+#!/usr/bin/env rc
+
+echo 'obase=16; print '$1 | bc
+echo
