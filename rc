@@ -36,7 +36,9 @@ else
 	font=/mnt/font/AtkinsonHyperlegibleNext-Medium/16a/font,/mnt/font/AtkinsonHyperlegibleNext-Medium/32a/font
 	fixedfont=/mnt/font/BerkeleyMono-Medium/15a/font,/mnt/font/BerkeleyMono-Medium/30a/font
 fi
-NAMESPACE=/tmp/ns.$H
+
+DISPLAY=${DISPLAY:-:0}
+NAMESPACE=/tmp/ns.$USER.$DISPLAY
 
 export home prompt user font fixedfont GS_FONTPATH BROWSER H EDITOR GIT_EDITOR NAMESPACE PATH ARCH
 
