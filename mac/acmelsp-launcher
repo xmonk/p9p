@@ -8,7 +8,9 @@ fi
 
 OUTPUT="p9.org.acme-lsp.plist"
 LAUNCHAGENT_DIR="$HOME/Library/LaunchAgents"
-NAMESPACE=/tmp/ns.$(hostname | sed 's/\..*//')
+#NAMESPACE=/tmp/ns.$(hostname | sed 's/\..*//')
+DISPLAY=${DISPLAY:-:0}
+NAMESPACE=/tmp/ns.$USER.$DISPLAY
 
 PLIST=$(
     cat <<!
