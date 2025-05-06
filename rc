@@ -115,5 +115,11 @@ fi
 # aliases
 alias lf="$PLAN9/bin/lc -F"
 
+if [ -x $HOMEBREW_PREFIX/bin/rg ]; then
+	_rg(){
+		$HOMEBREW_PREFIX/bin/rg "$@" "$PWD"
+	}
+	alias rg=_rg
+fi
 # start your engines.
 [ -x "$HOME"/.p9p/bin/p9plumb ] && "$HOME"/.p9p/bin/p9plumb start
