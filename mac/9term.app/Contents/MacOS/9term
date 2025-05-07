@@ -15,7 +15,7 @@ case "$SHELL" in
 	echo '
 		if(! ~ $PLAN9/bin $path)
 			path=($path $PLAN9/bin)
-		arch -arch '$arch' 9term -s -l -W800x800 &
+		arch -arch '$arch' 9term -l -W800x800 &
 	' | $SHELL -il
 	exit 0
 	;;
@@ -28,5 +28,5 @@ if ! [[ :$PATH: =~ :$PLAN9/bin: ]]
 then
 	PATH=$PATH:$PLAN9/bin
 fi
-arch -arch $arch 9term -f $font -s -l -W800x800
+arch -arch $arch 9term -f $font -l -W800x800
 exit 0
