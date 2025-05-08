@@ -127,5 +127,12 @@ if [ -x $HOMEBREW_PREFIX/bin/rg ]; then
 	}
 	alias rg=_rg
 fi
+
+if [ -x $HOMEBREW_PREFIX/bin/ug ]; then
+	_ug(){
+		$HOMEBREW_PREFIX/bin/ug "$@" "$PWD"
+	}
+	alias ug=_ug
+fi
 # start your engines.
 [ -x "$HOME"/.p9p/bin/p9plumb ] && "$HOME"/.p9p/bin/p9plumb start
