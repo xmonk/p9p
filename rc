@@ -111,6 +111,12 @@ if [ "$TERM" = dumb ]; then
 		}
 		alias gh=_gh
 	fi
+	if [ -x $HOMEBREW_PREFIX/bin/jj ]; then
+		_jj(){
+			$HOMEBREW_PREFIX/bin/jj "$@"|nobs
+		}
+		alias jj=_jj
+	fi
 fi
 # aliases
 alias lf="$PLAN9/bin/lc -F"
