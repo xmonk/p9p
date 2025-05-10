@@ -47,8 +47,9 @@ fn cls {
 	cw
 }
 
+display=':0'
 H=`{hostname | sed 's/\..*//'}
-NAMESPACE=/tmp/ns.$H
+NAMESPACE=/tmp/ns.$USER.$display
 NO_COLOR=1
 PIPENV_QUIET=1
 PIPENV_DONT_LOAD_ENV=1
