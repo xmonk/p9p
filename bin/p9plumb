@@ -2,6 +2,11 @@
 
 set -e
 
+arch=x86_64
+if arch -arch arm64 date >/dev/null 2>&1; then
+    arch=arm64
+fi
+
 status() {
 	ppid=$(/bin/ps ax | grep plumber | grep -v grep | awk '{print $1}')
 
@@ -13,7 +18,7 @@ status() {
 
 start() {
 	if [ ! "$pid" ]; then
-		"$PLAN9"/bin/9 plumber
+		arch -arch $arch "$PLAN9"/bin/plumber
 		return $?
 	fi
 	return 0
