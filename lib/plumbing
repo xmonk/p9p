@@ -53,7 +53,7 @@ plumb client $editor
 
 type	is text
 data	matches	'[a-zA-Z¡-￿0-9_\-./@]+'
-data	matches	'([a-zA-Z¡-￿0-9_\-./@]+)\.(jpg|jpe?g|JPE?G|gif|GIF|tiff?|TIFF?|ppm|bit|png|PNG)'
+data	matches	'([a-zA-Z¡-￿0-9_\-./@]+)\.(jpg|jpe?g|JPE?G|gif|GIF|tiff?|TIFF?|ppm|bit|png|PNG|webp)'
 arg	isfile	$0
 plumb start open $file
 
