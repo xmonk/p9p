@@ -16,13 +16,8 @@ fixedfont=/mnt/font/BerkeleyMono-Medium/15a/font,/mnt/font/BerkeleyMono-Medium/3
 # setup screen geometry
 [ -n "$GEOMETRY" ] && ARGS+=("-W" "$GEOMETRY")
 
-arch=x86_64
-if arch -arch arm64 date >/dev/null 2>&1; then
-    arch=arm64
-fi
-
 # start plumber if not already running.
 p9plumb start
 
-arch -arch $arch acme "${ARGS[@]}"
+"$PLAN9"/bin/9 acme "${ARGS[@]}"
 unset ARGS
