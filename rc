@@ -47,14 +47,14 @@ export home prompt user font fixedfont GS_FONTPATH BROWSER H EDITOR GIT_EDITOR N
 
 if [ "$TERM" = dumb ]; then
 	[[ $TERM_PROGRAM = "9term" ]] && awd
-	_cd(){
+	_cd() {
 		\cd "$@" &&
-		case "TERM!$-" in
-		linux!*)
-			;;
-		 *!*i*)
-			awd
-		 esac
+			case "TERM!$-" in
+			linux!*) ;;
+			*!*i*)
+				awd
+				;;
+			esac
 	}
 	alias cd=_cd
 	alias cls=cw
@@ -81,10 +81,10 @@ if [ "$TERM" = dumb ]; then
 		unsetopt PROMPT_SP
 		unsetopt prompt_cr
 		unsetopt prompt_subst
-		if whence -w precmd > /dev/null; then
+		if whence -w precmd >/dev/null; then
 			unfunction precmd
 		fi
-		if whence -w preexec > /dev/null; then
+		if whence -w preexec >/dev/null; then
 			unfunction preexec
 		fi
 		unset IFS PS1 prompt
@@ -98,22 +98,24 @@ if [ "$TERM" = dumb ]; then
 	fi
 
 	if [ -x "$HOMEBREW_PREFIX"/bin/brew ]; then
-		_br(){
-			cmd="$1";shift
-			"$HOMEBREW_PREFIX"/bin/brew "$cmd" "$@"|nobs
+		_br() {
+			cmd="$1"
+			shift
+			"$HOMEBREW_PREFIX"/bin/brew "$cmd" "$@" | nobs
 		}
 		alias brew=_br
 	fi
 	if [ -x "$HOMEBREW_PREFIX"/bin/gh ]; then
-		_gh(){
-			cmd="$1";shift
-			"$HOMEBREW_PREFIX"/bin/gh "$cmd" "$@"|nobs
+		_gh() {
+			cmd="$1"
+			shift
+			"$HOMEBREW_PREFIX"/bin/gh "$cmd" "$@" | nobs
 		}
 		alias gh=_gh
 	fi
 	if [ -x "$HOMEBREW_PREFIX"/bin/jj ]; then
-		_jj(){
-			"$HOMEBREW_PREFIX"/bin/jj "$@"|nobs
+		_jj() {
+			"$HOMEBREW_PREFIX"/bin/jj "$@" | nobs
 		}
 		alias jj=_jj
 	fi
