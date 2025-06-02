@@ -2,6 +2,10 @@
 
 set -e
 
+DISPLAY=${DISPLAY:-:0}
+NAMESPACE=${NAMESPACE:-"/tmp/ns.$USER.$DISPLAY"}
+export NAMESPACE DISPLAY
+
 status() {
 	ppid=$(/bin/ps ax | grep plumber | grep -v grep | awk '{print $1}')
 
