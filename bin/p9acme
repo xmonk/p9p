@@ -3,15 +3,19 @@
 set -e
 
 export PLAN9=${PLAN9:-/usr/local/plan9}
-ARGS=("-a")
+args=("-a")
 
 tabstop=4
 font=/mnt/font/AtkinsonHyperlegibleNext-Medium/16a/font,/mnt/font/AtkinsonHyperlegibleNext-Medium/32a/font
 fixedfont=/mnt/font/BerkeleyMono-Medium/15a/font,/mnt/font/BerkeleyMono-Medium/30a/font
 
 # setup our fonts
-[ -n "$font" ] && ARGS+=("-f" "$font")
-[ -n "$fixedfont" ] && ARGS+=("-F" "$fixedfont")
+if [ -f "$HOME"/acme.dump ]; then
+	args+=("-l" "$HOME/acme.dump")
+else
+	[ -n "$font" ] && args+=("-f" "$font")
+	[ -n "$fixedfont" ] && args+=("-F" "$fixedfont")
+fi
 
 # setup screen geometry
 [ -n "$GEOMETRY" ] && ARGS+=("-W" "$GEOMETRY")
@@ -19,5 +23,5 @@ fixedfont=/mnt/font/BerkeleyMono-Medium/15a/font,/mnt/font/BerkeleyMono-Medium/3
 # start plumber if not already running.
 p9plumb start
 
-"$PLAN9"/bin/9 acme "${ARGS[@]}"
+"$PLAN9"/bin/9 acme "${args[@]}"
 unset ARGS
