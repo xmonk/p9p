@@ -8,13 +8,13 @@ _setpath() {
 	fi
 }
 
-_setpath $PLAN9/bin
-_setpath $HOME/.p9p/bin
-_setpath $HOME/.local/bin
-_setpath $HOME/go/bin
-_setpath $HOME/.cargo/bin
-_setpath /usr/local/go/bin
-_setpath /usr/local/zig/bin
+_setpath "$PLAN9/bin"
+_setpath "$HOME/.p9p/bin"
+_setpath "$HOME/.local/bin"
+_setpath "$HOME/go/bin"
+_setpath "$HOME/.cargo/bin"
+_setpath "$HOME/.local/go/bin"
+_setpath "$HOME/.local/zig/bin"
 
 # Let gs find the plan9port document fonts.
 GS_FONTPATH=$PLAN9/postscript/font
@@ -25,8 +25,8 @@ H=$(hostname | sed 's/\..*//')
 # Equivalent variables for rc(1).
 home=$HOME
 user=$USER
-EDITOR=/usr/local/plan9/bin/B
-GIT_EDITOR=/usr/local/plan9/bin/E
+#EDITOR=/usr/local/plan9/bin/B
+#GIT_EDITOR=/usr/local/plan9/bin/E
 #font=/lib/font/bit/lucsans/euro.8.font
 #fixedfont=/lib/font/bit/lucm/unicode.9.font
 if [ "$(uname -s)" = "Linux" ]; then

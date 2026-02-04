@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 if [ "$(uname -m)" = "arm64" ]; then
-    NPTH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:$PLAN9/bin:/usr/local/zig/bin:$HOME/.local/bin:$HOME/.p9p/bin:$HOME/.cargo/bin:$HOME/go/bin"
+    NPTH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.local/go/bin:$PLAN9/bin:$HOME/.local/zig/bin:$HOME/.local/bin:$HOME/.p9p/bin:$HOME/.cargo/bin:$HOME/go/bin"
 else
-    NPTH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:$PLAN9/bin:/usr/local/zig/bin:$HOME/.local/bin:$HOME/.p9p/bin:$HOME/go/bin:$HOME/.cargo/bin"
+    NPTH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.local/go/bin:$PLAN9/bin:$HOME/.local/zig/bin:$HOME/.local/bin:$HOME/.p9p/bin:$HOME/go/bin:$HOME/.cargo/bin"
 fi
 
 OUTPUT="p9.org.acme-lsp.plist"
