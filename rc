@@ -76,6 +76,13 @@ if [ "$TERM" = dumb ]; then
 	export MPAGE PAGER IPY_TEST_SIMPLE_PROMPT NO_COLOR GH_NO_EMOJI CLICOLOR
 
 	if [[ "$SHELL" =~ "zsh" ]]; then
+		unset PS1
+		unset _vi_indicator
+		unset zle_bracketed_paste magic_space
+		unfunction _prompt_extra
+		unfunction precmd_set_title
+		unfunction set_title
+		unfunction prompt_pwd
 		unset zle
 		unset zle_bracketed_paste
 		unsetopt PROMPT_SP
@@ -120,8 +127,6 @@ if [ "$TERM" = dumb ]; then
 		alias jj=_jj
 	fi
 fi
-# aliases
-alias lf="$PLAN9/bin/lc -F"
 
 # start your engines.
 [ -x "$HOME"/.p9p/bin/p9plumb ] && "$HOME"/.p9p/bin/p9plumb start
