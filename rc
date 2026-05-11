@@ -15,6 +15,8 @@ _setpath "$HOME/go/bin"
 _setpath "$HOME/.cargo/bin"
 _setpath "$HOME/.local/go/bin"
 _setpath "$HOME/.local/zig/bin"
+_setpath "$HOME/.local/zig/bin"
+_setpath "$HOMEBREW_PREFIX/bin"
 
 # Let gs find the plan9port document fonts.
 GS_FONTPATH=$PLAN9/postscript/font
@@ -25,8 +27,9 @@ H=$(hostname | sed 's/\..*//')
 # Equivalent variables for rc(1).
 home=$HOME
 user=$USER
-#EDITOR=/usr/local/plan9/bin/B
-#GIT_EDITOR=/usr/local/plan9/bin/E
+EDITOR=/usr/local/plan9/bin/B
+GIT_EDITOR=/usr/local/plan9/bin/E
+JJ_EDITOR=/usr/local/plan9/bin/E
 #font=/lib/font/bit/lucsans/euro.8.font
 #fixedfont=/lib/font/bit/lucm/unicode.9.font
 if [ "$(uname -s)" = "Linux" ]; then
@@ -59,6 +62,7 @@ if [ "$TERM" = dumb ]; then
 	alias cd=_cd
 	alias cls=cw
 	alias ipython="ipython --simple-prompt --colors=NoColor"
+	unalias lc
 	set +o emacs
 	set +o vi
 	set -a # autoexport
@@ -73,13 +77,13 @@ if [ "$TERM" = dumb ]; then
 	NO_COLOR=1
 	GH_NO_EMOJI=1
 	CLICOLOR=0
-	export MPAGE PAGER IPY_TEST_SIMPLE_PROMPT NO_COLOR GH_NO_EMOJI CLICOLOR
+	JJ_PAGER=nobs
+	GIT_PAGER=nobs
+	export MPAGE PAGER IPY_TEST_SIMPLE_PROMPT NO_COLOR GH_NO_EMOJI CLICOLOR JJ_EDITOR JJ_PAGER GIT_EDITOR GIT_PAGER
 
 	if [[ "$SHELL" =~ "zsh" ]]; then
-		unset PS1
 		unset _vi_indicator
 		unset zle_bracketed_paste magic_space
-		unfunction _prompt_extra
 		unfunction precmd_set_title
 		unfunction set_title
 		unfunction prompt_pwd
@@ -119,12 +123,6 @@ if [ "$TERM" = dumb ]; then
 			"$HOMEBREW_PREFIX"/bin/gh "$cmd" "$@" | nobs
 		}
 		alias gh=_gh
-	fi
-	if [ -x "$HOMEBREW_PREFIX"/bin/jj ]; then
-		_jj() {
-			"$HOMEBREW_PREFIX"/bin/jj "$@" | nobs
-		}
-		alias jj=_jj
 	fi
 fi
 
