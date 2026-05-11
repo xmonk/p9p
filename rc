@@ -77,8 +77,8 @@ if [ "$TERM" = dumb ]; then
 	NO_COLOR=1
 	GH_NO_EMOJI=1
 	CLICOLOR=0
-	JJ_PAGER=nobs
-	GIT_PAGER=nobs
+	JJ_PAGER=cat
+	GIT_PAGER=cat
 	export MPAGE PAGER IPY_TEST_SIMPLE_PROMPT NO_COLOR GH_NO_EMOJI CLICOLOR JJ_EDITOR JJ_PAGER GIT_EDITOR GIT_PAGER
 
 	if [[ "$SHELL" =~ "zsh" ]]; then
@@ -107,23 +107,30 @@ if [ "$TERM" = dumb ]; then
 		IFS=''
 		prompt='% '
 	fi
-
-	if [ -x "$HOMEBREW_PREFIX"/bin/brew ]; then
-		_br() {
-			cmd="$1"
-			shift
-			"$HOMEBREW_PREFIX"/bin/brew "$cmd" "$@" | nobs
-		}
-		alias brew=_br
-	fi
-	if [ -x "$HOMEBREW_PREFIX"/bin/gh ]; then
-		_gh() {
-			cmd="$1"
-			shift
-			"$HOMEBREW_PREFIX"/bin/gh "$cmd" "$@" | nobs
-		}
-		alias gh=_gh
-	fi
+	[[ "$TERM_PROGRAM" = "win" || "$TERM_PROGRAM" = "9term" ]] && {
+		if [ -x "$HOMEBREW_PREFIX"/bin/brew ]; then
+			_br() {
+				cmd="$1"
+				shift
+				"$HOMEBREW_PREFIX"/bin/brew "$cmd" "$@" | nobs
+			}
+			alias brew=_br
+		fi
+		if [ -x "$HOMEBREW_PREFIX"/bin/gh ]; then
+			_gh() {
+				cmd="$1"
+				shift
+				"$HOMEBREW_PREFIX"/bin/gh "$cmd" "$@" | nobs
+			}
+			alias gh=_gh
+		fi
+		if [ -x "$HOMEBREW_PREFIX"/bin/jj ]; then
+			_jj() {
+				"$HOMEBREW_PREFIX"/bin/jj "$@" | nobs
+			}
+			alias jj=_jj
+		fi
+	}
 fi
 
 # start your engines.
