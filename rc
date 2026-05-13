@@ -86,7 +86,6 @@ if [ "$TERM" = dumb ]; then
 		unset zle_bracketed_paste magic_space
 		unfunction precmd_set_title
 		unfunction set_title
-		unfunction prompt_pwd
 		unset zle
 		unset zle_bracketed_paste
 		unsetopt PROMPT_SP
@@ -100,12 +99,12 @@ if [ "$TERM" = dumb ]; then
 		fi
 		unset IFS PS1 prompt
 		IFS=''
-		PS1="%% "
+		PS1="$H=%% "
 	elif [ "$(basename $SHELL)" = "rc" ]; then
-		prompt="% 	"
+		prompt="$H=% 	"
 	else
 		IFS=''
-		prompt='% '
+		prompt='$H=% '
 	fi
 	[[ "$TERM_PROGRAM" = "win" || "$TERM_PROGRAM" = "9term" ]] && {
 		if [ -x "$HOMEBREW_PREFIX"/bin/brew ]; then
